@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Carrier App</string>
+    <string name="headline_choose_account_type">Akkount tu\'rin tan\'lan\':</string>
+    <string name="title_user_tax">Saliq xizmetshisi</string>
+    <string name="title_user_seller">Sawdager</string>
+    <string name="title_user_carrier">Ju\'k tasiwshi</string>
+</resources>
