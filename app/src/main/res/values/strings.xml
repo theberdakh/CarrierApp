@@ -8,4 +8,8 @@
     <string name="hint_phone_number">Telefon nomer</string>
     <string name="title_phone_register">Dizimnen o\'tiw ushin to\'mende telefon nomerin\'izdi kiritin\':</string>
     <string name="title_get_sms">SMS aliw</string>
+    <string name="hint_confirmation_sms">Kod</string>
+    <string name="title_we_sent_code">+998 99 148 05 13 nomerine SMS jiberildi.</string>
+    <string name="title_confirm">Kodti tastiyqlaw</string>
+    <string name="title_insert_phone_number">SMS kod aliw ushin telefon nomerinizdi kiritin\'</string>
 </resources>

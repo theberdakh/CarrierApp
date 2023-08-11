@@ -20,14 +20,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:textAppearance="?textAppearanceBody1"
-        tools:text="@string/title_insert_phone_number"/>
-
+        tools:text="@string/title_we_sent_code"/>
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_phone_number"
+        android:hint="@string/hint_confirmation_sms"
         android:layout_margin="16dp"
         app:prefixText="+998 ">
 
@@ -36,19 +35,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="numberDecimal"
-            android:maxLength="9"
+            android:maxLength="5"
             />
 
 
     </com.google.android.material.textfield.TextInputLayout>
 
-   <com.google.android.material.button.MaterialButton
-       android:id="@+id/btn_sms"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_margin="16dp"
-       app:icon="@drawable/baseline_sms_24"
-       android:text="@string/title_get_sms"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_confirmation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/title_confirm"/>
 
 
 </LinearLayout>
