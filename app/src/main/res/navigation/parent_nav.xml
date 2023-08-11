@@ -30,4 +30,14 @@
         android:name="com.theberdakh.carrierapp.ui.user.UserFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.theberdakh.carrierapp.ui.user.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" />
+    <fragment
+        android:id="@+id/formFragment"
+        android:name="com.theberdakh.carrierapp.ui.user.FormFragment"
+        android:label="fragment_seller_form"
+        tools:layout="@layout/fragment_seller_form" />
 </navigation>

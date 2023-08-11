@@ -13,4 +13,11 @@
     <string name="title_confirm">Kodti tastiyqlaw</string>
     <string name="title_insert_phone_number">SMS kod aliw ushin telefon nomerinizdi kiritin\'</string>
     <string name="title_please_wait">"Kodin'iz tastiyqlandi. Biraq akkount administratciya ta'repinen qolda ko'rip shig'ilg'ani ushin biraz waqit ku'tiwin'iz mu'mkin. Tez arada tastiyqlanbasa, administratciya menen telefon arqali baylanisiwin'izdi soraymiz. \n\nAkkount ko'rip shig'ilg'annan son', programma o'zi sizdi avtomatik ta'rizde paydalaniwshi paneline o'tkeredi.  Artiqsha hesh na'rse islew sha'rt emes. "</string>
+    <string name="title_shot_picture">Su\'wretke aliw</string>
+    <string name="title_form">Forma toltiriw</string>
+    <string name="hint_name">Ju\'klewshinin\' ati ha\'m familyasi</string>
+    <string name="title_send_form">Formani jiberiw</string>
+    <string name="hint_passport_series">Ju\'k tasiwshinin\' passport seriyasin kiritin\':</string>
+    <string name="hint_type_material">Júk túri</string>
+    <string name="hint_weight_material">"Júk muǵdarı "</string>
 </resources>
