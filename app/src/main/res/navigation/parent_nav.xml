@@ -25,4 +25,9 @@
         android:name="com.theberdakh.carrierapp.ui.authentication.WaitFragment"
         android:label="fragment_wait"
         tools:layout="@layout/fragment_wait" />
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.theberdakh.carrierapp.ui.user.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
 </navigation>
