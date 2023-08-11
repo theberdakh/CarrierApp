@@ -1,4 +1,4 @@
-package com.theberdakh.carrierapp.ui
+package com.theberdakh.carrierapp.ui.authentication
 
 import android.os.Bundle
 import android.view.View
