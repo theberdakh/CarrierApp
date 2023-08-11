@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_nav"
+    app:startDestination="@id/chooseFragment">
+
+    <fragment
+        android:id="@+id/chooseFragment"
+        android:name="com.theberdakh.carrierapp.ui.ChooseFragment"
+        android:label="fragment_choose"
+        tools:layout="@layout/fragment_choose" />
+    <fragment
+        android:id="@+id/phoneRegisterFragment"
+        android:name="com.theberdakh.carrierapp.ui.PhoneRegisterFragment"
+        android:label="fragment_phone_register"
+        tools:layout="@layout/fragment_phone_register" />
+    <fragment
+        android:id="@+id/phoneConfirmationFragment"
+        android:name="com.theberdakh.carrierapp.ui.PhoneConfirmationFragment"
+        android:label="fragment_phone_confirmation"
+        tools:layout="@layout/fragment_phone_confirmation" />
+    <fragment
+        android:id="@+id/waitFragment"
+        android:name="com.theberdakh.carrierapp.ui.WaitFragment"
+        android:label="fragment_wait"
+        tools:layout="@layout/fragment_wait" />
+</navigation>
