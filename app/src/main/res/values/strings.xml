@@ -26,4 +26,5 @@
     <string name="title_sign_in">Kiriw</string>
     <string name="title_new_sign_up">Akkountıńız joqpa? Jańa akkount jaratıw ushın<a href="wwww.google.com">mına jerdi</a> basıń.</string>
     <string name="sign_up">Dizimnen ótiw</string>
+    <string name="hint_first_last_name">Atıńız</string>
 </resources>
