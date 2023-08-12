@@ -20,4 +20,9 @@
     <string name="hint_passport_series">Ju\'k tasiwshinin\' passport seriyasin kiritin\':</string>
     <string name="hint_type_material">Júk túri</string>
     <string name="hint_weight_material">"Júk muǵdarı "</string>
+    <string name="sign_in">Akkountqa kiriw</string>
+    <string name="hint_username">Paydalanıwshı atı</string>
+    <string name="hint_password">Parol</string>
+    <string name="title_sign_in">Kiriw</string>
+    <string name="title_new_sign_up">Akkountıńız joqpa? Jańa akkount jaratıw ushın<a href="wwww.google.com">mına jerdi</a> basıń.</string>
 </resources>
