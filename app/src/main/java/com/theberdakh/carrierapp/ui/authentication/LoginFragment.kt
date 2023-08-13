@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.theberdakh.carrierapp.R
-import com.theberdakh.carrierapp.databinding.FragmentChooseBinding
+import com.theberdakh.carrierapp.databinding.FragmentLoginBinding
 
-class ChooseFragment: Fragment(R.layout.fragment_choose) {
-    private lateinit var binding: FragmentChooseBinding
+class LoginFragment: Fragment(R.layout.fragment_login) {
+    private lateinit var binding: FragmentLoginBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentChooseBinding.bind(view)
-
+        binding = FragmentLoginBinding.bind(view)
 
 
     }

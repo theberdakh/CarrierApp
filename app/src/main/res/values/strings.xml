@@ -17,7 +17,7 @@
     <string name="title_form">Forma toltiriw</string>
     <string name="hint_name">Ju\'klewshinin\' ati ha\'m familyasi</string>
     <string name="title_send_form">Formani jiberiw</string>
-    <string name="hint_passport_series">Ju\'k tasiwshinin\' passport seriyasin kiritin\':</string>
+    <string name="hint_passport_series">Passport seriya</string>
     <string name="hint_type_material">Júk túri</string>
     <string name="hint_weight_material">"Júk muǵdarı "</string>
     <string name="sign_in">Akkountqa kiriw</string>
@@ -27,4 +27,8 @@
     <string name="title_new_sign_up">Akkountıńız joqpa? Jańa akkount jaratıw ushın<a href="wwww.google.com">mına jerdi</a> basıń.</string>
     <string name="sign_up">Dizimnen ótiw</string>
     <string name="hint_first_last_name">Atıńız</string>
+    <string name="hint_first_last_poetric_name">F.A.Á</string>
+    <string name="hint_position">Lawazımı</string>
+    <string name="hint_region">Rayon</string>
+    <string name="title_new_account">Jańa akkount jaratıw</string>
 </resources>

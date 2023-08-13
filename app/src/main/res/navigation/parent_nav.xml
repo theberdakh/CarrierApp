@@ -3,13 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent_nav"
-    app:startDestination="@id/chooseFragment">
+    app:startDestination="@id/phoneRegisterFragment">
 
-    <fragment
-        android:id="@+id/chooseFragment"
-        android:name="com.theberdakh.carrierapp.ui.authentication.ChooseFragment"
-        android:label="fragment_choose"
-        tools:layout="@layout/fragment_choose" />
     <fragment
         android:id="@+id/phoneRegisterFragment"
         android:name="com.theberdakh.carrierapp.ui.authentication.PhoneRegisterFragment"
@@ -40,4 +35,14 @@
         android:name="com.theberdakh.carrierapp.ui.user.FormFragment"
         android:label="fragment_seller_form"
         tools:layout="@layout/fragment_seller_form" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.theberdakh.carrierapp.ui.authentication.LoginFragment"
+        tools:layout="@layout/fragment_login"
+        android:label="LoginFragment" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.theberdakh.carrierapp.ui.authentication.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
 </navigation>
