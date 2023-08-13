@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.theberdakh.carrierapp.R
+import com.theberdakh.carrierapp.data.local.SharedPrefStorage
 import com.theberdakh.carrierapp.databinding.FragmentPhoneConfirmationBinding
 import com.theberdakh.carrierapp.util.checkText
 
@@ -38,6 +39,7 @@ class PhoneConfirmationFragment() : Fragment(R.layout.fragment_phone_confirmatio
 
         binding.btnConfirmation.setOnClickListener {
             findNavController().navigate(PhoneConfirmationFragmentDirections.actionPhoneConfirmationFragmentToLoginFragment())
+            SharedPrefStorage().phoneNumber = phoneNumber
         }
     }
 }

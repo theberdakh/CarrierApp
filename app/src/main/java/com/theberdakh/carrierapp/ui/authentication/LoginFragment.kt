@@ -28,9 +28,6 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
     }
 
     private fun initListeners() {
-        binding.tbLogin.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
 
         binding.tvNewAccount.setOnClickListener{
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToSignUpFragment())

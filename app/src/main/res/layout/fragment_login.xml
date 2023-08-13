@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/sign_in"
-        app:navigationIcon="@drawable/baseline_arrow_back_ios_new_24"
         />
 
     <com.google.android.material.textfield.TextInputLayout
