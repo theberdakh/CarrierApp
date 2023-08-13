@@ -13,7 +13,19 @@ class TaxOfficerSignUpFragment: Fragment(R.layout.tax_officer_sign_up) {
         super.onViewCreated(view, savedInstanceState)
         binding = TaxOfficerSignUpBinding.bind(view)
 
+        initViews()
+        initListeners()
 
 
+    }
+
+    private fun initViews() {
+        binding.switchId.isChecked = true
+    }
+
+    private fun initListeners() {
+        binding.switchId.setOnCheckedChangeListener { buttonView, isChecked ->
+            buttonView.text = if (isChecked) "ID" else "Passport"
+        }
     }
 }
