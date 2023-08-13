@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_phone_register" >
         <action
             android:id="@+id/action_phoneRegisterFragment_to_phoneConfirmationFragment"
-            app:destination="@id/phoneConfirmationFragment" />
+            app:destination="@id/phoneConfirmationFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/phoneConfirmationFragment"
@@ -22,6 +23,9 @@
         <action
             android:id="@+id/action_phoneConfirmationFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <argument
+            app:argType="string"
+            android:name="PhoneNumber" />
     </fragment>
     <fragment
         android:id="@+id/waitFragment"
@@ -51,6 +55,9 @@
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"

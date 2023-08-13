@@ -10,9 +10,8 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        app:title="@string/title_register"
-        app:navigationIcon="@drawable/baseline_arrow_back_ios_new_24"
+        android:layout_height="wrap_content"
+        app:title="@string/hint_phone_number"
         />
 
     <TextView
@@ -20,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:textAppearance="?textAppearanceBody1"
-        tools:text="@string/title_insert_phone_number"/>
+        android:text="@string/title_insert_phone_number"/>
 
 
 

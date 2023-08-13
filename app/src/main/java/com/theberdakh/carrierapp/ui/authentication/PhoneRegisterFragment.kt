@@ -25,8 +25,10 @@ class PhoneRegisterFragment: Fragment(R.layout.fragment_phone_register) {
 
     private fun initListeners() {
         binding.btnSms.setOnClickListener {
-            findNavController().navigate(PhoneRegisterFragmentDirections.actionPhoneRegisterFragmentToPhoneConfirmationFragment())
+            findNavController().navigate(PhoneRegisterFragmentDirections.actionPhoneRegisterFragmentToPhoneConfirmationFragment("+998 ${binding.etPhone.text.toString()}"))
         }
+
+
     }
 
 }

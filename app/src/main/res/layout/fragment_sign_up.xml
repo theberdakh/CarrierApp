@@ -8,8 +8,9 @@
     tools:context=".ui.authentication.SignUpFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tb_sign_up"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="wrap_content"
         app:title="@string/title_new_account"
         app:navigationIcon="@drawable/baseline_arrow_back_ios_new_24"
         />
