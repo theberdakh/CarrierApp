@@ -11,6 +11,8 @@ class SellerSignUpFragment: Fragment(R.layout.seller_sign_up) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = SellerSignUpBinding.bind(view)
+
+
     }
 
 }
