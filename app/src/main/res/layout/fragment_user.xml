@@ -11,11 +11,11 @@
         android:id="@+id/tb_user"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:title="@string/title_user_seller"
-        app:titleCentered="true"
+        app:title="@string/title_user_seller"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/menu_seller"
        />
 
     <androidx.recyclerview.widget.RecyclerView

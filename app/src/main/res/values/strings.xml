@@ -31,4 +31,5 @@
     <string name="hint_position">Lawazımı</string>
     <string name="hint_region">Rayon</string>
     <string name="title_new_account">Jańa akkount jaratıw</string>
+    <string name="title_logout"><![CDATA[<font fgcolor = \"#ffff0000\">Shıǵıw</font>]]></string>
 </resources>

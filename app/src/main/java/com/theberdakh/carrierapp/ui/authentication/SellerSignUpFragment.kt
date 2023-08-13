@@ -3,6 +3,7 @@ package com.theberdakh.carrierapp.ui.authentication
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.databinding.SellerSignUpBinding
 
@@ -12,7 +13,14 @@ class SellerSignUpFragment: Fragment(R.layout.seller_sign_up) {
         super.onViewCreated(view, savedInstanceState)
         binding = SellerSignUpBinding.bind(view)
 
+        initListeners()
 
+    }
+
+    private fun initListeners() {
+        binding.btnRegister.setOnClickListener {
+            findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToUserFragment())
+        }
     }
 
 }
