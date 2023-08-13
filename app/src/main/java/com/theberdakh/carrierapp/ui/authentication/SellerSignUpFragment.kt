@@ -8,7 +8,6 @@ import com.theberdakh.carrierapp.databinding.SellerSignUpBinding
 
 class SellerSignUpFragment: Fragment(R.layout.seller_sign_up) {
     private lateinit var binding: SellerSignUpBinding
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = SellerSignUpBinding.bind(view)

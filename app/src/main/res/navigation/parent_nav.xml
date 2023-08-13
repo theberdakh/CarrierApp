@@ -9,12 +9,20 @@
         android:id="@+id/phoneRegisterFragment"
         android:name="com.theberdakh.carrierapp.ui.authentication.PhoneRegisterFragment"
         android:label="fragment_phone_register"
-        tools:layout="@layout/fragment_phone_register" />
+        tools:layout="@layout/fragment_phone_register" >
+        <action
+            android:id="@+id/action_phoneRegisterFragment_to_phoneConfirmationFragment"
+            app:destination="@id/phoneConfirmationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/phoneConfirmationFragment"
         android:name="com.theberdakh.carrierapp.ui.authentication.PhoneConfirmationFragment"
         android:label="fragment_phone_confirmation"
-        tools:layout="@layout/fragment_phone_confirmation" />
+        tools:layout="@layout/fragment_phone_confirmation" >
+        <action
+            android:id="@+id/action_phoneConfirmationFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/waitFragment"
         android:name="com.theberdakh.carrierapp.ui.authentication.WaitFragment"
@@ -39,7 +47,11 @@
         android:id="@+id/loginFragment"
         android:name="com.theberdakh.carrierapp.ui.authentication.LoginFragment"
         tools:layout="@layout/fragment_login"
-        android:label="LoginFragment" />
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.theberdakh.carrierapp.ui.authentication.SignUpFragment"
