@@ -20,11 +20,10 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_username"
+                android:id="@+id/et_first_last_poetric_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="text"
-                android:maxLength="9"
+                android:inputType="text|textCapWords"
                 />
 
 
@@ -41,19 +40,17 @@
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="ID" />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
+                android:layout_height="match_parent"
                 android:text="Passport"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:hint="@string/hint_passport_series"
                 app:endIconMode="clear_text"
                 >
@@ -63,7 +60,7 @@
                     android:layout_height="match_parent"
                     android:inputType="text|textCapCharacters"
                     android:maxLines="1"
-                    android:maxLength="9"
+                    android:layout_marginHorizontal="8dp"
                     />
 
 
@@ -87,7 +84,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textCapWords"
-                android:maxLength="9"
                 />
 
 
@@ -98,14 +94,12 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_region"
             android:layout_margin="16dp"
-            app:endIconMode="clear_text"
-            app:prefixText="+998 ">
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="phone"
-                android:maxLength="9"
+                android:inputType="text"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -116,8 +110,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_phone_number"
             android:layout_margin="16dp"
-            app:endIconMode="clear_text"
-            app:prefixText="+998 ">
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -136,15 +129,14 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_password"
             android:layout_margin="16dp"
-            app:endIconMode="password_toggle"
-            app:prefixText="+998 ">
+            app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
-                android:maxLength="9"
+                android:maxLength="20"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
