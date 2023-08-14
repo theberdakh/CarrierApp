@@ -1,5 +1,10 @@
 package com.theberdakh.carrierapp.data.model
 
+
+data class User(
+    val phoneNumber: String,
+    val password: String
+)
 data class Seller(
     val name: String
 )

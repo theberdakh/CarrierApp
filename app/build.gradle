@@ -63,10 +63,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     //koin
-    implementation 'io.insert-koin:koin-android:3.4.0'
+    implementation 'io.insert-koin:koin-android:3.4.3'
     implementation "io.insert-koin:koin-android-ext:3.0.2"
-    implementation "io.insert-koin:koin-core:3.4.0"
-    testImplementation "io.insert-koin:koin-test-junit4:3.4.0"
+    implementation 'io.insert-koin:koin-core:3.4.3'
+    testImplementation 'io.insert-koin:koin-test-junit4:3.4.3'
 
 
     /* Retrofit*/
@@ -75,16 +75,16 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.6'
 
     //Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
 
     /**
      * Corbind
      * */
-    implementation 'ru.ldralighieri.corbind:corbind:1.5.4'
-    implementation 'ru.ldralighieri.corbind:corbind-material:1.5.4'
-    implementation 'ru.ldralighieri.corbind:corbind-swiperefreshlayout:1.5.4'
+    implementation 'ru.ldralighieri.corbind:corbind:1.8.0'
+    implementation 'ru.ldralighieri.corbind:corbind-material:1.8.0'
+    implementation 'ru.ldralighieri.corbind:corbind-swiperefreshlayout:1.8.0'
 
     /*Glide for image loading*/
     implementation 'com.github.bumptech.glide:glide:4.15.1'
