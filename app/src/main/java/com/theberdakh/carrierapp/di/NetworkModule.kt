@@ -1,6 +1,7 @@
 package com.theberdakh.carrierapp.di
 
 import com.theberdakh.carrierapp.data.remote.AuthApi
+import com.theberdakh.carrierapp.data.remote.SellerApi
 import org.koin.dsl.module
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -18,5 +19,9 @@ val networkModule = module {
 
     single<AuthApi> {
         get<Retrofit>().create(AuthApi::class.java)
+    }
+
+    single<SellerApi> {
+        get<Retrofit>().create(SellerApi::class.java)
     }
 }

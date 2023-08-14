@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?textAppearanceBody2"
             tools:text="@tools:sample/date/hhmm"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="72dp"/>
 
         <TextView
             android:id="@+id/tv_time_date"
@@ -93,6 +93,21 @@
                     tools:text="Sheben"
                     />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?textAppearanceBody2"
+                    android:text="Karer:"
+                    android:textStyle="bold"
+                    android:layout_marginTop="4dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?textAppearanceBody2"
+                    tools:text="Karer No 14"
+                    />
+
 
 
             </LinearLayout>
@@ -108,7 +123,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?textAppearanceBody2"
-                   android:text="Salmaǵı:"
+                    android:text="Salmaǵı:"
                     android:textStyle="bold"
                     android:layout_marginTop="16dp"/>
 
@@ -119,6 +134,20 @@
                     android:textAppearance="?textAppearanceBody2"
                     tools:text="1500 KG"
                     />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginTop="4dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:text="Jarıymaǵa tartıw"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+
+                </FrameLayout>
+
 
 
 

@@ -34,12 +34,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun initObservers() {
-        viewModel.successFlow.onEach {
-            Log.d("Login Success", "Success ${it.access}")
-            saveResponse(it)
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserFragment())
 
-        }.launchIn(lifecycleScope)
+        viewModel.successFlow.onEach {
+        Log.d("Login Success", "Success ${it.token}")
+        saveResponse(it)
+        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserFragment())
+
+    }.launchIn(lifecycleScope)
 
         viewModel.messageFlow.onEach {
             makeToast(it)
@@ -48,12 +49,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         viewModel.errorFlow.onEach {
             makeToast("Error")
         }.launchIn(lifecycleScope)
+
     }
 
     private fun saveResponse(loginResponse: LoginResponse) {
         SharedPrefStorage().phoneNumber = binding.etUsername.text.toString()
-        SharedPrefStorage().accessToken = loginResponse.access
-        SharedPrefStorage().refreshToken = loginResponse.refresh
+        SharedPrefStorage().token = loginResponse.token
+        SharedPrefStorage().type = loginResponse.type
+        SharedPrefStorage().password = binding.etPassword.text.toString()
+        SharedPrefStorage().id = loginResponse.id.toString()
     }
 
     private fun initViews() {

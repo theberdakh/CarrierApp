@@ -1,6 +1,9 @@
 package com.theberdakh.carrierapp.data.model.response
 
 data class LoginResponse(
-    val refresh: String,
-    val access: String
+    val id: Int,
+    val type: String,
+    val phone_number: String,
+    val token: String,
+    val kareer_name: String
 )
