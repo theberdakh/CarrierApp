@@ -37,7 +37,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         viewModel.successFlow.onEach {
             Log.d("Login Success", "Success ${it.access}")
             saveResponse(it)
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToSignUpFragment())
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserFragment())
 
         }.launchIn(lifecycleScope)
 
@@ -51,6 +51,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun saveResponse(loginResponse: LoginResponse) {
+        SharedPrefStorage().phoneNumber = binding.etUsername.text.toString()
         SharedPrefStorage().accessToken = loginResponse.access
         SharedPrefStorage().refreshToken = loginResponse.refresh
     }
