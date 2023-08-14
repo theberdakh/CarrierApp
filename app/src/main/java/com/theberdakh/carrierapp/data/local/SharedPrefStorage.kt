@@ -14,6 +14,9 @@ class SharedPrefStorage {
     }
 
 
+    var refreshToken by StringPreference(pref)
+    var accessToken by StringPreference(pref)
     var phoneNumber by StringPreference(pref)
+
 
 }
