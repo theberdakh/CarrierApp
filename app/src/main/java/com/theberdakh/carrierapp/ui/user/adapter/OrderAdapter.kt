@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.theberdakh.carrierapp.databinding.ItemRecyclerOrderCarrierBinding
 import com.theberdakh.carrierapp.data.model.response.Result
+import com.theberdakh.carrierapp.databinding.ItemRecyclerOrderCarrierBinding
 
 class OrderAdapter :
     ListAdapter<Result, OrderAdapter.OrderViewHolder>(WordsCallBack) {

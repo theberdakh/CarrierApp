@@ -18,7 +18,7 @@ class SellerRepository(private val api: SellerApi) {
         }
         else {
             Log.d("SellerRepo", "request is message")
-            emit(ResultData.Message(response.message()))
+            emit(ResultData.Message(response.code().toString()))
         }
     }.catch {
         Log.d("SellerRepo", "request is error")

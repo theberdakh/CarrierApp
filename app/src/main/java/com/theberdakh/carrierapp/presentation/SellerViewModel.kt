@@ -1,10 +1,7 @@
 package com.theberdakh.carrierapp.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.theberdakh.carrierapp.data.model.response.LoginBody
-import com.theberdakh.carrierapp.data.model.response.LoginResponse
 import com.theberdakh.carrierapp.data.model.response.Order
 import com.theberdakh.carrierapp.data.model.response.ResultData
 import com.theberdakh.carrierapp.domain.auth.SellerRepository
