@@ -79,5 +79,9 @@ class UserFragment: Fragment(R.layout.fragment_user) {
 
     private fun initListeners() {
 
+        binding.fbUser.setOnClickListener {
+            findNavController().navigate(UserFragmentDirections.actionUserFragmentToFormFragment())
+        }
+
     }
 }

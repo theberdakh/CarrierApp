@@ -58,7 +58,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         SharedPrefStorage().type = loginResponse.type
         SharedPrefStorage().password = binding.etPassword.text.toString()
         SharedPrefStorage().id = loginResponse.id
-        SharedPrefStorage().name = if(loginResponse.kareer_name.isNullOrBlank()) "Satıwshı" else loginResponse.kareer_name
+        SharedPrefStorage().name = loginResponse.kareer_name
     }
 
     private fun initViews() {
@@ -78,6 +78,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             viewModel.login(binding.etUsername.text.toString(), binding.etPassword.text.toString())
             Log.d("Login click", "${binding.etUsername.text.toString()} ,${binding.etPassword.text.toString()} ")
         }.launchIn(lifecycleScope)
+
+        binding.tvNewAccount.setOnClickListener{
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToSignUpFragment())
+        }
 
 
     }

@@ -14,5 +14,6 @@ class FormFragment: Fragment(R.layout.fragment_seller_form) {
         binding = FragmentSellerFormBinding.bind(view)
 
 
+
     }
 }

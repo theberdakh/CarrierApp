@@ -17,8 +17,8 @@ class LoginViewModel(private val repository: AuthRepository) : ViewModel() {
     val messageFlow = MutableSharedFlow<String>()
     val errorFlow = MutableSharedFlow<Throwable>()
     suspend fun login(phone: String, password: String){
-        repository.login(LoginBody( "${998}$phone", password)).onEach {
-            Log.d("Login click", "${998}$phone, $password")
+        repository.login(LoginBody( "+${998}$phone", password)).onEach {
+            Log.d("Login click", "+${998}$phone, $password")
 
             when(it){
                 is ResultData.Success -> {
