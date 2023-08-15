@@ -39,6 +39,11 @@ class UserFragment: Fragment(R.layout.fragment_user) {
     }
 
     private fun initViews() {
+
+        binding.tbUser.title = SharedPrefStorage().name
+        binding.tbUser.subtitle = SharedPrefStorage().type
+
+
         _adapter = OrderAdapter()
         binding.rvUser.adapter = adapter
         lifecycleScope.launch {

@@ -11,7 +11,7 @@
         android:id="@+id/tb_user"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:title="@string/title_user_seller"
+        tools:title="@string/title_user_seller"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
