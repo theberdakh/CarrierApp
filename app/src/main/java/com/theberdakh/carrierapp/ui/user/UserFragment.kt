@@ -8,6 +8,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
+import com.theberdakh.carrierapp.data.model.response.Order
+import com.theberdakh.carrierapp.data.model.response.Result
 import com.theberdakh.carrierapp.databinding.FragmentUserBinding
 import com.theberdakh.carrierapp.presentation.LoginViewModel
 import com.theberdakh.carrierapp.presentation.SellerViewModel
@@ -56,7 +58,14 @@ class UserFragment: Fragment(R.layout.fragment_user) {
     private fun initObservers() {
         viewModel.successFlow.onEach {
             Log.d("Login Success", "Success ${it.results.size}")
-            adapter.submitList(it.results)
+
+            val mutableListOrders = mutableListOf<Result>()
+            for (order in it.results){
+                if (order.karer == SharedPrefStorage().id){
+                    mutableListOrders.add(order)
+                }
+            }
+            adapter.submitList(mutableListOrders)
         }.launchIn(lifecycleScope)
 
         viewModel.messageFlow.onEach {

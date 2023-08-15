@@ -3,6 +3,7 @@ package com.theberdakh.carrierapp.data.local
 import android.content.Context
 import android.content.SharedPreferences
 import com.theberdakh.carrierapp.app.App
+import com.theberdakh.carrierapp.util.IntPreference
 import com.theberdakh.carrierapp.util.StringPreference
 
 class SharedPrefStorage {
@@ -14,7 +15,7 @@ class SharedPrefStorage {
     }
 
 
-   var id by StringPreference(pref)
+   var id by IntPreference(pref)
     var type by StringPreference(pref)
     var token by StringPreference(pref)
     var phoneNumber by StringPreference(pref)

@@ -55,9 +55,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun saveResponse(loginResponse: LoginResponse) {
         SharedPrefStorage().phoneNumber = binding.etUsername.text.toString()
         SharedPrefStorage().token = loginResponse.token
-        SharedPrefStorage().type = if(loginResponse.type.isNullOrBlank()) "Tip kiritilmegen" else loginResponse.kareer_name
+        SharedPrefStorage().type = loginResponse.type
         SharedPrefStorage().password = binding.etPassword.text.toString()
-        SharedPrefStorage().id = loginResponse.id.toString()
+        SharedPrefStorage().id = loginResponse.id
         SharedPrefStorage().name = if(loginResponse.kareer_name.isNullOrBlank()) "Satıwshı" else loginResponse.kareer_name
     }
 
