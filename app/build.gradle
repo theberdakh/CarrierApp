@@ -72,6 +72,9 @@ dependencies {
     implementation "androidx.camera:camera-core:1.2.3"
     implementation "androidx.camera:camera-extensions:1.2.3"
 
+    // Geo location
+    implementation 'com.google.android.gms:play-services:12.0.1'
+
     //koin
     implementation 'io.insert-koin:koin-android:3.4.3'
     implementation "io.insert-koin:koin-android-ext:3.0.2"

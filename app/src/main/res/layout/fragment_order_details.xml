@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_order"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            tools:src="@tools:sample/avatars"
+            android:scaleType="fitCenter"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_info_order"
+            android:layout_below="@+id/iv_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="8dp"
+            android:weightSum="10">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_info_24"
+                    android:layout_gravity="center|top"
+                    android:layout_marginTop="8dp"/>
+
+            </FrameLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="9">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Júk tuwralı:"
+                    android:textStyle="bold"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Qum"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="12"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="KG"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_info_carrier"
+            android:layout_below="@id/ll_info_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="8dp"
+            android:weightSum="10">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_account_circle_24"
+                    android:layout_marginTop="8dp"
+                    android:layout_gravity="center|top" />
+
+            </FrameLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="9">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Júk tasıwshı tuwralı"
+                    android:textStyle="bold"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Palenshiev Tolenshi"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="AA 1234567"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="+998 99 999 99 99"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+        <LinearLayout
+            android:layout_below="@id/ll_info_carrier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="8dp"
+            android:weightSum="10">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_directions_car_filled_24"
+                    android:layout_gravity="center|top"
+                    android:layout_marginTop="8dp"/>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="9">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Qosımsha maǵlıwmatlar"
+                    android:textStyle="bold"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Avtomobil nomeri: 95 A113 BC"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Karer atı: Karer 193"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Sa'ne: 12/04/2023"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Lokaciya: 193443, 1243349"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>
