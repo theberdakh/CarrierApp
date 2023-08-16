@@ -14,21 +14,12 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/tb_form"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             app:title="@string/title_form"
             app:navigationIcon="@drawable/baseline_arrow_back_ios_new_24"
             />
 
 
-
-     <com.google.android.material.imageview.ShapeableImageView
-         android:id="@+id/iv_form_image"
-         android:layout_width="100dp"
-         android:layout_height="100dp"
-         android:layout_gravity="center_horizontal"
-         android:layout_margin="16dp"
-         android:src="@drawable/baseline_camera_alt_24"
-         app:shapeAppearance="?shapeAppearanceCornerLarge"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,18 +27,98 @@
             android:orientation="horizontal"
             android:weightSum="2">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_form_image"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:padding="8dp"
+                android:src="@drawable/baseline_add_a_photo_24"
+                android:layout_weight="0.5"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Avtomobil nomeri: 95A123KA"
+                android:layout_margin="16dp"
+                android:layout_weight="1.5">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textCapCharacters"
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:hint="Júk tasıwshı atı"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textCapWords"
+                />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:hint="Júk tasıwshı telefon nomeri"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:prefixText="+998">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="phone"
+                android:maxLength="9"
+                />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_type_material"
+                android:hint="Hújjet túri"
                 android:layout_margin="16dp"
-                app:prefixText="+998 ">
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/atv_document_type"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="numberDecimal"
+                    android:inputType="none"
+                    android:padding="16dp"
                     android:maxLength="9"
                     />
 
@@ -58,15 +129,13 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_weight_material"
-                android:layout_margin="16dp"
-                app:prefixText="+998 ">
+                android:hint="Seriyası: AA12345"
+                android:layout_margin="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="numberDecimal"
-                    android:maxLength="9"
+                    android:inputType="textCapCharacters"
                     />
 
 
@@ -77,53 +146,78 @@
 
         </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_passport_series"
-            android:layout_margin="16dp"
-            app:prefixText="+998 ">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_name"
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="Júk muǵdarı"
+                android:layout_margin="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="numberDecimal"
+                    android:maxLength="9"
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="KG"
+                android:layout_margin="16dp"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                >
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/atv_cargo_unit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none"
+                    android:padding="16dp"
+                    android:maxLength="9"
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Júk túri"
+            android:layout_margin="16dp"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/atv_cargo_type"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="textCapCharacters"
-                android:maxLength="9"
+                android:inputType="none"
+                android:padding="16dp"
                 />
 
 
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Barliq mag'liwmatlardin' durislig'in tekseri':"
-            android:layout_margin="16dp"
-            android:textAppearance="?textAppearanceBody1"
-            android:fontFamily="sans-serif"
-            tools:text="To'mendegi mag'liwmatlardiń durıs ekenligin teksergennen keyin formanı jiberiw túymesin basıń:"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Barliq mag'liwmatlardin' durislig'in tekseri':"
-            android:layout_margin="16dp"
-            android:textAppearance="?textAppearanceBody1"
-            tools:text="Júk tu'ri: Shebin \nMuǵdarı: 2 Tonna \nQay jerden: Shimbay rayoni"
-            />
-
-       <TextView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="Barliq mag'liwmatlardin' durislig'in tekseri':"
-           android:layout_margin="16dp"
-           android:textAppearance="?textAppearanceBody1"
-           tools:text="Júk tasıwshı: Azamat Azamatov \nPassport seriya: AA0123456 \nTel: +998 01 234 56 78"
-           />
 
 
         <com.google.android.material.button.MaterialButton

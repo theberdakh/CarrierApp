@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
@@ -19,8 +20,28 @@ class FormFragment: Fragment(R.layout.fragment_seller_form) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSellerFormBinding.bind(view)
 
+        initViews()
         initListeners()
 
+    }
+
+    private fun initViews() {
+        val documentTypeAdapter = ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_dropdown_item, arrayOf("Passport", "ID"))
+        binding.atvDocumentType.setAdapter(documentTypeAdapter)
+        binding.atvDocumentType.setOnItemClickListener { parent, view, position, id ->
+            makeToast(parent.getItemAtPosition(position).toString())
+        }
+
+        val unitsAdapter = ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_dropdown_item, arrayOf("KG", "m3"))
+        binding.atvCargoUnit.setAdapter(unitsAdapter)
+        binding.atvCargoUnit.setOnItemClickListener { parent, view, position, id ->
+            makeToast(parent.getItemAtPosition(position).toString())
+        }
+        val cargoTypeAdapter = ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_dropdown_item, arrayOf("Sheben", "Shege qum"))
+        binding.atvCargoType.setAdapter(cargoTypeAdapter)
+        binding.atvCargoType.setOnItemClickListener { parent, view, position, id ->
+            makeToast(parent.getItemAtPosition(position).toString())
+        }
     }
 
     private fun initListeners() {
