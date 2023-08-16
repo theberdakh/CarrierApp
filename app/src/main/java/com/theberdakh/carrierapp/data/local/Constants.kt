@@ -1,9 +1,18 @@
 package com.theberdakh.carrierapp.data.local
 
+import android.os.Build
+
 
 object Constants {
-    const val TAG = "cameraX"
-    const val FILE_NAME_FORMAT = "yy-MM-dd-HH-mm-ss-SSSS"
-    const val REQUEST_CODE_PERMISSIONS = 123
-    val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
+    private const val TAG = "CameraXApp"
+    private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+     val REQUIRED_PERMISSIONS =
+        mutableListOf (
+            android.Manifest.permission.CAMERA,
+            android.Manifest.permission.RECORD_AUDIO
+        ).apply {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
+        }.toTypedArray()
 }

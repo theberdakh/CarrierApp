@@ -59,7 +59,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         SharedPrefStorage().type = loginResponse.type
         SharedPrefStorage().password = binding.etPassword.text.toString()
         SharedPrefStorage().id = loginResponse.id
-        SharedPrefStorage().name = loginResponse.karer_name.toString()
+        SharedPrefStorage().name = if(loginResponse.karer_name.isNullOrEmpty()) "Null" else loginResponse.karer_name
     }
 
     private fun initViews() {

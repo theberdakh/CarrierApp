@@ -24,5 +24,21 @@ class SellerRepository(private val api: SellerApi) {
         emit(ResultData.Error(it))
     }.flowOn(Dispatchers.IO)
 
+    suspend fun getOrdersByID(id: Int)= flow{
+        val response = api.getOrdersById(id)
+        if (response.isSuccessful && response.body() != null){
+            Log.d("SellerRepo", "request is successful")
+            emit(ResultData.Success(response.body()!!))
+        }
+        else {
+            Log.d("SellerRepo", "request is message")
+            emit(ResultData.Message(response.code().toString()))
+        }
+    }.catch {
+        Log.d("SellerRepo", "request is error")
+        emit(ResultData.Error(it))
+    }.flowOn(Dispatchers.IO)
+
+
 
 }

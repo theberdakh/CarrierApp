@@ -56,13 +56,13 @@ class UserFragment: Fragment(R.layout.fragment_user) {
         viewModel.successFlow.onEach {
             Log.d("Login Success", "Success ${it.results.size}")
 
-            val mutableListOrders = mutableListOf<Result>()
+          /*  val mutableListOrders = mutableListOf<Result>()
             for (order in it.results){
                 if (order.karer == SharedPrefStorage().id){
                     mutableListOrders.add(order)
                 }
-            }
-            adapter.submitList(mutableListOrders)
+            }*/
+            adapter.submitList(it.results)
         }.launchIn(lifecycleScope)
 
         viewModel.messageFlow.onEach {
