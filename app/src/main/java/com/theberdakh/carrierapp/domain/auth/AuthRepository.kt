@@ -1,9 +1,9 @@
 package com.theberdakh.carrierapp.domain.auth
 
 import android.util.Log
-import com.theberdakh.carrierapp.data.model.User
-import com.theberdakh.carrierapp.data.model.response.LoginBody
+import com.theberdakh.carrierapp.data.model.response.login.LoginBody
 import com.theberdakh.carrierapp.data.model.response.ResultData
+import com.theberdakh.carrierapp.data.model.response.seller.SellerRegisterBody
 import com.theberdakh.carrierapp.data.remote.AuthApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -24,6 +24,21 @@ class AuthRepository(private val api: AuthApi) {
         }
     }.catch {
         Log.d("AuthRepo", "request is error")
+        emit(ResultData.Error(it))
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun registerSeller(body: SellerRegisterBody) = flow {
+        val response = api.registerSeller(body)
+        if (response.isSuccessful && response.body() != null){
+            Log.d("AuthRepo", "request is successful")
+            emit(ResultData.Success(response.body()!!))
+        }
+        else {
+            Log.d("AuthRepo", "request is message")
+            emit(ResultData.Message(response.message()))
+        }
+    }.catch {
+        Log.d("Seller Register", "request is error")
         emit(ResultData.Error(it))
     }.flowOn(Dispatchers.IO)
 

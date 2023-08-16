@@ -29,7 +29,6 @@ class SignUpFragment: Fragment(R.layout.fragment_sign_up) {
               0 -> tab.text = "Satıwshı"
               1 -> tab.text = "Salıq xizmetshisi"
           }
-
       }.attach()
     }
 

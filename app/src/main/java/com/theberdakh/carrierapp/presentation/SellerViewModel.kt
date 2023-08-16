@@ -2,7 +2,7 @@ package com.theberdakh.carrierapp.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.theberdakh.carrierapp.data.model.response.Order
+import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.data.model.response.ResultData
 import com.theberdakh.carrierapp.domain.auth.SellerRepository
 import kotlinx.coroutines.flow.MutableSharedFlow

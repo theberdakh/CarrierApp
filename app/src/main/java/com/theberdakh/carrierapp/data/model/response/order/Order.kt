@@ -1,4 +1,4 @@
-package com.theberdakh.carrierapp.data.model.response
+package com.theberdakh.carrierapp.data.model.response.order
 
 data class Order(
     val count: Int,

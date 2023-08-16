@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
-import com.theberdakh.carrierapp.data.model.response.LoginResponse
+import com.theberdakh.carrierapp.data.model.response.login.LoginResponse
 import com.theberdakh.carrierapp.databinding.FragmentLoginBinding
 import com.theberdakh.carrierapp.presentation.LoginViewModel
 import com.theberdakh.carrierapp.util.checkText
@@ -18,11 +18,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.ldralighieri.corbind.view.clicks
-import kotlin.math.log
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding
     private val viewModel by viewModel<LoginViewModel>()
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,7 +59,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         SharedPrefStorage().type = loginResponse.type
         SharedPrefStorage().password = binding.etPassword.text.toString()
         SharedPrefStorage().id = loginResponse.id
-        SharedPrefStorage().name = loginResponse.kareer_name
+        SharedPrefStorage().name = loginResponse.karer_name.toString()
     }
 
     private fun initViews() {

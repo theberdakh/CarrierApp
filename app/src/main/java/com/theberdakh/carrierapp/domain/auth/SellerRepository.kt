@@ -1,7 +1,6 @@
 package com.theberdakh.carrierapp.domain.auth
 
 import android.util.Log
-import com.theberdakh.carrierapp.data.model.response.LoginBody
 import com.theberdakh.carrierapp.data.model.response.ResultData
 import com.theberdakh.carrierapp.data.remote.SellerApi
 import kotlinx.coroutines.Dispatchers

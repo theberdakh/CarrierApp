@@ -1,9 +1,8 @@
 package com.theberdakh.carrierapp.data.remote
 
-import com.theberdakh.carrierapp.data.model.response.Order
+import com.theberdakh.carrierapp.data.model.response.order.Order
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.POST
 
 interface SellerApi {
 

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.theberdakh.carrierapp.data.model.response.Result
+import com.theberdakh.carrierapp.data.model.response.order.Result
 import com.theberdakh.carrierapp.databinding.ItemRecyclerOrderCarrierBinding
 
 class OrderAdapter :
@@ -28,7 +28,7 @@ class OrderAdapter :
     }
 
     private object WordsCallBack : DiffUtil.ItemCallback<Result>() {
-        override fun areItemsTheSame(oldItem: com.theberdakh.carrierapp.data.model.response.Result, newItem: Result): Boolean {
+        override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
             return oldItem == newItem
         }
 

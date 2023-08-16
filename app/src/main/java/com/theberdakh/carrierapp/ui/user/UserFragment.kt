@@ -8,12 +8,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
-import com.theberdakh.carrierapp.data.model.response.Order
-import com.theberdakh.carrierapp.data.model.response.Result
+import com.theberdakh.carrierapp.data.model.response.order.Result
 import com.theberdakh.carrierapp.databinding.FragmentUserBinding
-import com.theberdakh.carrierapp.presentation.LoginViewModel
 import com.theberdakh.carrierapp.presentation.SellerViewModel
-import com.theberdakh.carrierapp.ui.authentication.LoginFragmentDirections
 import com.theberdakh.carrierapp.ui.user.adapter.OrderAdapter
 import com.theberdakh.carrierapp.util.makeToast
 import kotlinx.coroutines.flow.launchIn
