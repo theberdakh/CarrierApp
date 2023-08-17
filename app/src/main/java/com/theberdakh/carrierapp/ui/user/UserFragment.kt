@@ -70,6 +70,20 @@ class UserFragment: Fragment(R.layout.fragment_user) {
             findNavController().navigate(UserFragmentDirections.actionUserFragmentToOrderDetailsFragment(it))
         }
 
+        binding.tbUser.setOnMenuItemClickListener { menu ->
+            when(menu.itemId){
+                R.id.action_logout -> {
+                    SharedPrefStorage().signedIn= false
+
+                    requireActivity().finish()
+                    startActivity(requireActivity().intent)
+                    requireActivity().overridePendingTransition(0,0)
+                    true
+                }
+                else -> {true}
+            }
+        }
+
 
     }
 }

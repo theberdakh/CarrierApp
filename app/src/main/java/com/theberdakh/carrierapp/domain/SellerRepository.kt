@@ -1,10 +1,9 @@
-package com.theberdakh.carrierapp.domain.auth
+package com.theberdakh.carrierapp.domain
 
 import android.util.Log
 import com.theberdakh.carrierapp.data.model.response.ResultData
 import com.theberdakh.carrierapp.data.model.response.order.PostOrder
 import com.theberdakh.carrierapp.data.remote.SellerApi
-import com.theberdakh.carrierapp.util.makeToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow

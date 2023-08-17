@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.theberdakh.carrierapp.data.model.response.ResultData
 import com.theberdakh.carrierapp.data.model.response.order.OrderResponse
 import com.theberdakh.carrierapp.data.model.response.violation.ViolationResponse
-import com.theberdakh.carrierapp.domain.auth.TaxRepository
+import com.theberdakh.carrierapp.domain.TaxRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -54,8 +54,9 @@ class TaxViewModel(private val repository: TaxRepository): ViewModel() {
                 }
             }
         }.launchIn(viewModelScope)
-
     }
+
+
 
 
 }

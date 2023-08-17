@@ -2,16 +2,12 @@ package com.theberdakh.carrierapp.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.theberdakh.carrierapp.data.model.response.order.OrderResponse
 import com.theberdakh.carrierapp.data.model.response.ResultData
 import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.data.model.response.order.PostOrder
 import com.theberdakh.carrierapp.data.model.response.order.ResponsePostOrder
-import com.theberdakh.carrierapp.data.model.response.order.SortedOrder
-import com.theberdakh.carrierapp.domain.auth.SellerRepository
-import kotlinx.coroutines.Dispatchers
+import com.theberdakh.carrierapp.domain.SellerRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 

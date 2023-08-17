@@ -1,4 +1,4 @@
-package com.theberdakh.carrierapp.domain.auth
+package com.theberdakh.carrierapp.domain
 
 import android.util.Log
 import com.theberdakh.carrierapp.data.model.response.ResultData

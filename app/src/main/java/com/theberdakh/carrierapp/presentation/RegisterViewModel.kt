@@ -8,7 +8,7 @@ import com.theberdakh.carrierapp.data.model.response.seller.SellerRegisterBody
 import com.theberdakh.carrierapp.data.model.response.seller.SellerResponse
 import com.theberdakh.carrierapp.data.model.response.tax_officer.TaxOfficerRegisterBody
 import com.theberdakh.carrierapp.data.model.response.tax_officer.TaxOfficerRegisterResponse
-import com.theberdakh.carrierapp.domain.auth.AuthRepository
+import com.theberdakh.carrierapp.domain.AuthRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

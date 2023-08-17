@@ -3,6 +3,7 @@ package com.theberdakh.carrierapp.data.local
 import android.content.Context
 import android.content.SharedPreferences
 import com.theberdakh.carrierapp.app.App
+import com.theberdakh.carrierapp.util.BooleanPreference
 import com.theberdakh.carrierapp.util.IntPreference
 import com.theberdakh.carrierapp.util.StringPreference
 
@@ -22,6 +23,7 @@ class SharedPrefStorage {
     var password by StringPreference(pref)
     var name by StringPreference(pref, "Satıwshı")
     var position by StringPreference(pref)
+    var signedIn by BooleanPreference(pref)
 
 
 }

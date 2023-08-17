@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.theberdakh.carrierapp.data.model.response.login.LoginBody
 import com.theberdakh.carrierapp.data.model.response.login.LoginResponse
 import com.theberdakh.carrierapp.data.model.response.ResultData
-import com.theberdakh.carrierapp.domain.auth.AuthRepository
+import com.theberdakh.carrierapp.domain.AuthRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
