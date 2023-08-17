@@ -35,6 +35,20 @@ class TaxFragment : Fragment(R.layout.fragment_tax){
 
         binding.tbTax.title = SharedPrefStorage().name
 
+        binding.tbTax.setOnMenuItemClickListener { menu ->
+            when(menu.itemId){
+                R.id.action_logout -> {
+                    SharedPrefStorage().signedIn= false
+
+                    requireActivity().finish()
+                    startActivity(requireActivity().intent)
+                    requireActivity().overridePendingTransition(0,0)
+                    true
+                }
+                else -> {true}
+            }
+        }
+
 
         TabLayoutMediator(binding.tblTax, binding.vpTax){ tab, position ->
             when(position){
