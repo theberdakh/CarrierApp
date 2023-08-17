@@ -6,6 +6,7 @@ import com.theberdakh.carrierapp.data.model.response.order.OrderResponse
 import com.theberdakh.carrierapp.data.model.response.ResultData
 import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.data.model.response.order.PostOrder
+import com.theberdakh.carrierapp.data.model.response.order.ResponsePostOrder
 import com.theberdakh.carrierapp.data.model.response.order.SortedOrder
 import com.theberdakh.carrierapp.domain.auth.SellerRepository
 import kotlinx.coroutines.Dispatchers
@@ -16,37 +17,19 @@ import kotlinx.coroutines.flow.onEach
 
 class SellerViewModel(private val repository: SellerRepository): ViewModel() {
 
-    //val successFlow = MutableSharedFlow<OrderResponse>()
-    val messageFlow = MutableSharedFlow<String>()
-    val errorFlow = MutableSharedFlow<Throwable>()
-
 
     val postOrderByIdSuccessFlow = MutableSharedFlow<List<Order>>()
     val postOrderByIdMessageFlow = MutableSharedFlow<String>()
     val postOrderByIdErrorFlow = MutableSharedFlow<Throwable>()
 
 
-     val postOrderSuccessFlow = MutableSharedFlow<Order>()
+     val postOrderSuccessFlow = MutableSharedFlow<ResponsePostOrder>()
         val postOrderMessageFlow = MutableSharedFlow<String>()
         val postOrderErrorFlow = MutableSharedFlow<Throwable>()
 
 
 
-        suspend fun getAllOrders(){
-        repository.getAllOrders().onEach {
-            when(it){
-                is ResultData.Success -> {
-            //        successFlow.emit(it.data)
-                }
-                is ResultData.Message -> {
-                    messageFlow.emit(it.message)
-                }
-                is ResultData.Error -> {
-                    errorFlow.emit(it.error)
-                }
-            }
-        }.launchIn(viewModelScope)
-    }
+
   suspend fun getOrdersById( id : Int ) {
       repository.getOrdersByID(id).onEach {
           when (it) {
@@ -63,7 +46,7 @@ class SellerViewModel(private val repository: SellerRepository): ViewModel() {
       }.launchIn(viewModelScope)
 
   }
-    suspend fun postOrder(token: String, body: PostOrder){
+    suspend fun postOrder( body: PostOrder){
         repository.postOrder(body).onEach {
             when(it){
                 is ResultData.Success -> {

@@ -67,17 +67,6 @@ class UserFragment: Fragment(R.layout.fragment_user) {
             adapter.submitList(it)
         }.launchIn(lifecycleScope)
 
-        viewModel.messageFlow.onEach {
-            Log.d("Order by Id Message", "mess ${it}")
-
-            makeToast(it)
-        }.launchIn(lifecycleScope)
-
-        viewModel.errorFlow.onEach {
-            Log.d("Order by Id error", "errir")
-
-            makeToast("Error, check your Internet connection")
-        }.launchIn(lifecycleScope)
     }
 
     private fun initListeners() {

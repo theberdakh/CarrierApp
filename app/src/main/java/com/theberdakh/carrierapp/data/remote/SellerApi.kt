@@ -4,6 +4,7 @@ import com.theberdakh.carrierapp.data.model.response.order.GenericData
 import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.data.model.response.order.OrderResponse
 import com.theberdakh.carrierapp.data.model.response.order.PostOrder
+import com.theberdakh.carrierapp.data.model.response.order.ResponsePostOrder
 import com.theberdakh.carrierapp.data.model.response.order.SortedOrder
 import retrofit2.Response
 import retrofit2.http.Body
@@ -23,6 +24,6 @@ interface SellerApi {
     suspend fun getOrdersById(@Path("karer_id") id: Int): Response<List<Order>>
 
     @POST("orders/create/")
-    suspend fun postOrder(@Body body: PostOrder): Response<Order>
+    suspend fun postOrder(@Body body: PostOrder): Response<ResponsePostOrder>
 
 }

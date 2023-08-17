@@ -11,21 +11,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 class SellerRepository(private val api: SellerApi) {
-    suspend fun getAllOrders()= flow{
-        val response = api.getAllOrders()
-        if (response.isSuccessful && response.body() != null){
-            Log.d("SellerRepo", "request is successful all orders")
-            emit(ResultData.Success(response.body()!!))
-        }
-        else {
-            Log.d("SellerRepo", " all orders request is ${response.body()}")
-
-            emit(ResultData.Message(response.body().toString()))
-        }
-    }.catch {
-        Log.d("SellerRepo", " all orders request is error")
-        emit(ResultData.Error(it))
-    }.flowOn(Dispatchers.IO)
 
     suspend fun getOrdersByID( id: Int)= flow{
         val response = api.getOrdersById(20)
