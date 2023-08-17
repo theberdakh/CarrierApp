@@ -8,7 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
-import com.theberdakh.carrierapp.data.model.response.order.Result
 import com.theberdakh.carrierapp.databinding.FragmentUserBinding
 import com.theberdakh.carrierapp.presentation.SellerViewModel
 import com.theberdakh.carrierapp.ui.user.adapter.OrderAdapter
@@ -28,9 +27,10 @@ class UserFragment: Fragment(R.layout.fragment_user) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentUserBinding.bind(view)
 
+        initViews()
         initObservers()
         initListeners()
-        initViews()
+
 
 
 
@@ -46,15 +46,16 @@ class UserFragment: Fragment(R.layout.fragment_user) {
         _adapter = OrderAdapter()
         binding.rvUser.adapter = adapter
         lifecycleScope.launch {
-            viewModel.getAllOrders()
+            Log.d("Send", "Send Token")
+            viewModel.getOrdersById( 10)
         }
 
 
     }
 
     private fun initObservers() {
-        viewModel.successFlow.onEach {
-            Log.d("Login Success", "Success ${it.results.size}")
+        viewModel.postOrderByIdSuccessFlow.onEach {
+            Log.d("Order by Id Success", "Success ${it.size}")
 
           /*  val mutableListOrders = mutableListOf<Result>()
             for (order in it.results){
@@ -62,14 +63,19 @@ class UserFragment: Fragment(R.layout.fragment_user) {
                     mutableListOrders.add(order)
                 }
             }*/
-            adapter.submitList(it.results)
+
+            adapter.submitList(it)
         }.launchIn(lifecycleScope)
 
         viewModel.messageFlow.onEach {
+            Log.d("Order by Id Message", "mess ${it}")
+
             makeToast(it)
         }.launchIn(lifecycleScope)
 
         viewModel.errorFlow.onEach {
+            Log.d("Order by Id error", "errir")
+
             makeToast("Error, check your Internet connection")
         }.launchIn(lifecycleScope)
     }
@@ -79,6 +85,11 @@ class UserFragment: Fragment(R.layout.fragment_user) {
         binding.fbUser.setOnClickListener {
             findNavController().navigate(UserFragmentDirections.actionUserFragmentToFormFragment())
         }
+
+        adapter.onOrderClickListener {
+            findNavController().navigate(UserFragmentDirections.actionUserFragmentToOrderDetailsFragment(it))
+        }
+
 
     }
 }

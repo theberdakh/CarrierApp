@@ -39,7 +39,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         viewModel.successFlow.onEach {
         Log.d("Login Success", "Success ${it.token}")
         saveResponse(it)
-        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserFragment())
+
+            if (it.type == "tax_officer"){
+                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToTaxFragment())
+            } else {
+                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserFragment())
+            }
+
 
     }.launchIn(lifecycleScope)
 

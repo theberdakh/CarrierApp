@@ -14,27 +14,27 @@ class AuthRepository(private val api: AuthApi) {
 
     suspend fun login(body: LoginBody)= flow{
         val response = api.login(body)
-        if (response.isSuccessful && response.body() != null){
-            Log.d("AuthRepo", "request is successful")
+        if (response.isSuccessful){
+            Log.d("AuthRepo", "login request is successful")
             emit(ResultData.Success(response.body()!!))
         }
         else {
-            Log.d("AuthRepo", "request is message")
+            Log.d("AuthRepo", "login request is message ${response.code()}")
             emit(ResultData.Message(response.message()))
         }
     }.catch {
-        Log.d("AuthRepo", "request is error")
+        Log.d("AuthRepo", "login request is error")
         emit(ResultData.Error(it))
     }.flowOn(Dispatchers.IO)
 
     suspend fun registerSeller(body: SellerRegisterBody) = flow {
         val response = api.registerSeller(body)
         if (response.isSuccessful && response.body() != null){
-            Log.d("AuthRepo", "request is successful")
+            Log.d("AuthRepo", "register request is successful")
             emit(ResultData.Success(response.body()!!))
         }
         else {
-            Log.d("AuthRepo", "request is message")
+            Log.d("AuthRepo", " register request is message ${response.message()}")
             emit(ResultData.Message(response.message()))
         }
     }.catch {

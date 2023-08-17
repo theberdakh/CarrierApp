@@ -3,11 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".ui.user.OrderDetailsFragment">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:baselineAligned="false"
         android:orientation="vertical">
 
 
@@ -17,14 +20,17 @@
             android:layout_height="200dp"
             tools:src="@tools:sample/avatars"
             android:scaleType="fitCenter"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
             />
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/tb_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Buyırtpa"
+            app:navigationIcon="@drawable/baseline_arrow_back_ios_new_24" />
 
         <LinearLayout
             android:id="@+id/ll_info_order"
-            android:layout_below="@+id/iv_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -62,6 +68,7 @@
                     android:padding="8dp"/>
 
                 <TextView
+                    android:id="@+id/tv_order_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Qum"
@@ -69,6 +76,7 @@
                     android:padding="8dp"/>
 
                 <TextView
+                    android:id="@+id/tv_order_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="12"
@@ -76,6 +84,7 @@
                     android:padding="8dp"/>
 
                 <TextView
+                    android:id="@+id/tv_order_unit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="KG"
@@ -93,7 +102,6 @@
 
         <LinearLayout
             android:id="@+id/ll_info_carrier"
-            android:layout_below="@id/ll_info_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -131,6 +139,7 @@
                     android:padding="8dp"/>
 
                 <TextView
+                    android:id="@+id/tv_carrier_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Palenshiev Tolenshi"
@@ -138,6 +147,7 @@
                     android:padding="8dp"/>
 
                 <TextView
+                    android:id="@+id/tv_carrier_passport"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="AA 1234567"
@@ -145,6 +155,7 @@
                     android:padding="8dp"/>
 
                 <TextView
+                    android:id="@+id/tv_carrier_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="+998 99 999 99 99"
@@ -162,7 +173,6 @@
             android:layout_height="2dp" />
 
         <LinearLayout
-            android:layout_below="@id/ll_info_carrier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -198,6 +208,7 @@
                     android:padding="8dp"/>
 
                 <TextView
+                    android:id="@+id/tv_auto_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Avtomobil nomeri: 95 A113 BC"
@@ -205,6 +216,7 @@
                     android:padding="8dp"/>
 
                 <TextView
+                    android:id="@+id/tv_seller_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Karer atı: Karer 193"
@@ -212,6 +224,7 @@
                     android:padding="8dp"/>
 
                 <TextView
+                    android:id="@+id/tv_order_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Sa'ne: 12/04/2023"
@@ -219,6 +232,7 @@
                     android:padding="8dp"/>
 
                 <TextView
+                    android:id="@+id/tv_order_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Lokaciya: 193443, 1243349"
@@ -229,7 +243,7 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 

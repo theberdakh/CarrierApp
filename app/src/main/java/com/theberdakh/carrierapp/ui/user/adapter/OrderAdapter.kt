@@ -5,16 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.theberdakh.carrierapp.data.model.response.order.Result
+import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.databinding.ItemRecyclerOrderCarrierBinding
+import com.theberdakh.carrierapp.util.changeNull
 
 class OrderAdapter :
-    ListAdapter<Result, OrderAdapter.OrderViewHolder>(WordsCallBack) {
+    ListAdapter<Order, OrderAdapter.OrderViewHolder>(WordsCallBack) {
 
     inner class OrderViewHolder(private val binding: ItemRecyclerOrderCarrierBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             val order = getItem(adapterPosition)
+
             binding.apply {
                 tvCarNumber.text = order.car_number
                 tvFullName.text = order.driver_name
@@ -24,16 +26,23 @@ class OrderAdapter :
             }
 
 
+            binding.root.setOnClickListener{
+
+            }
+
+
+
+
         }
     }
 
-    private object WordsCallBack : DiffUtil.ItemCallback<Result>() {
-        override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
-            return oldItem == newItem
+    private object WordsCallBack : DiffUtil.ItemCallback<Order>() {
+        override fun areItemsTheSame(oldItem: Order, newItem: Order): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean {
-            return oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: Order, newItem: Order): Boolean {
+            return oldItem.id == newItem.id && oldItem.driver_passport_or_id == newItem.driver_passport_or_id
         }
 
 
@@ -51,8 +60,8 @@ class OrderAdapter :
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) = holder.bind()
 
-    private lateinit var onOrderClick: (Result) -> Unit
-    fun onShareClickListener(onOrderClick:(Result) -> Unit ){
+    private lateinit var onOrderClick: (Order) -> Unit
+    fun onOrderClickListener(onOrderClick:(Order) -> Unit ){
         this.onOrderClick = onOrderClick
     }
 

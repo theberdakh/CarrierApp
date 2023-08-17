@@ -1,8 +1,10 @@
 package com.theberdakh.carrierapp.data.remote
 
-import com.google.android.gms.nearby.connection.Payload.Type
+import com.theberdakh.carrierapp.data.model.response.order.GenericData
 import com.theberdakh.carrierapp.data.model.response.order.Order
+import com.theberdakh.carrierapp.data.model.response.order.OrderResponse
 import com.theberdakh.carrierapp.data.model.response.order.PostOrder
+import com.theberdakh.carrierapp.data.model.response.order.SortedOrder
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -10,17 +12,17 @@ import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface SellerApi {
 
     @GET("orders/")
-    suspend fun getAllOrders(): Response<Order>
-
+    suspend fun getAllOrders(): Response<OrderResponse>
 
     @GET("orders/by_karer_id/{karer_id}")
-    suspend fun getOrdersById(@Path("karer_id") id: Int): Response<Order>
+    suspend fun getOrdersById(@Path("karer_id") id: Int): Response<List<Order>>
 
     @POST("orders/create/")
-    suspend fun sendOrder(@Header(value = "Authorization") token: String, @Body body: PostOrder)
+    suspend fun postOrder(@Body body: PostOrder): Response<Order>
 
 }

@@ -13,16 +13,19 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
+    id 'kotlin-parcelize'
+
 }
 
 android {
     namespace 'com.theberdakh.carrierapp'
     compileSdk 34
 
+
     defaultConfig {
         applicationId "com.theberdakh.carrierapp"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 

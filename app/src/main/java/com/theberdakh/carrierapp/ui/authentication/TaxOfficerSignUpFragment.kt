@@ -32,7 +32,7 @@ class TaxOfficerSignUpFragment: Fragment(R.layout.tax_officer_sign_up) {
         }
 
         binding.btnRegister.setOnClickListener {
-         findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToUserFragment())      }
+        }
     }
 
 

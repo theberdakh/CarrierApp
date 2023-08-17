@@ -13,3 +13,6 @@ fun makeToast(msg: String) {
 fun showSnackBar(view: View, msg: String, length: Int = Snackbar.LENGTH_SHORT) {
     Snackbar.make(view, msg, length).show()
 }
+
+fun String.changeNull(to: String = "Null") =
+    if (this.isNullOrBlank() || this.isNullOrEmpty()) to else this
