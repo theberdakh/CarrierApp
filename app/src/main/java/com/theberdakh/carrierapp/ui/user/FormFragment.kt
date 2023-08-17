@@ -4,11 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -24,19 +28,29 @@ import com.theberdakh.carrierapp.util.makeToast
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import okhttp3.MultipartBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.ldralighieri.corbind.view.clicks
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 
+
 class FormFragment : Fragment(R.layout.fragment_seller_form) {
     private lateinit var binding: FragmentSellerFormBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val viewModel by viewModel<SellerViewModel>()
     private var location: String = ""
-    private var _photo: File? = null
-    private val photo get() = _photo!!
+    private var _imageUri : Uri? = null
+    private var _file: File? = null
+    private val file get() = _file!!
+    private val imageUri get() = _imageUri!!
+    private var _part: MultipartBody.Part? = null
+    private val part get() = _part!!
+
+    private val contact = registerForActivityResult(ActivityResultContracts.GetContent()){
+        _imageUri = it!!
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -143,18 +157,16 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
             Log.d("Tag", "Clicked")
 
             viewModel.postOrder(SharedPrefStorage().token, PostOrder(
-                car_number = binding.etAutoNumber.text.toString(),
-                cargo_value = binding.etValue.text.toString(),
-                cargo_type = 1,
-                cargo_unit = 1,
                 driver_name = binding.etCarrierName.text.toString(),
+                driver_phone_number = binding.etCarrierPhone.text.toString(),
                 driver_passport_or_id = "passport",
                 driver_passport_or_id_number = binding.etPassportSeries.text.toString(),
-                driver_phone_number = binding.etCarrierPhone.text.toString(),
-                karer = SharedPrefStorage().id,
+                car_number = binding.etAutoNumber.text.toString(),
+                car_photo = file,
                 location = location,
-                weight =  binding.etValue.text.toString(),
-                car_photo = photo
+                karer = 10,
+                cargo_type = 1,
+
             ))
 
         }.launchIn(lifecycleScope)
@@ -173,20 +185,68 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
         if (requestCode == 42 && resultCode == Activity.RESULT_OK) {
             val takenImage = data?.extras?.get("data") as Bitmap
             binding.ivFormImage.setImageBitmap(takenImage)
-
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            takenImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+            val byteArray = byteArrayOutputStream.toByteArray()
+            val encoded: String = Base64.encodeToString(byteArray, Base64.DEFAULT)
+            Log.d("Image", encoded)
 
             //making file from taken image
-            val bos = ByteArrayOutputStream()
-            val a = takenImage.compress(Bitmap.CompressFormat.JPEG, 0, bos)
-            _photo = File(requireContext().cacheDir, "photo")
-            _photo!!.createNewFile()
-            val fileOutputStream = FileOutputStream(_photo)
-            fileOutputStream.write(bos.toByteArray())
-            fileOutputStream.flush()
-            fileOutputStream.close()
+           _file = saveImageFile(takenImage)
 
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    private fun makeBitmapImageFile(bitmap: Bitmap) {
+        /*try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+                val resolver = requireActivity().contentResolver
+                val contentValues = ContentValues()
+                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "Image.jpg")
+                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+                val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                 _photo = Objects.requireNonNull(uri)?.let { resolver.openOutputStream(it) }
+                if (_photo != null) {
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, _photo!!)
+                }
+                Objects.requireNonNull(_photo)
+
+                val image =  File(requireActivity().applicationContext.filesDir, "camera_photo.jpg")
+            }
+        } catch (e: Exception){
+            Log.d("Image making", e.toString())
+        }
+    }*/
+
+    /*    val filesDir = requireActivity().applicationContext.filesDir
+        val file  = File(filesDir, "image.png")
+        val input = requireActivity().contentResolver.openInputStream(imageUri)
+        val output = FileOutputStream(file)
+         input!!.copyTo(output)
+
+        val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+        _part = MultipartBody.Part.createFormData("profile", file.name, requestBody)*/
+
+     */
+
+        saveImageFile(bitmap)
+    }
+
+    fun saveImageFile(bitmap: Bitmap):File{
+            val  filesDir = requireActivity().applicationContext.filesDir
+            val  imageFile = File(filesDir, "image" + ".jpg");
+
+            try {
+                val os =  FileOutputStream(imageFile);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+                os.flush();
+                os.close();
+            } catch (e: Exception) {
+                Log.e(javaClass.simpleName, "Error writing bitmap", e);
+            }
+
+        return imageFile
     }
 }

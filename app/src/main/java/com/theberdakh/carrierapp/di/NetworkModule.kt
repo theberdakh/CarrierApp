@@ -3,6 +3,7 @@ package com.theberdakh.carrierapp.di
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
 import com.theberdakh.carrierapp.data.remote.AuthApi
 import com.theberdakh.carrierapp.data.remote.SellerApi
+import com.theberdakh.carrierapp.data.remote.TaxApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -47,6 +48,10 @@ val networkModule = module {
 
     single<SellerApi> {
         get<Retrofit>().create(SellerApi::class.java)
+    }
+
+    single<TaxApi> {
+        get<Retrofit>().create(TaxApi::class.java)
     }
 
 }

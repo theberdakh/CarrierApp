@@ -18,6 +18,6 @@ data class Order(
     val weight: String,
     val date: String,
     val karer: Int,
-    val cargo_type: Int,
-    val cargo_unit: Int,
+    val cargo_type: Int?,
+    val cargo_unit: Int?,
 ): Parcelable

@@ -11,6 +11,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/tb_form"
             android:layout_width="match_parent"
@@ -36,6 +38,7 @@
                 android:src="@drawable/baseline_add_a_photo_24"
                 android:layout_weight="0.5"
                 />
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_name"
