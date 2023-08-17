@@ -10,12 +10,15 @@
         android:id="@+id/tb_tax"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="@string/title_user_tax"
+        app:titleCentered="true"
+        app:subtitleCentered="true"
+        app:subtitle="@string/title_user_tax"
         app:menu="@menu/menu_seller"
         />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tbl_tax"
+        android:background="?android:windowBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

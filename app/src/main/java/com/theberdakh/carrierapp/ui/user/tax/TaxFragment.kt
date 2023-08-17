@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.theberdakh.carrierapp.R
+import com.theberdakh.carrierapp.data.local.SharedPrefStorage
 import com.theberdakh.carrierapp.databinding.FragmentTaxBinding
 import com.theberdakh.carrierapp.ui.authentication.SellerSignUpFragment
 import com.theberdakh.carrierapp.ui.authentication.TaxOfficerSignUpFragment
@@ -31,6 +32,9 @@ class TaxFragment : Fragment(R.layout.fragment_tax){
 
     private fun initViews() {
         binding.vpTax.adapter = SignUpViewPagerAdapter(arrayListOf(TaxOrdersFragment(), TaxViolationsFragment()), requireActivity().supportFragmentManager, requireActivity().lifecycle)
+
+        binding.tbTax.title = SharedPrefStorage().name
+
 
         TabLayoutMediator(binding.tblTax, binding.vpTax){ tab, position ->
             when(position){

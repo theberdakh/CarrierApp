@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.ldralighieri.corbind.view.clicks
+import kotlin.math.log
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding
@@ -66,6 +67,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         SharedPrefStorage().password = binding.etPassword.text.toString()
         SharedPrefStorage().id = loginResponse.id
         SharedPrefStorage().name = if(loginResponse.karer_name.isNullOrEmpty()) "Null" else loginResponse.karer_name
+
+
     }
 
     private fun initViews() {

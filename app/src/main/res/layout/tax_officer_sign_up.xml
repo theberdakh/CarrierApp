@@ -59,6 +59,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@id/et_passport_series"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text|textCapCharacters"
@@ -85,7 +86,7 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_phoneNumber"
+                android:id="@+id/et_position"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textCapWords"
@@ -102,6 +103,7 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_region"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="text"
@@ -118,6 +120,7 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="phone"

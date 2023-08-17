@@ -93,31 +93,6 @@
                     tools:text="Sheben"
                     />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?textAppearanceBody2"
-                    android:text="Karer:"
-                    android:textStyle="bold"
-                    android:layout_marginTop="4dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?textAppearanceBody2"
-                    tools:text="Karer No 14"
-                    />
-
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:weightSum="2">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -134,22 +109,38 @@
                     android:textAppearance="?textAppearanceBody2"
                     tools:text="1500 KG"
                     />
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="bottom|end"
-                    android:layout_marginTop="4dp"
-                    android:padding="8dp">
 
-                    <com.google.android.material.button.MaterialButton
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?textAppearanceBody2"
+                    android:text="Karer:"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?textAppearanceBody2"
+                    tools:text="Karer No 14"
+                    />
+
+                <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_fine"
-                        android:text="Jarıymaǵa tartıw"
-                        android:layout_gravity="bottom|end"
+                        android:text="Tekseriw"
+                    android:layout_marginVertical="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
-
-                </FrameLayout>
 
 
 

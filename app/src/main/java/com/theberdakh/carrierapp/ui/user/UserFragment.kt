@@ -33,21 +33,19 @@ class UserFragment: Fragment(R.layout.fragment_user) {
 
 
 
-
-
     }
 
     private fun initViews() {
 
-        binding.tbUser.title = SharedPrefStorage().name
-        binding.tbUser.subtitle = SharedPrefStorage().type
+        binding.tbUser.title = "Buyırtpalar"
+        binding.tbUser.subtitle = SharedPrefStorage().name
 
 
         _adapter = OrderAdapter()
         binding.rvUser.adapter = adapter
         lifecycleScope.launch {
             Log.d("Send", "Send Token")
-            viewModel.getOrdersById( 10)
+            viewModel.getOrdersById( SharedPrefStorage().id)
         }
 
 
@@ -57,14 +55,7 @@ class UserFragment: Fragment(R.layout.fragment_user) {
         viewModel.postOrderByIdSuccessFlow.onEach {
             Log.d("Order by Id Success", "Success ${it.size}")
 
-          /*  val mutableListOrders = mutableListOf<Result>()
-            for (order in it.results){
-                if (order.karer == SharedPrefStorage().id){
-                    mutableListOrders.add(order)
-                }
-            }*/
-
-            adapter.submitList(it)
+            adapter.submitList(it.asReversed())
         }.launchIn(lifecycleScope)
 
     }

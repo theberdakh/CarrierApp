@@ -1,25 +1,14 @@
 package com.theberdakh.carrierapp.ui.user
 
-import android.Manifest
-import android.R.attr.bitmap
 import android.app.Activity
-import android.app.Service
-import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -40,8 +29,6 @@ import java.io.ByteArrayOutputStream
 class FormFragment : Fragment(R.layout.fragment_seller_form) {
     private lateinit var binding: FragmentSellerFormBinding
     private val viewModel by viewModel<SellerViewModel>()
-    private var locationManager : LocationManager? = null
-    private var _locationManager: LocationManager? = null
     private var _encoded: String? = null
     private val encoded get() = _encoded!!
 
@@ -55,6 +42,7 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
         initObservers()
 
     }
+
 
     private fun initObservers() {
         viewModel.postOrderSuccessFlow.onEach {
@@ -75,8 +63,6 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
 
 
     private fun initViews() {
-
-        setLocation()
 
         val documentTypeAdapter = ArrayAdapter(
             requireActivity(),
@@ -108,29 +94,9 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
         }
     }
 
-    private fun setLocation() {
-
-        locationManager = requireActivity().getSystemService(Service.LOCATION_SERVICE) as LocationManager?
 
 
-            try {
-                // Request location updates
-                locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
-            } catch(ex: SecurityException) {
-                Log.d("myTag", "Security Exception, no location available")
-            }
 
-    }
-
-
-    private val locationListener: LocationListener = object : LocationListener {
-        override fun onLocationChanged(location: Location) {
-            Log.d("Location", "${location.longitude}, ${location.latitude}")
-        }
-        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-        override fun onProviderEnabled(provider: String) {}
-        override fun onProviderDisabled(provider: String) {}
-    }
 
     private fun initListeners() {
         binding.tbForm.setNavigationOnClickListener {
@@ -153,6 +119,9 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
                 location = "349355, 3489083",
                 karer = SharedPrefStorage().id,
                 cargo_type = 1,
+                cargo_value = 1,
+                cargo_unit = 1,
+                weight = "30943"
             ))
 
         }.launchIn(lifecycleScope)

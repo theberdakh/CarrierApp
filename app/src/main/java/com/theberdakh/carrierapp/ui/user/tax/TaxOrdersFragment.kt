@@ -6,6 +6,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.databinding.FragmentTaxOrdersBinding
 import com.theberdakh.carrierapp.presentation.TaxViewModel
@@ -48,7 +50,7 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
 
         viewModel.successFlow.onEach {
             Log.d("Order by Id Success", "Success ${it.results}")
-            adapter.submitList(it.results)
+            adapter.submitList(it.results.asReversed())
         }.launchIn(lifecycleScope)
 
         viewModel.messageFlow.onEach {
@@ -68,7 +70,9 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
     private fun initListeners() {
 
         adapter.onOrderClickListener {
-            makeToast("Order clicked")
+
+
+        /*    findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToOrderDetailsFragment(it))*/
         }
 
         adapter.onOrderFineClickListener {

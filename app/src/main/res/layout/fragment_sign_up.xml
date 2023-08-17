@@ -17,6 +17,7 @@
 
    <com.google.android.material.tabs.TabLayout
        android:id="@+id/tbl_sign_up"
+       android:background="?android:windowBackground"
        android:layout_width="match_parent"
        android:layout_marginHorizontal="8dp"
        android:layout_height="wrap_content"/>

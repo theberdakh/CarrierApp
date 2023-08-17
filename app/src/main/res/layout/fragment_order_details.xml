@@ -17,8 +17,8 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_order"
             android:layout_width="match_parent"
+            android:visibility="visible"
             android:layout_height="200dp"
-            tools:src="@tools:sample/avatars"
             android:scaleType="fitCenter"
             />
 
@@ -62,8 +62,16 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Júk tuwralı:"
+                    android:text="Júk tuwralı:"
                     android:textStyle="bold"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_order_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="12"
                     android:textAppearance="?textAppearanceBody1"
                     android:padding="8dp"/>
 
@@ -75,13 +83,7 @@
                     android:textAppearance="?textAppearanceBody1"
                     android:padding="8dp"/>
 
-                <TextView
-                    android:id="@+id/tv_order_value"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="12"
-                    android:textAppearance="?textAppearanceBody1"
-                    android:padding="8dp"/>
+
 
                 <TextView
                     android:id="@+id/tv_order_unit"
@@ -133,7 +135,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Júk tasıwshı tuwralı"
+                    android:text="Júk tasıwshı tuwralı"
                     android:textStyle="bold"
                     android:textAppearance="?textAppearanceBody1"
                     android:padding="8dp"/>
@@ -202,7 +204,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Qosımsha maǵlıwmatlar"
+                    android:text="Qosımsha maǵlıwmatlar"
                     android:textStyle="bold"
                     android:textAppearance="?textAppearanceBody1"
                     android:padding="8dp"/>
@@ -220,6 +222,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Karer atı: Karer 193"
+                    android:visibility="gone"
                     android:textAppearance="?textAppearanceBody1"
                     android:padding="8dp"/>
 

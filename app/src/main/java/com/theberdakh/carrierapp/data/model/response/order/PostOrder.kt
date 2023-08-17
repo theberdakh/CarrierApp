@@ -1,8 +1,5 @@
 package com.theberdakh.carrierapp.data.model.response.order
 
-import retrofit2.http.Part
-import java.io.File
-
 data class PostOrder(
     val driver_name: String,
     val driver_phone_number: String,
@@ -12,6 +9,8 @@ data class PostOrder(
     var car_photo: String,
     val location: String,
     val karer: Int,
+    val weight: String,
     val cargo_type: Int,
-
+    val cargo_value: Int,
+    val cargo_unit: Int,
     )

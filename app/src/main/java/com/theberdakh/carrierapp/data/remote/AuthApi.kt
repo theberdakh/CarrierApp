@@ -4,6 +4,8 @@ import com.theberdakh.carrierapp.data.model.response.login.LoginBody
 import com.theberdakh.carrierapp.data.model.response.login.LoginResponse
 import com.theberdakh.carrierapp.data.model.response.seller.SellerRegisterBody
 import com.theberdakh.carrierapp.data.model.response.seller.SellerResponse
+import com.theberdakh.carrierapp.data.model.response.tax_officer.TaxOfficerRegisterBody
+import com.theberdakh.carrierapp.data.model.response.tax_officer.TaxOfficerRegisterResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -16,6 +18,9 @@ interface AuthApi {
 
     @POST("auth/register/karer/")
     suspend fun registerSeller(@Body body: SellerRegisterBody): Response<SellerResponse>
+
+    @POST("auth/register/tax_officer/")
+    suspend fun registerTaxOfficer(@Body body: TaxOfficerRegisterBody): Response<TaxOfficerRegisterResponse>
 
 
 }

@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.flowOn
 class SellerRepository(private val api: SellerApi) {
 
     suspend fun getOrdersByID( id: Int)= flow{
-        val response = api.getOrdersById(20)
+        val response = api.getOrdersById(id)
         if (response.isSuccessful && response.body() != null){
             Log.d("SellerRepo", "by id request is successful")
             emit(ResultData.Success(response.body()!!))

@@ -20,8 +20,9 @@ class TaxOrderAdapter: ListAdapter<Order, TaxOrderAdapter.TaxOrderViewHolder>(Ta
                 tvCarNumber.text = order.car_number
                 tvFullName.text = order.driver_name
                 tvTimeDate.text = order.date
-                tvCargoType.text = order.cargo_type.toString()
-                tvCargoValue.text = "${order.cargo_value} ${order.cargo_unit}"
+                tvCargoType.text = if (order.cargo_type == 1)"Sheben" else "Topıraq (default)"
+                tvCargoValue.text = "${order.weight} ${if(order.cargo_unit == 1) "m3" else "Kg"}"
+
             }
 
 

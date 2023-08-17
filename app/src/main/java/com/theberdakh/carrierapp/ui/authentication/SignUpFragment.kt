@@ -21,7 +21,9 @@ class SignUpFragment: Fragment(R.layout.fragment_sign_up) {
 
     }
 
+
     private fun setViews() {
+
       binding.vpSignUp.adapter = SignUpViewPagerAdapter(arrayListOf(SellerSignUpFragment(), TaxOfficerSignUpFragment()), requireActivity().supportFragmentManager, requireActivity().lifecycle)
 
       TabLayoutMediator(binding.tblSignUp, binding.vpSignUp){ tab, position ->
@@ -34,9 +36,12 @@ class SignUpFragment: Fragment(R.layout.fragment_sign_up) {
 
     private fun setListeners() {
         binding.tbSignUp.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment())
         }
+
     }
+
+
 
 
 }

@@ -108,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?textAppearanceBody2"
-                   android:text="Salmaǵı:"
+                   android:text="Muǵdarı:"
                     android:textStyle="bold"
                     android:layout_marginTop="16dp"/>
 

@@ -36,6 +36,7 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
     private fun initViews(order: Order) {
         binding.apply {
 
+
             Glide.with(requireActivity())
                 .load(order.car_photo)
                 .placeholder(R.drawable.baseline_add_a_photo_24)
@@ -43,13 +44,17 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
 
 
 
-            tvOrderType.text = if(order.cargo_type.toString().isNullOrEmpty()) "Null" else order.cargo_type.toString()
-            tvOrderValue.text = if(order.cargo_value.isNullOrEmpty()) "Null" else order.cargo_value
-            tvOrderUnit.text = if(order.cargo_unit.toString().isNullOrEmpty()) "Null" else order.cargo_unit.toString()
+            tvOrderType.text = if(order.cargo_type == 1) "Sheben" else "Topıraq (default)"
+            tvOrderValue.text = if(order.weight.isNullOrEmpty()) "Null" else order.cargo_value
+            tvOrderUnit.text = if(order.cargo_unit ==1 ) "m3" else "kg"
             tvCarrierName.text = if(order.driver_name.isNullOrEmpty()) "Null" else order.driver_name
             tvCarrierPassport.text = if(order.driver_passport_or_id_number.isNullOrEmpty()) "Null" else order.driver_passport_or_id_number.toString()
             tvCarrierPhone.text = if(order.driver_phone_number.isNullOrEmpty()) "Null" else order.driver_phone_number
             tvSellerName.text = if(order.karer.toString().isNullOrEmpty()) "Null" else order.karer.toString()
+            tvAutoNumber.text = "Avto nomeri: ${order.car_number}"
+            binding.tvOrderDate.text = "Sáne: ${order.date }"
+            binding.tvOrderLocation.text = "Lokaciya: ${order.location}"
+
         }
 
     }

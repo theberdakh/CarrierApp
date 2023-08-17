@@ -1,25 +1,19 @@
 <resources>
     <string name="app_name">Carrier App</string>
-    <string name="headline_choose_account_type">Akkount tu\'rin tan\'lan\':</string>
-    <string name="title_user_tax">Saliq xizmetshisi</string>
+    <string name="headline_choose_account_type">Akkount túrin tańlań:</string>
+    <string name="title_user_tax">Salıq xizmetshisi</string>
     <string name="title_user_seller">Sawdager</string>
-    <string name="title_user_carrier">Ju\'k tasiwshi</string>
-    <string name="title_register">Dizimnen o\'tiw</string>
+    <string name="title_user_carrier">Júk tasıwshı</string>
+    <string name="title_register">Dizimnen ótiw</string>
     <string name="hint_phone_number">Telefon nomer</string>
-    <string name="title_phone_register">Dizimnen o\'tiw ushin to\'mende telefon nomerin\'izdi kiritin\':</string>
-    <string name="title_get_sms">SMS aliw</string>
-    <string name="hint_confirmation_sms">Kod</string>
-    <string name="title_we_sent_code">+998 99 148 05 13 nomerine SMS jiberildi.</string>
-    <string name="title_confirm">Kodti tastiyqlaw</string>
-    <string name="title_insert_phone_number">SMS kod aliw ushin telefon nomerinizdi kiritin\'</string>
-    <string name="title_please_wait">"Kodin'iz tastiyqlandi. Biraq akkount administratciya ta'repinen qolda ko'rip shig'ilg'ani ushin biraz waqit ku'tiwin'iz mu'mkin. Tez arada tastiyqlanbasa, administratciya menen telefon arqali baylanisiwin'izdi soraymiz. \n\nAkkount ko'rip shig'ilg'annan son', programma o'zi sizdi avtomatik ta'rizde paydalaniwshi paneline o'tkeredi.  Artiqsha hesh na'rse islew sha'rt emes. "</string>
-    <string name="title_shot_picture">Su\'wretke aliw</string>
-    <string name="title_form">Forma toltiriw</string>
-    <string name="hint_name">Ju\'klewshinin\' ati ha\'m familyasi</string>
-    <string name="title_send_form">Formani jiberiw</string>
+    <string name="title_phone_register">Dizimnen ótiw ushın tómende telefon nomerińizdi kiritiń:</string>
+   <string name="title_shot_picture">Súwretke alıw</string>
+    <string name="title_form">Forma toltırıw</string>
+    <string name="hint_name">Júklewshiniń atı hám familyası</string>
+    <string name="title_send_form">Formanı jiberiw</string>
     <string name="hint_passport_series">Seriya</string>
     <string name="hint_type_material">Júk túri</string>
-    <string name="hint_weight_material">"Júk muǵdarı "</string>
+    <string name="hint_weight_material">"Júk muǵdarı"</string>
     <string name="sign_in">Akkauntqa kiriw</string>
     <string name="hint_username">Paydalanıwshı atı</string>
     <string name="hint_password">Parol</string>
@@ -31,5 +25,5 @@
     <string name="hint_position">Lawazımı</string>
     <string name="hint_region">Rayon</string>
     <string name="title_new_account">Jańa akkount jaratıw</string>
-    <string name="title_logout"><![CDATA[<font fgcolor = \"#ffff0000\">Shıǵıw</font>]]></string>
+    <string name="title_logout">Shıǵıw</string>
 </resources>

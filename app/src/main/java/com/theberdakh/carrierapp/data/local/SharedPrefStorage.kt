@@ -21,6 +21,7 @@ class SharedPrefStorage {
     var phoneNumber by StringPreference(pref)
     var password by StringPreference(pref)
     var name by StringPreference(pref, "Satıwshı")
+    var position by StringPreference(pref)
 
 
 }

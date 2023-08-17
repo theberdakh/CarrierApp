@@ -21,8 +21,8 @@ class OrderAdapter :
                 tvCarNumber.text = order.car_number
                 tvFullName.text = order.driver_name
                 tvTimeDate.text = order.date
-                tvCargoType.text = order.cargo_type.toString()
-                tvCargoValue.text = "${order.cargo_value} ${order.cargo_unit}"
+                tvCargoType.text = order.cargo_type.toString() ?: "Edd"
+                tvCargoValue.text = "${order.cargo_value}"
             }
 
 

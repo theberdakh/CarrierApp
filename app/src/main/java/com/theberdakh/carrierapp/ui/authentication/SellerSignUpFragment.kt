@@ -28,9 +28,11 @@ class SellerSignUpFragment: Fragment(R.layout.seller_sign_up) {
 
         initObservers()
         initListeners()
+        initViews()
 
+    }
 
-
+    private fun initViews() {
     }
 
     private fun initObservers() {
