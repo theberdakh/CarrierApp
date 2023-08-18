@@ -1,4 +1,4 @@
-package com.theberdakh.carrierapp.ui.user.tax
+package com.theberdakh.carrierapp.ui.tax
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

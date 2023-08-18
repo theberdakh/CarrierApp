@@ -1,7 +1,10 @@
-package com.theberdakh.carrierapp.ui.user
+package com.theberdakh.carrierapp.ui.seller
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -21,8 +24,6 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
         initViews(args.order)
         initListeners()
 
-
-
     }
 
     private fun initListeners() {
@@ -34,15 +35,19 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
     }
 
     private fun initViews(order: Order) {
+
+        requireActivity().window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
+        Log.d("Image", order.car_photo)
+
+        Glide.with(requireActivity())
+            .load("http://86.107.197.112/${order.car_photo}")
+            .placeholder(R.drawable.baseline_add_a_photo_24)
+            .into(binding.ivOrder)
+
         binding.apply {
-
-
-            Glide.with(requireActivity())
-                .load(order.car_photo)
-                .placeholder(R.drawable.baseline_add_a_photo_24)
-                .into(binding.ivOrder)
-
-
 
             tvOrderType.text = if(order.cargo_type == 1) "Sheben" else "Topıraq (default)"
             tvOrderValue.text = if(order.weight.isNullOrEmpty()) "Null" else order.cargo_value
@@ -56,7 +61,15 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
             binding.tvOrderLocation.text = "Lokaciya: ${order.location}"
 
         }
+    }
 
+
+    override fun onDestroyView() {
+
+        requireActivity().window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY)
+        super.onDestroyView()
     }
 
 }

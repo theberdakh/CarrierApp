@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.replace
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.databinding.TaxOfficerSignUpBinding
 import com.theberdakh.carrierapp.presentation.RegisterViewModel
-import com.theberdakh.carrierapp.ui.user.UserFragment
 import com.theberdakh.carrierapp.util.makeToast
 import com.theberdakh.carrierapp.util.showSnackBar
 import kotlinx.coroutines.flow.debounce

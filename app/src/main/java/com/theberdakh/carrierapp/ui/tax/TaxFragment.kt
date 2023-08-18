@@ -1,4 +1,4 @@
-package com.theberdakh.carrierapp.ui.user.tax
+package com.theberdakh.carrierapp.ui.tax
 
 import android.os.Bundle
 import android.view.View
@@ -8,8 +8,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
 import com.theberdakh.carrierapp.databinding.FragmentTaxBinding
-import com.theberdakh.carrierapp.ui.authentication.SellerSignUpFragment
-import com.theberdakh.carrierapp.ui.authentication.TaxOfficerSignUpFragment
 import com.theberdakh.carrierapp.ui.authentication.adapter.SignUpViewPagerAdapter
 
 class TaxFragment : Fragment(R.layout.fragment_tax){

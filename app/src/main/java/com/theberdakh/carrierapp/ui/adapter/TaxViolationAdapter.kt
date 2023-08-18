@@ -1,4 +1,4 @@
-package com.theberdakh.carrierapp.ui.user.adapter
+package com.theberdakh.carrierapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

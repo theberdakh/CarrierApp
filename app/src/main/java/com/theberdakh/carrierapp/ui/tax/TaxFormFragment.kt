@@ -1,4 +1,4 @@
-package com.theberdakh.carrierapp.ui.user
+package com.theberdakh.carrierapp.ui.tax
 
 import android.app.Activity
 import android.content.Intent
@@ -10,57 +10,26 @@ import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
-import com.theberdakh.carrierapp.data.local.SharedPrefStorage
-import com.theberdakh.carrierapp.data.model.response.order.PostOrder
-import com.theberdakh.carrierapp.databinding.FragmentSellerFormBinding
-import com.theberdakh.carrierapp.presentation.SellerViewModel
+import com.theberdakh.carrierapp.databinding.FragmentTaxFormBinding
 import com.theberdakh.carrierapp.util.makeToast
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.ldralighieri.corbind.view.clicks
 import java.io.ByteArrayOutputStream
 
+class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
+    lateinit var binding: FragmentTaxFormBinding
 
-class FormFragment : Fragment(R.layout.fragment_seller_form) {
-    private lateinit var binding: FragmentSellerFormBinding
-    private val viewModel by viewModel<SellerViewModel>()
     private var _encoded: String? = null
     private val encoded get() = _encoded!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentSellerFormBinding.bind(view)
-
+        binding = FragmentTaxFormBinding.bind(view)
 
         initViews()
         initListeners()
-        initObservers()
 
     }
-
-
-    private fun initObservers() {
-        viewModel.postOrderSuccessFlow.onEach {
-            makeToast("Posted successfully")
-            Log.d("Post Success", "Success ${it.driver_name}")
-
-            findNavController().popBackStack()
-        }.launchIn(lifecycleScope)
-
-        viewModel.postOrderMessageFlow.onEach {
-            makeToast(it)
-        }.launchIn(lifecycleScope)
-
-        viewModel.postOrderErrorFlow.onEach {
-            makeToast("Error, check your Internet connection")
-        }.launchIn(lifecycleScope)
-    }
-
 
     private fun initViews() {
 
@@ -77,10 +46,10 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
         val unitsAdapter = ArrayAdapter(
             requireActivity(),
             android.R.layout.simple_spinner_dropdown_item,
-            arrayOf("KG", "m3")
+            arrayOf("Mag'liwmat kiritilmegen", "Mag'liwmat toliq emes")
         )
-        binding.atvCargoUnit.setAdapter(unitsAdapter)
-        binding.atvCargoUnit.setOnItemClickListener { parent, view, position, id ->
+        binding.atViolationType.setAdapter(unitsAdapter)
+        binding.atViolationType.setOnItemClickListener { parent, view, position, id ->
             makeToast(parent.getItemAtPosition(position).toString())
         }
         val cargoTypeAdapter = ArrayAdapter(
@@ -95,36 +64,10 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
     }
 
 
-
-
-
     private fun initListeners() {
         binding.tbForm.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-
-        Log.d("Tag", "Inited")
-        binding.btnSendForm.clicks().debounce(300).onEach {
-
-            Log.d("Tag", "Clicked")
-
-
-            viewModel.postOrder(PostOrder(
-                driver_name = binding.etCarrierName.text.toString(),
-                driver_phone_number = binding.etCarrierPhone.text.toString(),
-                driver_passport_or_id = "passport",
-                driver_passport_or_id_number = binding.etPassportSeries.text.toString(),
-                car_number = binding.etAutoNumber.text.toString(),
-                car_photo = encoded,
-                location = "349355, 3489083",
-                karer = SharedPrefStorage().id,
-                cargo_type = 1,
-                cargo_value = 1,
-                cargo_unit = 1,
-                weight = "30943"
-            ))
-
-        }.launchIn(lifecycleScope)
 
         binding.ivFormImage.setOnClickListener {
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -152,6 +95,4 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.theberdakh.carrierapp.ui.user
+package com.theberdakh.carrierapp.ui.seller
 
 import android.os.Bundle
 import android.util.Log
@@ -10,14 +10,13 @@ import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
 import com.theberdakh.carrierapp.databinding.FragmentUserBinding
 import com.theberdakh.carrierapp.presentation.SellerViewModel
-import com.theberdakh.carrierapp.ui.user.adapter.OrderAdapter
-import com.theberdakh.carrierapp.util.makeToast
+import com.theberdakh.carrierapp.ui.adapter.OrderAdapter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class UserFragment: Fragment(R.layout.fragment_user) {
+class SellerFragment: Fragment(R.layout.fragment_user) {
     private lateinit var binding: FragmentUserBinding
     private val viewModel by viewModel<SellerViewModel>()
     private var _adapter: OrderAdapter? = null
@@ -63,11 +62,14 @@ class UserFragment: Fragment(R.layout.fragment_user) {
     private fun initListeners() {
 
         binding.fbUser.setOnClickListener {
-            findNavController().navigate(UserFragmentDirections.actionUserFragmentToFormFragment())
+            findNavController().navigate(SellerFragmentDirections.actionUserFragmentToFormFragment())
         }
 
         adapter.onOrderClickListener {
-            findNavController().navigate(UserFragmentDirections.actionUserFragmentToOrderDetailsFragment(it))
+            findNavController().navigate(SellerFragmentDirections.actionUserFragmentToOrderDetailsFragment(
+                    it
+                )
+            )
         }
 
         binding.tbUser.setOnMenuItemClickListener { menu ->

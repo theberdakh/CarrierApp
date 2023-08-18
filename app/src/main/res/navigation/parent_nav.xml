@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.theberdakh.carrierapp.ui.user.UserFragment"
+        android:name="com.theberdakh.carrierapp.ui.seller.SellerFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/formFragment"
-        android:name="com.theberdakh.carrierapp.ui.user.FormFragment"
+        android:name="com.theberdakh.carrierapp.ui.seller.FormFragment"
         android:label="fragment_seller_form"
         tools:layout="@layout/fragment_seller_form" >
     </fragment>
@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/orderDetailsFragment"
-        android:name="com.theberdakh.carrierapp.ui.user.OrderDetailsFragment"
+        android:name="com.theberdakh.carrierapp.ui.seller.OrderDetailsFragment"
         android:label="fragment_order_details"
         tools:layout="@layout/fragment_order_details" >
         <argument
@@ -67,11 +67,18 @@
     </fragment>
     <fragment
         android:id="@+id/taxFragment"
-        android:name="com.theberdakh.carrierapp.ui.user.tax.TaxFragment"
+        android:name="com.theberdakh.carrierapp.ui.tax.TaxFragment"
         android:label="TaxFragment"
         tools:layout="@layout/fragment_tax">
         <action
             android:id="@+id/action_taxFragment_to_orderDetailsFragment"
             app:destination="@id/orderDetailsFragment" />
+        <action
+            android:id="@+id/action_taxFragment_to_taxFormFragment"
+            app:destination="@id/taxFormFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/taxFormFragment"
+        android:name="com.theberdakh.carrierapp.ui.tax.TaxFormFragment"
+        android:label="TaxFormFragment" />
 </navigation>

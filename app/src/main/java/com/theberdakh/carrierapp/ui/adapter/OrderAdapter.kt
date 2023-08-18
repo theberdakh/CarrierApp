@@ -1,4 +1,4 @@
-package com.theberdakh.carrierapp.ui.user.adapter
+package com.theberdakh.carrierapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.databinding.ItemRecyclerOrderCarrierBinding
-import com.theberdakh.carrierapp.databinding.ItemRecyclerOrderTaxBinding
 
-class TaxOrderAdapter: ListAdapter<Order, TaxOrderAdapter.TaxOrderViewHolder>(TaxOrderCallBack)  {
+class OrderAdapter :
+    ListAdapter<Order, OrderAdapter.OrderViewHolder>(WordsCallBack) {
 
-    inner class TaxOrderViewHolder(private val binding: ItemRecyclerOrderTaxBinding) :
+    inner class OrderViewHolder(private val binding: ItemRecyclerOrderCarrierBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             val order = getItem(adapterPosition)
@@ -20,9 +20,8 @@ class TaxOrderAdapter: ListAdapter<Order, TaxOrderAdapter.TaxOrderViewHolder>(Ta
                 tvCarNumber.text = order.car_number
                 tvFullName.text = order.driver_name
                 tvTimeDate.text = order.date
-                tvCargoType.text = if (order.cargo_type == 1)"Sheben" else "Topıraq (default)"
-                tvCargoValue.text = "${order.weight} ${if(order.cargo_unit == 1) "m3" else "Kg"}"
-
+                tvCargoType.text = order.cargo_type.toString() ?: "Edd"
+                tvCargoValue.text = "${order.cargo_value}"
             }
 
 
@@ -30,16 +29,13 @@ class TaxOrderAdapter: ListAdapter<Order, TaxOrderAdapter.TaxOrderViewHolder>(Ta
                 onOrderClick.invoke(order)
             }
 
-            binding.btnFine.setOnClickListener {
-                onFineClick.invoke(order)
-            }
+
+
 
         }
-
-
     }
 
-    private object TaxOrderCallBack : DiffUtil.ItemCallback<Order>() {
+    private object WordsCallBack : DiffUtil.ItemCallback<Order>() {
         override fun areItemsTheSame(oldItem: Order, newItem: Order): Boolean {
             return oldItem.id == newItem.id
         }
@@ -48,23 +44,24 @@ class TaxOrderAdapter: ListAdapter<Order, TaxOrderAdapter.TaxOrderViewHolder>(Ta
             return oldItem.id == newItem.id && oldItem.driver_passport_or_id == newItem.driver_passport_or_id
         }
 
+
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
+        return OrderViewHolder(
+            ItemRecyclerOrderCarrierBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
+    }
 
+    override fun onBindViewHolder(holder: OrderViewHolder, position: Int) = holder.bind()
 
     private lateinit var onOrderClick: (Order) -> Unit
     fun onOrderClickListener(onOrderClick:(Order) -> Unit ){
         this.onOrderClick = onOrderClick
     }
-
-    private lateinit var onFineClick: (Order) -> Unit
-    fun onOrderFineClickListener(onFineClick:(Order) -> Unit ){
-        this.onFineClick = onFineClick
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TaxOrderViewHolder(ItemRecyclerOrderTaxBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-
-    override fun onBindViewHolder(holder: TaxOrderViewHolder, position: Int) = holder.bind()
-
 
 }
