@@ -77,6 +77,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         SharedPrefStorage().id = loginResponse.id
         SharedPrefStorage().name = if(loginResponse.karer_name.isNullOrEmpty()) "Null" else loginResponse.karer_name
         SharedPrefStorage().signedIn = true
+        SharedPrefStorage().name = loginResponse.full_name
+        SharedPrefStorage().passportOrId = loginResponse.passport_or_id
+        SharedPrefStorage().passportOrIdNumber = loginResponse.passport_or_id_number
 
     }
 

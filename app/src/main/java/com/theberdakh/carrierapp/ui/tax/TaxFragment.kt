@@ -37,7 +37,6 @@ class TaxFragment : Fragment(R.layout.fragment_tax){
             when(menu.itemId){
                 R.id.action_logout -> {
                     SharedPrefStorage().signedIn= false
-
                     requireActivity().finish()
                     startActivity(requireActivity().intent)
                     requireActivity().overridePendingTransition(0,0)
