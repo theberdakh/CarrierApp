@@ -39,8 +39,19 @@ class RegisterViewModel(private val repository: AuthRepository): ViewModel() {
             }
         }.launchIn(viewModelScope)
     }
-    suspend fun registerTaxOfficer(fullName: String, phoneNumber: String, passportOrId: String, passportOrIdSeries: String, position: String, workingRegion: Int,  password: String, password2: String){
-        repository.registerTaxOfficer(TaxOfficerRegisterBody("+998999192924","efwe", "passport", "43iorsad", "riffler", "ewrklf sa",  password, password2 )).onEach {
+    suspend fun registerTaxOfficer(fullName: String, phoneNumber: String, passportOrId: String, passportOrIdSeries: String, position: String, workingRegion: String,  password: String, password2: String){
+       Log.d("Tax Register", fullName)
+
+        repository.registerTaxOfficer(TaxOfficerRegisterBody(
+            full_name = fullName,
+            phone_number = "+${998}$phoneNumber",
+            passport_or_id = if (passportOrId == "ID") "passport" else "document_id",
+            password_or_id_number = passportOrIdSeries,
+            position = position,
+            working_region = workingRegion,
+            password = password,
+            password2 = password2
+        )).onEach {
             Log.d("Register View Model click", "$phoneNumber")
 
             when(it){

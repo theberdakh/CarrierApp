@@ -95,8 +95,14 @@
         android:id="@+id/search_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_gravity="center_horizontal"
         android:indeterminate="true"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal" />
 
 
     </LinearLayout>

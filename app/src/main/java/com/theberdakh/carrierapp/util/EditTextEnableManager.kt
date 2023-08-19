@@ -28,6 +28,14 @@ fun MaterialButton.checkText(et: TextInputEditText, length: Int): Boolean {
     return this.isEnabled
 }
 
+fun TextInputEditText.getNotNullText() = if (this.text.toString() == "" || this.text.toString() == null)
+    "Null"
+else
+    this.text.toString()
+
+
+fun TextInputEditText.hasText() = this.text.toString().isNotEmpty()
+
 fun TextInputEditText.setErrorText(
     parent: TextInputLayout,
     errorText: String = "Toltiriw kerek!",
@@ -38,7 +46,7 @@ fun TextInputEditText.setErrorText(
 
     var setError = true
 
-    if (doAfter){
+    if (doAfter) {
         this.doAfterTextChanged {
             if (condition(this.text)) {
                 parent.error = errorText
@@ -47,8 +55,7 @@ fun TextInputEditText.setErrorText(
                 setError = false
             }
         }
-    }
-    else {
+    } else {
         this.addTextChangedListener {
             if (condition(this.text)) {
                 parent.error = errorText
@@ -63,19 +70,17 @@ fun TextInputEditText.setErrorText(
 }
 
 
-
-
-fun AutoCompleteTextView.setCustomAdapter(vararg options: String){
+fun AutoCompleteTextView.setCustomAdapter(vararg options: String) {
 
     val arrayAdapter = ArrayAdapter(
         App.instance,
         R.layout.simple_spinner_dropdown_item,
-        options)
+        options
+    )
 
     this.setText(options[0])
 
     this.setAdapter(arrayAdapter)
-
 
 
 }

@@ -3,7 +3,6 @@
     <style name="Base.Theme.CarrierApp" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowBackground">@color/white</item>
-        <item name="materialSwitchStyle">@style/Widget.App.Switch</item>
         <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:navigationBarColor">@color/white</item>
     </style>

@@ -6,5 +6,5 @@ data class TaxOfficer(
     val password_or_id_number: String,
     val phone_number: String,
     val position: String,
-    val working_region: Int
+    val working_region: String
 )
