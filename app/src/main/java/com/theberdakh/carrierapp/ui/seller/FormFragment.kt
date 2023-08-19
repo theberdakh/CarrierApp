@@ -9,6 +9,7 @@ import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,6 +19,9 @@ import com.theberdakh.carrierapp.data.model.response.order.PostOrder
 import com.theberdakh.carrierapp.databinding.FragmentSellerFormBinding
 import com.theberdakh.carrierapp.presentation.SellerViewModel
 import com.theberdakh.carrierapp.util.makeToast
+import com.theberdakh.carrierapp.util.setCustomAdapter
+import com.theberdakh.carrierapp.util.setErrorText
+import com.theberdakh.carrierapp.util.showSnackBar
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -64,67 +68,85 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
 
     private fun initViews() {
 
-        val documentTypeAdapter = ArrayAdapter(
-            requireActivity(),
-            android.R.layout.simple_spinner_dropdown_item,
-            arrayOf("Passport", "ID")
-        )
-        binding.atvDocumentType.setAdapter(documentTypeAdapter)
-        binding.atvDocumentType.setOnItemClickListener { parent, view, position, id ->
-            makeToast(parent.getItemAtPosition(position).toString())
+
+        binding.tilCarrierTrailerWeight.isVisible = false
+
+        binding.atvDocumentType.setCustomAdapter("ID", "Passport")
+        binding.atvCargoUnit.setCustomAdapter("KG", "m3")
+        binding.atvCargoType.setCustomAdapter("Sheben", "Shege qum")
+        binding.atvCarrierTrailer.setCustomAdapter("Joq", "Bar")
+
+
+        binding.etAutoNumber.setErrorText(binding.tilAutoNumber, doAfter = true) {
+            it.toString().isEmpty()
+        }
+        binding.etCarrierAutoBrand.setErrorText(binding.tilCarrierAutoBrand, doAfter = true) {
+            it.toString().isEmpty()
+        }
+        binding.etCarrierName.setErrorText(binding.tilCarrierName, doAfter = true) {
+            it.toString().isEmpty()
+        }
+        binding.etCarrierPhone.setErrorText(binding.tilCarrierPhone, doAfter = true) {
+            it.toString().isEmpty()
+        }
+        binding.etPassportSeries.setErrorText(binding.tilPassportSeries, doAfter = true) {
+            it.toString().isEmpty()
+        }
+        binding.etWeight.setErrorText(binding.tilWeight, doAfter = true) {
+            it.toString().isEmpty()
+        }
+        binding.etCarrierTrailerWeight.setErrorText(
+            binding.tilCarrierTrailerWeight,
+            doAfter = true
+        ) {
+            it.toString().isEmpty()
         }
 
-        val unitsAdapter = ArrayAdapter(
-            requireActivity(),
-            android.R.layout.simple_spinner_dropdown_item,
-            arrayOf("KG", "m3")
-        )
-        binding.atvCargoUnit.setAdapter(unitsAdapter)
-        binding.atvCargoUnit.setOnItemClickListener { parent, view, position, id ->
-            makeToast(parent.getItemAtPosition(position).toString())
-        }
-        val cargoTypeAdapter = ArrayAdapter(
-            requireActivity(),
-            android.R.layout.simple_spinner_dropdown_item,
-            arrayOf("Sheben", "Shege qum")
-        )
-        binding.atvCargoType.setAdapter(cargoTypeAdapter)
-        binding.atvCargoType.setOnItemClickListener { parent, view, position, id ->
-            makeToast(parent.getItemAtPosition(position).toString())
-        }
+
     }
 
 
-
-
-
     private fun initListeners() {
+
+        binding.atvCarrierTrailer.setOnItemClickListener { parent, view, position, id ->
+            binding.tilCarrierTrailerWeight.isVisible = parent.getItemAtPosition(position) == "Bar"
+        }
+
         binding.tbForm.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
-        Log.d("Tag", "Inited")
-        binding.btnSendForm.clicks().debounce(300).onEach {
+        binding.btnSendForm.setOnClickListener {
 
-            Log.d("Tag", "Clicked")
+            if (binding.etAutoNumber.setErrorText(binding.tilAutoNumber) {
+                    it.toString().isEmpty()
+                } &&
+                binding.etCarrierAutoBrand.setErrorText(binding.tilCarrierAutoBrand) {
+                    it.toString().isEmpty()
+                } &&
+                binding.etCarrierName.setErrorText(binding.tilCarrierName) {
+                    it.toString().isEmpty()
+                } &&
+                binding.etCarrierPhone.setErrorText(binding.tilCarrierPhone) {
+                    it.toString().isEmpty()
+                } &&
+                binding.etPassportSeries.setErrorText(binding.tilPassportSeries) {
+                    it.toString().isEmpty()
+                } &&
+                binding.etWeight.setErrorText(binding.tilWeight) {
+                    it.toString().isEmpty()
+                } &&
+                binding.etCarrierTrailerWeight.setErrorText(binding.tilCarrierTrailerWeight) {
+                    it.toString().isEmpty()
+                }
+            ) {
+                findNavController().popBackStack()
+            }
+            else {
+                showSnackBar(binding.btnSendForm, "Ha'mme kerek jerledi toltirin'!")
+            }
 
-
-            viewModel.postOrder(PostOrder(
-                driver_name = binding.etCarrierName.text.toString(),
-                driver_phone_number = binding.etCarrierPhone.text.toString(),
-                driver_passport_or_id = "passport",
-                driver_passport_or_id_number = binding.etPassportSeries.text.toString(),
-                car_number = binding.etAutoNumber.text.toString(),
-                car_photo = encoded,
-                location = "349355, 3489083",
-                karer = SharedPrefStorage().id,
-                cargo_type = 1,
-                cargo_value = 1,
-                cargo_unit = 1,
-                weight = "30943"
-            ))
-
-        }.launchIn(lifecycleScope)
+        }
 
         binding.ivFormImage.setOnClickListener {
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
