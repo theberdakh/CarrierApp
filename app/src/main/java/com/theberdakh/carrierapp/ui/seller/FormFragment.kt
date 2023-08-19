@@ -95,10 +95,10 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
         binding.etWeight.setErrorText(binding.tilWeight, doAfter = true) {
             it.toString().isEmpty()
         }
-        binding.etCarrierTrailerWeight.setErrorText(
-            binding.tilCarrierTrailerWeight,
-            doAfter = true
-        ) {
+        binding.etCarrierTrailerWeight.setErrorText(binding.tilCarrierTrailerWeight, doAfter = true) {
+            it.toString().isEmpty()
+        }
+        binding.etDirection.setErrorText(binding.tilDirection, doAfter = true){
             it.toString().isEmpty()
         }
 
@@ -115,6 +115,7 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
         binding.tbForm.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
 
         binding.btnSendForm.setOnClickListener {
 
@@ -141,8 +142,7 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
                 }
             ) {
                 findNavController().popBackStack()
-            }
-            else {
+            } else {
                 showSnackBar(binding.btnSendForm, "Ha'mme kerek jerledi toltirin'!")
             }
 

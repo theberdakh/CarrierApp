@@ -3,11 +3,14 @@ package com.theberdakh.carrierapp.ui.tax
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
-import com.theberdakh.carrierapp.databinding.FragmentTaxOrdersBinding
+import com.theberdakh.carrierapp.data.model.response.order.Order
+import com.theberdakh.carrierapp.databinding.FragmentTaxSearchBinding
 import com.theberdakh.carrierapp.presentation.TaxViewModel
 import com.theberdakh.carrierapp.ui.adapter.TaxOrderAdapter
 import com.theberdakh.carrierapp.util.makeToast
@@ -16,15 +19,15 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
-    private lateinit var binding: FragmentTaxOrdersBinding
+class TaxSearchOrders: Fragment(R.layout.fragment_tax_search) {
+    private lateinit var binding: FragmentTaxSearchBinding
     private val viewModel by viewModel<TaxViewModel>()
     private var _adapter: TaxOrderAdapter? = null
     private val adapter get() = _adapter!!
+    private val orders: ArrayList<Order> = arrayListOf()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentTaxOrdersBinding.bind(view)
-
+        binding = FragmentTaxSearchBinding.bind(view)
 
         initViews()
         initObservers()
@@ -34,8 +37,9 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
     }
 
     private fun initViews() {
+
         _adapter = TaxOrderAdapter()
-        binding.rvTaxOrders.adapter = adapter
+        binding.rvSearchOrders.adapter = adapter
     }
 
     private fun initObservers() {
@@ -46,9 +50,16 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
         }
 
 
-        viewModel.successFlow.onEach {
-            Log.d("Order by Id Success", "Success ${it.results}")
-            adapter.submitList(it.results.asReversed())
+        viewModel.successFlow.onEach { orderResponse ->
+            Log.d("Order by Id Success", "Success ${orderResponse.results}")
+
+            adapter.submitList(orderResponse.results.asReversed())
+            orders.addAll(orderResponse.results)
+
+            if (orderResponse.results.isEmpty()){
+                binding.searchProgress.isVisible = false
+            }
+
         }.launchIn(lifecycleScope)
 
         viewModel.messageFlow.onEach {
@@ -66,19 +77,26 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
 
 
     private fun initListeners() {
-
-        adapter.onOrderClickListener {
-            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxFormFragment())
+        binding.tbSearch.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
 
         adapter.onOrderFineClickListener {
             makeToast("Fine clicked")
         }
 
-        binding.fabSearchOrders.setOnClickListener {
-            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxSearchOrders())
-        }
+        binding.etSearch.addTextChangedListener {query ->
+            val sortedList = orders.filter {
+                it.car_number.startsWith(query.toString())
+            }
 
+            if (sortedList.isEmpty()){
+                binding.searchProgress.isVisible = false
+            }
+
+
+            adapter.submitList(sortedList)
+        }
 
     }
 }
