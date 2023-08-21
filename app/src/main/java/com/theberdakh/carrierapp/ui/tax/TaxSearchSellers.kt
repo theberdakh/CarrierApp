@@ -1,11 +1,14 @@
 package com.theberdakh.carrierapp.ui.tax
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
+import com.theberdakh.carrierapp.data.local.SharedPrefStorage
 import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.data.model.response.seller.GetAllSellerResult
 import com.theberdakh.carrierapp.databinding.FragmentTaxSearchSellersBinding
@@ -29,10 +32,9 @@ class TaxSearchSellers: Fragment(R.layout.fragment_tax_search_sellers) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTaxSearchSellersBinding.bind(view)
 
+
         initViews()
-
         initObservers()
-
         initListeners()
 
 
@@ -40,33 +42,43 @@ class TaxSearchSellers: Fragment(R.layout.fragment_tax_search_sellers) {
 
     private fun initListeners() {
 
+        binding.tbSearch.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        adapter.onSellerClickListener {
+            SharedPrefStorage().lastSellerId = it.id
+            SharedPrefStorage().lastSellerName = it.karer_name
+            SharedPrefStorage().lastSelectedPhone = it.phone_number
+            findNavController().popBackStack()
+        }
+
+
         binding.etSearch.addTextChangedListener {query ->
             val sortedList = sellers.filter {
                 when(binding.groupFilters.checkedButtonId){
                     binding.toggleByName.id -> {
-                        it.karer_name.contains(query.toString())
+                        it.karer_name.lowercase().contains(query.toString().lowercase())
                     }
                     binding.toggleByPhone.id -> {
-                        it.phone_number.contains(query.toString())
+                        it.phone_number.contains("+998$query")
                     }
-                    else  -> {it.karer_name.contains(query.toString())}
+                    else  -> {it.karer_name.lowercase().contains(query.toString().lowercase())}
                 }
             }
             adapter.submitList(sortedList)
         }
 
 
-
-
         binding.groupFilters.addOnButtonCheckedListener { group, checkedId, isChecked ->
             when(checkedId){
                 binding.toggleByName.id -> {
-                    binding.tilSearch.hint = "Misali: 95A123CD"
+                    Log.d("Toggle", "Selected by name")
                     binding.tilSearch.prefixText = "Ati:"
                 }
                 binding.toggleByPhone.id -> {
-                    binding.tilSearch.hint = "Telefon nomeri"
-                    binding.tilSearch.prefixText = "Tel: +998"
+                    Log.d("Toggle", "Selected phone")
+                    binding.tilSearch.prefixText = "Tel:+998"
                 }
             }
         }
@@ -75,14 +87,16 @@ class TaxSearchSellers: Fragment(R.layout.fragment_tax_search_sellers) {
     private fun initViews() {
         _adapter = TaxSellersAdapter()
         binding.rvSearchOrders.adapter = adapter
-
+        binding.toggleByName.isSelected = true
+        binding.tilSearch.prefixText = "Ati:"
+        binding.etSearch.requestFocus()
     }
 
     private fun initObservers() {
         lifecycleScope.launch {
             viewModel.getAllSellers()
-
         }
+
 
         viewModel.allSellersSuccessFlow.onEach {
             adapter.submitList(it.results)
@@ -97,4 +111,5 @@ class TaxSearchSellers: Fragment(R.layout.fragment_tax_search_sellers) {
             makeToast(it.message.toString())
         }.launchIn(lifecycleScope)
     }
+
 }

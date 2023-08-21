@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.data.model.response.seller.GetAllSellerResult
 import com.theberdakh.carrierapp.databinding.ItemRecyclerSellerBinding
 
@@ -15,6 +16,11 @@ class TaxSellersAdapter: ListAdapter<GetAllSellerResult,TaxSellersAdapter.TaxSel
             val seller = getItem(adapterPosition)
             binding.tvTitle.text = seller.karer_name
             binding.tvSubtitle.text = seller.phone_number
+
+            binding.root.setOnClickListener {
+                onSellerClick.invoke(seller)
+            }
+
         }
 
     }
@@ -38,5 +44,11 @@ class TaxSellersAdapter: ListAdapter<GetAllSellerResult,TaxSellersAdapter.TaxSel
     )
 
     override fun onBindViewHolder(holder: TaxSellersViewHolder, position: Int)  = holder.bind()
+
+
+    private lateinit var onSellerClick: (GetAllSellerResult) -> Unit
+    fun onSellerClickListener(seller:(GetAllSellerResult) -> Unit ){
+        this.onSellerClick = seller
+    }
 
 }

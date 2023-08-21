@@ -36,6 +36,7 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
     private fun initViews() {
         _adapter = TaxOrderAdapter()
         binding.rvTaxOrders.adapter = adapter
+
     }
 
     private fun initObservers() {

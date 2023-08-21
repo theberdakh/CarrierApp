@@ -150,4 +150,9 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
+
+    override fun onResume() {
+        binding.atvSellerName.setText(SharedPrefStorage().lastSellerName)
+        super.onResume()
+    }
 }

@@ -26,6 +26,9 @@ class SharedPrefStorage {
     var signedIn by BooleanPreference(pref)
     var passportOrId by StringPreference(pref)
     var passportOrIdNumber by StringPreference(pref)
+    var lastSellerName by StringPreference(pref)
+    var lastSellerId by IntPreference(pref)
+    var lastSelectedPhone by StringPreference(pref)
 
 
 }
