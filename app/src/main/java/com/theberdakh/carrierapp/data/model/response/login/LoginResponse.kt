@@ -7,7 +7,7 @@ data class LoginResponse(
     val token: String,
     val full_name: String,
     val passport_or_id: String,
-    val passport_or_id_number: String,
+    val password_or_id_number: String,
     val position: String,
     val working_region: String,
     val karer_name: String

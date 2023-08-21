@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.databinding.TaxOfficerSignUpBinding
 import com.theberdakh.carrierapp.presentation.RegisterViewModel
@@ -104,6 +105,8 @@ class TaxOfficerSignUpFragment: Fragment(R.layout.tax_officer_sign_up) {
                 binding.etPassword.getNotNullText(),
                 binding.etPassword.getNotNullText()
             )
+
+            findNavController().popBackStack()
 
         }.launchIn(lifecycleScope)
     }

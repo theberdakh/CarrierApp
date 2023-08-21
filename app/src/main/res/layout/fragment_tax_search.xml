@@ -28,7 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:hint="Misali: 95A123BC"
             app:endIconMode="clear_text"
             app:boxCornerRadiusTopStart="16dp"
             app:boxCornerRadiusTopEnd="16dp"
@@ -47,7 +46,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/toggleButton"
+            android:id="@+id/group_filters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -55,24 +54,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:checkedButton="@id/toggle_by_auto_number"
             app:singleSelection="true">
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/toggle_by_auto_number"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Avto nomer" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/toggle_by_passport"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Passport" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/toggle_by_phone"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

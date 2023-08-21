@@ -48,11 +48,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         viewModel.successFlow.onEach {
         Log.d("Login Success", "Success ${it.token}")
-        saveResponse(it)
 
             if (it.type == "tax_officer"){
+                saveResponseTax(it)
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToTaxFragment())
             } else {
+                saveResponseKarer(it)
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserFragment())
             }
 
@@ -69,17 +70,31 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     }
 
-    private fun saveResponse(loginResponse: LoginResponse) {
+    private fun saveResponseKarer(loginResponse: LoginResponse) {
+        SharedPrefStorage().id = loginResponse.id
+        SharedPrefStorage().type = loginResponse.type
         SharedPrefStorage().phoneNumber = binding.etUsername.text.toString()
         SharedPrefStorage().token = loginResponse.token
-        SharedPrefStorage().type = loginResponse.type
-        SharedPrefStorage().password = binding.etPassword.text.toString()
-        SharedPrefStorage().id = loginResponse.id
         SharedPrefStorage().name = if(loginResponse.karer_name.isNullOrEmpty()) "Null" else loginResponse.karer_name
-        SharedPrefStorage().signedIn = true
+    }
+
+    private fun saveResponseTax(loginResponse: LoginResponse) {
+        SharedPrefStorage().id = loginResponse.id
+        SharedPrefStorage().type = loginResponse.type
+        SharedPrefStorage().phoneNumber = binding.etUsername.text.toString()
+        SharedPrefStorage().token = loginResponse.token
+        SharedPrefStorage().name = if(loginResponse.karer_name.isNullOrEmpty()) "Null" else loginResponse.karer_name
+
+
+        SharedPrefStorage().id = loginResponse.id
+        SharedPrefStorage().type = loginResponse.type
+        SharedPrefStorage().phoneNumber = binding.etUsername.text.toString()
+        SharedPrefStorage().token = loginResponse.token
+        SharedPrefStorage().password = binding.etPassword.text.toString()
+       SharedPrefStorage().signedIn = true
         SharedPrefStorage().name = loginResponse.full_name
         SharedPrefStorage().passportOrId = loginResponse.passport_or_id
-        SharedPrefStorage().passportOrIdNumber = loginResponse.passport_or_id_number
+        SharedPrefStorage().passportOrIdNumber = loginResponse.password_or_id_number
 
     }
 
