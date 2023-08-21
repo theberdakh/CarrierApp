@@ -57,9 +57,9 @@ class TaxOfficerSignUpFragment: Fragment(R.layout.tax_officer_sign_up) {
     private fun initViews() {
 
         binding.btnRegister.isEnabled = false
-        binding.atvPosition.setCustomAdapter("Basliq", "Orinbasar")
-        binding.atvDocumentType.setCustomAdapter("ID", "Passport")
-        binding.atvRegion.setCustomAdapter("Qaraqalpaqstan Respublikasi", "Andijan", "Buxara", "Ferg'ana", "Jizzax", "Xorezm", "Namangan", "Nawayi", "Qashqadarya", "Samarqand", "Sirdarya", "Surxandarya", "Tashkent")
+        binding.atvPosition.setCustomAdapter(listOf("Basliq", "Orinbasar"))
+        binding.atvDocumentType.setCustomAdapter(listOf("ID", "Passport"))
+        binding.atvRegion.setCustomAdapter(listOf("Qaraqalpaqstan Respublikasi", "Andijan", "Buxara", "Ferg'ana", "Jizzax", "Xorezm", "Namangan", "Nawayi", "Qashqadarya", "Samarqand", "Sirdarya", "Surxandarya", "Tashkent"))
         binding.etFirstLastPoetricName.setErrorText(binding.tilFirstLast, doAfter = true){
             it.toString().isEmpty()
         }

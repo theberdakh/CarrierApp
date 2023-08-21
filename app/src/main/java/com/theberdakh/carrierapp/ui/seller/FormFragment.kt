@@ -71,10 +71,10 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
 
         binding.tilCarrierTrailerWeight.isVisible = false
 
-        binding.atvDocumentType.setCustomAdapter("ID", "Passport")
-        binding.atvCargoUnit.setCustomAdapter("KG", "m3")
-        binding.atvCargoType.setCustomAdapter("Sheben", "Shege qum")
-        binding.atvCarrierTrailer.setCustomAdapter("Joq", "Bar")
+        binding.atvDocumentType.setCustomAdapter(listOf("ID", "Passport"))
+        binding.atvCargoUnit.setCustomAdapter(listOf("KG", "m3"))
+        binding.atvCargoType.setCustomAdapter(listOf("Sheben", "Shege qum"))
+        binding.atvCarrierTrailer.setCustomAdapter(listOf("Joq", "Bar"))
 
 
         binding.etAutoNumber.setErrorText(binding.tilAutoNumber, doAfter = true) {

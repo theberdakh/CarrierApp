@@ -70,7 +70,7 @@ fun TextInputEditText.setErrorText(
 }
 
 
-fun AutoCompleteTextView.setCustomAdapter(vararg options: String) {
+fun AutoCompleteTextView.setCustomAdapter(options: List<String>) {
 
     val arrayAdapter = ArrayAdapter(
         App.instance,

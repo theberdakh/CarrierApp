@@ -51,7 +51,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Avtomobil nomeri: 95A123KA"
-                    android:layout_margin="8dp">
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginVertical="4dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_auto_number"
@@ -70,7 +71,8 @@
                     android:layout_width="match_parent"
                     android:hint="Avtomobil modeli"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp">
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginVertical="4dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_carrier_auto_brand"
@@ -93,11 +95,13 @@
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_carrier_name"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:hint="Júk tasıwshı atı"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp">
+            android:layout_marginVertical="4dp"
+            android:layout_marginHorizontal="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_carrier_name"
@@ -110,11 +114,13 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_carrier_phone"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:hint="Júk tasıwshı telefon nomeri"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginVertical="4dp"
+            android:layout_marginHorizontal="8dp"
             app:prefixText="+998">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -128,6 +134,25 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_seller_name"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:hint="Karer ati"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:layout_marginHorizontal="8dp"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/atv_seller_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textAutoComplete"
+                 />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -142,7 +167,8 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:hint="Hújjet túri"
-                android:layout_margin="16dp"
+                android:layout_marginVertical="4dp"
+                android:layout_marginHorizontal="8dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -150,7 +176,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="none"
-                    android:padding="16dp"
                     android:maxLength="9"
                     />
 
@@ -158,11 +183,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_passport_series"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:hint="Seriyası: AA12345"
-                android:layout_margin="16dp">
+                android:layout_marginVertical="4dp"
+                android:layout_marginHorizontal="8dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_passport_series"
@@ -192,7 +219,8 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:hint="Júk túri"
-                android:layout_margin="16dp"
+                android:layout_marginVertical="4dp"
+                android:layout_marginHorizontal="8dp"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -200,7 +228,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="none"
-                    android:padding="16dp"
                     />
 
 
@@ -212,14 +239,14 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:hint="Ju'k shiqqan sa'ne"
-                android:layout_margin="16dp">
+                android:layout_marginVertical="4dp"
+                android:layout_marginHorizontal="8dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_cargo_date"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="date"
-                    android:padding="16dp"
                     />
 
 
@@ -236,7 +263,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:hint="Ja'riyma tu'ri"
-            android:layout_margin="16dp"
+            android:layout_marginVertical="4dp"
+            android:layout_marginHorizontal="8dp"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -244,19 +272,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="none"
-                android:padding="16dp"
                 />
 
 
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_send_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginVertical="16dp"
+            android:layout_marginHorizontal="8dp"
             android:text="@string/title_send_form"/>
 
 

@@ -84,10 +84,18 @@
         android:id="@+id/taxFormFragment"
         android:name="com.theberdakh.carrierapp.ui.tax.TaxFormFragment"
         android:label="TaxFormFragment"
-        tools:layout="@layout/fragment_tax_form"/>
+        tools:layout="@layout/fragment_tax_form">
+        <action
+            android:id="@+id/action_taxFormFragment_to_taxSearchSellers"
+            app:destination="@id/taxSearchSellers" />
+    </fragment>
     <fragment
         android:id="@+id/taxSearchOrders"
         android:name="com.theberdakh.carrierapp.ui.tax.TaxSearchOrders"
         android:label="TaxSearchOrders"
-        tools:layout="@layout/fragment_tax_search"/>
+        tools:layout="@layout/fragment_tax_search_orders"/>
+    <fragment
+        android:id="@+id/taxSearchSellers"
+        android:name="com.theberdakh.carrierapp.ui.tax.TaxSearchSellers"
+        android:label="TaxSearchSellers" />
 </navigation>

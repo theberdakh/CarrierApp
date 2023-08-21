@@ -1,16 +1,14 @@
 package com.theberdakh.carrierapp.ui.tax
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.model.response.order.Order
-import com.theberdakh.carrierapp.databinding.FragmentTaxSearchBinding
+import com.theberdakh.carrierapp.databinding.FragmentTaxSearchOrdersBinding
 import com.theberdakh.carrierapp.presentation.TaxViewModel
 import com.theberdakh.carrierapp.ui.adapter.TaxOrderAdapter
 import com.theberdakh.carrierapp.util.makeToast
@@ -19,64 +17,47 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TaxSearchOrders: Fragment(R.layout.fragment_tax_search) {
-    private lateinit var binding: FragmentTaxSearchBinding
+class TaxSearchOrders: Fragment(R.layout.fragment_tax_search_orders) {
+    private lateinit var binding: FragmentTaxSearchOrdersBinding
     private val viewModel by viewModel<TaxViewModel>()
     private var _adapter: TaxOrderAdapter? = null
     private val adapter get() = _adapter!!
-
     private val orders: ArrayList<Order> = arrayListOf()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentTaxSearchBinding.bind(view)
+        binding = FragmentTaxSearchOrdersBinding.bind(view)
 
         initViews()
         initObservers()
         initListeners()
-
-
     }
-
     private fun initViews() {
 
         _adapter = TaxOrderAdapter()
         binding.rvSearchOrders.adapter = adapter
         binding.toggleByAutoNumber.isSelected = true
-        binding.tilSearch.prefixText = "Avtomobil nomeri:"
+        binding.tilSearch.prefixText = getString(R.string.prefix_auto_number)
         binding.etSearch.requestFocus()
     }
-
     private fun initObservers() {
 
         lifecycleScope.launch {
-            Log.d("Send", "get all orders request")
             viewModel.getAllOrders()
         }
 
-
         viewModel.successFlow.onEach { orderResponse ->
-            Log.d("Order by Id Success", "Success ${orderResponse.results}")
-
             adapter.submitList(orderResponse.results.asReversed())
             orders.addAll(orderResponse.results)
-
-            if (orderResponse.results.isEmpty()){
-                binding.searchProgress.isVisible = false
-            }
-
         }.launchIn(lifecycleScope)
 
         viewModel.messageFlow.onEach {
-            Log.d("Order by Id Message", "mess $it")
-
             makeToast(it)
         }.launchIn(lifecycleScope)
 
         viewModel.errorFlow.onEach {
-            Log.d("Order by Id error", "errir")
-
-            makeToast("Error, check your Internet connection")
+            makeToast("Error: ${it.message}")
         }.launchIn(lifecycleScope)
+
     }
 
 
@@ -90,7 +71,6 @@ class TaxSearchOrders: Fragment(R.layout.fragment_tax_search) {
         }
 
         binding.groupFilters.addOnButtonCheckedListener { _, checkedId, _ ->
-
             when(checkedId){
                 binding.toggleByAutoNumber.id -> {
                     binding.tilSearch.hint = "Misali: 95A123CD"
@@ -105,19 +85,13 @@ class TaxSearchOrders: Fragment(R.layout.fragment_tax_search) {
                     binding.tilSearch.prefixText = "Tel: +998"
                 }
             }
-
-
-
         }
-
 
         binding.etSearch.addTextChangedListener {query ->
             val sortedList = orders.filter {
-
                 when(binding.groupFilters.checkedButtonId){
                     binding.toggleByAutoNumber.id -> {
                         it.car_number.contains(query.toString())
-
                     }
                     binding.toggleByPassport.id -> {
                         it.driver_passport_or_id_number.contains(query.toString())
@@ -128,11 +102,6 @@ class TaxSearchOrders: Fragment(R.layout.fragment_tax_search) {
                     else  -> {it.car_number.contains(query.toString())}
                 }
             }
-
-            if (sortedList.isEmpty()){
-                binding.searchProgress.isVisible = false
-            }
-
             adapter.submitList(sortedList)
         }
 
