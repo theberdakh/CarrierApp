@@ -1,8 +1,6 @@
 package com.theberdakh.carrierapp.ui.tax
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
@@ -10,8 +8,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.button.MaterialButtonToggleGroup
-import com.google.android.material.button.MaterialButtonToggleGroup.OnButtonCheckedListener
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.databinding.FragmentTaxSearchBinding
@@ -29,11 +25,6 @@ class TaxSearchOrders: Fragment(R.layout.fragment_tax_search) {
     private var _adapter: TaxOrderAdapter? = null
     private val adapter get() = _adapter!!
 
-    private companion object {
-        const val SORT_AUTO_NUMBER = 0
-        const val SORT_PASSPORT = 1
-        const val SORT_PHONE = 2
-    }
     private val orders: ArrayList<Order> = arrayListOf()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,7 +67,7 @@ class TaxSearchOrders: Fragment(R.layout.fragment_tax_search) {
         }.launchIn(lifecycleScope)
 
         viewModel.messageFlow.onEach {
-            Log.d("Order by Id Message", "mess ${it}")
+            Log.d("Order by Id Message", "mess $it")
 
             makeToast(it)
         }.launchIn(lifecycleScope)
@@ -98,9 +89,9 @@ class TaxSearchOrders: Fragment(R.layout.fragment_tax_search) {
             makeToast("Fine clicked")
         }
 
-        binding.groupFilters.addOnButtonCheckedListener { group, checkedId, isChecked ->
+        binding.groupFilters.addOnButtonCheckedListener { _, checkedId, _ ->
 
-            when(binding.groupFilters.checkedButtonId){
+            when(checkedId){
                 binding.toggleByAutoNumber.id -> {
                     binding.tilSearch.hint = "Misali: 95A123CD"
                     binding.tilSearch.prefixText = "Avtomobil nomeri:"
