@@ -85,7 +85,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         SharedPrefStorage().phoneNumber = binding.etUsername.text.toString()
         SharedPrefStorage().token = loginResponse.token
         SharedPrefStorage().name = if(loginResponse.karer_name.isNullOrEmpty()) "Null" else loginResponse.karer_name
-
+        SharedPrefStorage().region = loginResponse.working_region
+        SharedPrefStorage().position = loginResponse.position
 
         SharedPrefStorage().id = loginResponse.id
         SharedPrefStorage().type = loginResponse.type

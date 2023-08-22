@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_taxFragment_to_taxSearchOrders"
             app:destination="@id/taxSearchOrders" />
+        <action
+            android:id="@+id/action_taxFragment_to_taxProfile"
+            app:destination="@id/taxProfile" />
     </fragment>
     <fragment
         android:id="@+id/taxFormFragment"
@@ -97,5 +100,11 @@
     <fragment
         android:id="@+id/taxSearchSellers"
         android:name="com.theberdakh.carrierapp.ui.tax.TaxSearchSellers"
-        android:label="TaxSearchSellers" />
+        android:label="TaxSearchSellers"
+        tools:layout="@layout/fragment_tax_search_sellers"/>
+    <fragment
+        android:id="@+id/taxProfile"
+        android:name="com.theberdakh.carrierapp.ui.tax.TaxProfile"
+        android:label="TaxProfile"
+        tools:layout="@layout/fragment_tax_profile"/>
 </navigation>

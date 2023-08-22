@@ -3,13 +3,18 @@ package com.theberdakh.carrierapp.ui.seller
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.signature.ObjectKey
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.databinding.FragmentOrderDetailsBinding
@@ -22,14 +27,21 @@ import java.util.Locale
 
 
 class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
-    private lateinit var binding: FragmentOrderDetailsBinding
+    private  var _binding: FragmentOrderDetailsBinding? = null
+    private val binding get() = _binding!!
     private val viewModel by viewModel<SellerViewModel>()
+    private val args: OrderDetailsFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initObservers(args.id)
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentOrderDetailsBinding.bind(view)
-        val args: OrderDetailsFragmentArgs by navArgs()
+        _binding = FragmentOrderDetailsBinding.bind(view)
 
-        initObservers(args.id)
         initViews()
         initListeners()
 
@@ -42,9 +54,13 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
 
         viewModel.orderSuccessFlow.onEach {
 
+            val requestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL)
+
             Glide.with(requireActivity())
                 .load(it.car_photo)
                 .placeholder(R.drawable.baseline_add_a_photo_24)
+                .thumbnail(Glide.with(requireActivity()).load(it.car_photo))
+                .apply(requestOptions)
                 .into(binding.ivOrder)
 
 
@@ -87,6 +103,7 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
             WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY)
         super.onDestroyView()
+        _binding = null
     }
 
 }

@@ -44,6 +44,10 @@ class TaxFragment : Fragment(R.layout.fragment_tax){
                     requireActivity().overridePendingTransition(0,0)
                     true
                 }
+                R.id.action_profile -> {
+                    findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxProfile())
+                    true
+                }
                 else -> {true}
             }
         }
