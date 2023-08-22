@@ -1,4 +1,4 @@
-package com.theberdakh.carrierapp.ui.tax
+package com.theberdakh.carrierapp.ui.seller
 
 import android.os.Bundle
 import android.util.Log
@@ -7,20 +7,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
-import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.data.model.response.violation.Violation
-import com.theberdakh.carrierapp.databinding.FragmentTaxViolationsBinding
+import com.theberdakh.carrierapp.databinding.FragmentSellerBinding
+import com.theberdakh.carrierapp.databinding.FragmentSellerViolationsBinding
 import com.theberdakh.carrierapp.presentation.TaxViewModel
 import com.theberdakh.carrierapp.ui.adapter.TaxViolationAdapter
+import com.theberdakh.carrierapp.ui.tax.TaxFragmentDirections
 import com.theberdakh.carrierapp.util.makeToast
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
-{
-    private lateinit var binding: FragmentTaxViolationsBinding
+class SellerViolations : Fragment(
+    R.layout.fragment_seller_violations
+) {
+    private lateinit var binding: FragmentSellerViolationsBinding
     private val viewModel by viewModel<TaxViewModel>()
     private var _adapter: TaxViolationAdapter? = null
     private val adapter get() = _adapter!!
@@ -28,12 +30,11 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentTaxViolationsBinding.bind(view)
+        binding = FragmentSellerViolationsBinding.bind(view)
 
         initViews()
         initObservers()
         initListeners()
-
 
     }
 
@@ -56,8 +57,8 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
                     binding.btnNotEntered.id -> {
                         it.reason_violation == "not_entered"
                     }
-                   else -> it.reason_violation== "entered_incorrect"}
-                }
+                    else -> it.reason_violation== "entered_incorrect"}
+            }
             adapter.submitList(sortedList)
         }
 
@@ -97,7 +98,4 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
         _adapter = TaxViolationAdapter()
         binding.rvTaxViolations.adapter = adapter
     }
-
-
-
 }

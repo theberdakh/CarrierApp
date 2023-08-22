@@ -10,7 +10,7 @@
         android:id="@+id/userFragment"
         android:name="com.theberdakh.carrierapp.ui.seller.SellerFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_user" >
+        tools:layout="@layout/fragment_seller" >
         <action
             android:id="@+id/action_userFragment_to_formFragment"
             app:destination="@id/formFragment" />

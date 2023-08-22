@@ -1,30 +1,23 @@
 package com.theberdakh.carrierapp.ui.seller
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
+import com.google.android.material.tabs.TabLayoutMediator
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
-import com.theberdakh.carrierapp.databinding.FragmentUserBinding
-import com.theberdakh.carrierapp.presentation.SellerViewModel
-import com.theberdakh.carrierapp.ui.adapter.OrderAdapter
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.theberdakh.carrierapp.databinding.FragmentSellerBinding
+import com.theberdakh.carrierapp.ui.authentication.adapter.SignUpViewPagerAdapter
+import com.theberdakh.carrierapp.ui.tax.TaxOrdersFragment
+import com.theberdakh.carrierapp.ui.tax.TaxViolationsFragment
 
-class SellerFragment: Fragment(R.layout.fragment_user) {
-    private lateinit var binding: FragmentUserBinding
-    private val viewModel by viewModel<SellerViewModel>()
-    private var _adapter: OrderAdapter? = null
-    private val adapter get() = _adapter!!
+class SellerFragment: Fragment(R.layout.fragment_seller) {
+    private lateinit var binding: FragmentSellerBinding
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentUserBinding.bind(view)
+        binding = FragmentSellerBinding.bind(view)
 
         initViews()
         initObservers()
@@ -35,43 +28,41 @@ class SellerFragment: Fragment(R.layout.fragment_user) {
     }
 
     private fun initViews() {
+        binding.vpSeller.adapter = SignUpViewPagerAdapter(arrayListOf(SellerOrders(), SellerViolations()), requireActivity().supportFragmentManager, requireActivity().lifecycle)
 
-        binding.tbUser.title = "Buyırtpalar"
-        binding.tbUser.subtitle = SharedPrefStorage().name
+        binding.tbSeller.title = SharedPrefStorage().name
 
-
-        _adapter = OrderAdapter()
-        binding.rvUser.adapter = adapter
-        lifecycleScope.launch {
-            Log.d("Send", "Send Token")
-            viewModel.getOrdersBySellerId( SharedPrefStorage().id)
+        binding.tbSeller.setOnMenuItemClickListener { menu ->
+            when(menu.itemId){
+                R.id.action_logout -> {
+                    SharedPrefStorage().signedIn= false
+                    requireActivity().finish()
+                    startActivity(requireActivity().intent)
+                    requireActivity().overridePendingTransition(0,0)
+                    true
+                }
+                else -> {true}
+            }
         }
 
+
+        TabLayoutMediator(binding.tblSeller, binding.vpSeller){ tab, position ->
+            when(position){
+                0 -> tab.text = "Buyırtpalar"
+                1 -> tab.text = "Járiymalar"
+            }
+        }.attach()
 
     }
 
     private fun initObservers() {
-        viewModel.postOrderByIdSuccessFlow.onEach {
-            Log.d("Order by Id Success", "Success ${it.size}")
-
-            adapter.submitList(it.asReversed())
-        }.launchIn(lifecycleScope)
 
     }
 
     private fun initListeners() {
 
-        binding.fbUser.setOnClickListener {
-            findNavController().navigate(SellerFragmentDirections.actionUserFragmentToFormFragment())
-        }
 
-        adapter.onOrderClickListener {
-            findNavController().navigate(SellerFragmentDirections.actionUserFragmentToOrderDetailsFragment(it.id
-                )
-            )
-        }
-
-        binding.tbUser.setOnMenuItemClickListener { menu ->
+        binding.tbSeller.setOnMenuItemClickListener { menu ->
             when(menu.itemId){
                 R.id.action_logout -> {
                     SharedPrefStorage().signedIn= false

@@ -9,6 +9,8 @@ import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
 import com.theberdakh.carrierapp.databinding.FragmentTaxBinding
 import com.theberdakh.carrierapp.ui.authentication.adapter.SignUpViewPagerAdapter
+import com.theberdakh.carrierapp.ui.seller.SellerOrders
+import com.theberdakh.carrierapp.ui.seller.SellerViolations
 
 class TaxFragment : Fragment(R.layout.fragment_tax){
     private lateinit var binding: FragmentTaxBinding
