@@ -49,16 +49,19 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
 
     private fun initObservers() {
 
-        viewModel.allSellersSuccessFlow.onEach {
+        viewModel.postViolationSuccessFlow.onEach {
+            Log.d("Violation", "Created ${it.car_number}")
             findNavController().popBackStack()
             makeToast("Violation created")
         }.launchIn(lifecycleScope)
 
-        viewModel.allSellersMessageFlow.onEach {
+        viewModel.postViolationMessageFlow.onEach {
+            Log.d("Violation", "Message $it")
             makeToast(it)
         }.launchIn(lifecycleScope)
 
-        viewModel.allSellersErrorFlow.onEach {
+        viewModel.postViolationErrorFlow.onEach {
+            Log.d("Violation", "Error ${it.printStackTrace()}")
             makeToast(it.message.toString())
         }.launchIn(lifecycleScope)
 
@@ -95,28 +98,28 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         }
 
 
+
+
+
         binding.atvSellerName.setOnClickListener {
             findNavController().navigate(TaxFormFragmentDirections.actionTaxFormFragmentToTaxSearchSellers())
-
         }
-
-
-
 
         binding.btnSendForm.clicks().debounce(200).onEach {
           viewModel.postViolation(
                 PostViolation(
                     car_brand = binding.etCarrierAutoBrand.getNotNullText(),
+                    car_photo =encoded,
                     car_number = binding.etAutoNumber.getNotNullText(),
-                    cargo_date = binding.etCargoDate.getNotNullText(),
+                    cargo_date = "2023-08-18T00:50:46+05:00",
                     cargo_type = binding.atvCargoType.text.toString(),
                     driver_name = binding.etCarrierName.getNotNullText(),
-                    driver_passport_or_id=  binding.atvDocumentType.text.toString(),
+                    driver_passport_or_id=  "passport",
                     driver_passport_or_id_number = binding.etPassportSeries.getNotNullText(),
                     driver_phone_number = binding.etCarrierPhone.getNotNullText(),
                     karer_name = binding.atvSellerName.text.toString(),
                     location = "139349, 3403445" ,
-                    reason_violation = binding.atViolationType.text.toString(),
+                    reason_violation = "not_entered",
                     is_updated = false,
                     tax_officer = SharedPrefStorage().id
                 )
@@ -131,13 +134,14 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         if (requestCode == 42 && resultCode == Activity.RESULT_OK) {
             val takenImage = data?.extras?.get("data") as Bitmap
             binding.ivFormImage.setImageBitmap(takenImage)
+            binding.ivFormImage.setImageBitmap(takenImage)
 
             val byteArrayOutputStream = ByteArrayOutputStream()
             takenImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
             val byteArray = byteArrayOutputStream.toByteArray()
             _encoded = Base64.encodeToString(byteArray, Base64.DEFAULT)
+            makeToast(encoded)
             Log.d("Image", encoded)
-
 
         } else {
             super.onActivityResult(requestCode, resultCode, data)

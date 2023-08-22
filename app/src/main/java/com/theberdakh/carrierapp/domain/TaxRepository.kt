@@ -11,13 +11,12 @@ import kotlinx.coroutines.flow.flowOn
 
 class TaxRepository(private val api: TaxApi) {
 
-    suspend fun getAllOrders()= flow{
+    suspend fun getAllOrders() = flow {
         val response = api.getAllOrders()
-        if (response.isSuccessful && response.body() != null){
+        if (response.isSuccessful && response.body() != null) {
             Log.d("SellerRepo", "request is successful all orders")
             emit(ResultData.Success(response.body()!!))
-        }
-        else {
+        } else {
             Log.d("SellerRepo", " all orders request is ${response.body()}")
 
             emit(ResultData.Message(response.body().toString()))
@@ -28,30 +27,39 @@ class TaxRepository(private val api: TaxApi) {
     }.flowOn(Dispatchers.IO)
 
 
-    suspend fun getAllViolations()= flow{
+    suspend fun getAllViolations() = flow {
         val response = api.getAllViolations()
-        if (response.isSuccessful && response.body() != null){
-            Log.d("SellerRepo", "request is successful all orders")
+
+        Log.d("response all violations", "${response.body()}")
+        Log.d("response all violations", "${response.code()}")
+        Log.d("response all violations", "${response.message()}")
+        Log.d("response all violations", "${response.errorBody()}")
+        Log.d("response all violations", "${response.headers()}")
+        Log.d("response all violations", "${response.raw()}")
+
+
+
+
+        if (response.isSuccessful && response.body() != null) {
+            Log.d("SellerRepo", "request is successful all violations")
             emit(ResultData.Success(response.body()!!))
-        }
-        else {
-            Log.d("SellerRepo", " all orders request is ${response.body()}")
+        } else {
+            Log.d("SellerRepo", " all violations request is ${response.body()}")
 
             emit(ResultData.Message(response.body().toString()))
         }
     }.catch {
-        Log.d("SellerRepo", " all orders request is error")
+        Log.d("SellerRepo", " all violations request is error ${it.printStackTrace()}")
         emit(ResultData.Error(it))
     }.flowOn(Dispatchers.IO)
 
 
     suspend fun postViolation(postViolation: PostViolation) = flow {
-        val response  = api.postViolation(postViolation)
-        if (response.isSuccessful && response.body() != null){
+        val response = api.postViolation(postViolation)
+        if (response.isSuccessful && response.body() != null) {
             Log.d("SellerRepo", "post is successful post")
             emit(ResultData.Success(response.body()!!))
-        }
-        else {
+        } else {
             Log.d("SellerRepo", " all orders request is ${response.body()}")
 
             emit(ResultData.Message(response.body().toString()))
@@ -62,12 +70,11 @@ class TaxRepository(private val api: TaxApi) {
     }.flowOn(Dispatchers.IO)
 
     suspend fun getAllSellers() = flow {
-        val response  = api.getAllSellers()
-        if (response.isSuccessful && response.body() != null){
+        val response = api.getAllSellers()
+        if (response.isSuccessful && response.body() != null) {
             Log.d("SellerRepo", "post is successful post")
             emit(ResultData.Success(response.body()!!))
-        }
-        else {
+        } else {
             Log.d("SellerRepo", " all orders request is ${response.body()}")
 
             emit(ResultData.Message(response.body().toString()))

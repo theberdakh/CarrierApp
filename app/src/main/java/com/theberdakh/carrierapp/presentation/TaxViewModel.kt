@@ -1,11 +1,13 @@
 package com.theberdakh.carrierapp.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.theberdakh.carrierapp.data.model.response.ResultData
 import com.theberdakh.carrierapp.data.model.response.order.OrderResponse
 import com.theberdakh.carrierapp.data.model.response.seller.GetAllSellerResponse
 import com.theberdakh.carrierapp.data.model.response.violation.PostViolation
+import com.theberdakh.carrierapp.data.model.response.violation.Violation
 import com.theberdakh.carrierapp.data.model.response.violation.ViolationResponse
 import com.theberdakh.carrierapp.domain.TaxRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -48,26 +50,29 @@ class TaxViewModel(private val repository: TaxRepository): ViewModel() {
         repository.getAllViolations().onEach {
             when(it){
                 is ResultData.Success -> {
+                    Log.d("All V", "Success ${it.data}")
                     violationSuccessFlow.emit(it.data)
                 }
                 is ResultData.Message -> {
+                    Log.d("All V", "Success ${it.message}")
                     violationMessageFlow.emit(it.message)
                 }
                 is ResultData.Error -> {
+                    Log.d("All V", "Success ${it.error}")
                     violationErrorFlow.emit(it.error)
                 }
             }
         }.launchIn(viewModelScope)
     }
-    val postViolationSuccessFlow = MutableSharedFlow<ViolationResponse>()
+
+    val postViolationSuccessFlow = MutableSharedFlow<PostViolation>()
     val postViolationMessageFlow = MutableSharedFlow<String>()
     val postViolationErrorFlow = MutableSharedFlow<Throwable>()
 
     suspend fun postViolation(postViolation: PostViolation){
 
-        repository.postViolation(postViolation)
 
-        repository.getAllViolations().onEach {
+      repository.postViolation(postViolation).onEach {
             when(it){
                 is ResultData.Success -> {
                     postViolationSuccessFlow.emit(it.data)

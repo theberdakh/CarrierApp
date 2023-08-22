@@ -40,7 +40,7 @@ class TaxViolationAdapter :
         }
 
         override fun areContentsTheSame(oldItem: Violation, newItem: Violation): Boolean {
-            return oldItem.id == newItem.id && oldItem.driver_passport_or_id == newItem.driver_passport_or_id
+            return oldItem.id == newItem.id
         }
 
     }

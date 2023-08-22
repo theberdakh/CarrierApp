@@ -88,7 +88,6 @@ class SellerViolations : Fragment(
 
         viewModel.violationErrorFlow.onEach {
             Log.d("Order by Id error", "errir")
-
             makeToast("Error, check your Internet connection")
         }.launchIn(lifecycleScope)
 

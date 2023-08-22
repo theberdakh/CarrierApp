@@ -37,6 +37,12 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
 
     }
 
+    private fun initViews() {
+        _adapter = TaxViolationAdapter()
+        binding.rvTaxViolations.adapter = adapter
+        binding.btnEnteredIncorrect.isSelected = true
+    }
+
     private fun initListeners() {
 
         adapter.onViolationClickListener {
@@ -47,7 +53,7 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
             findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxFormFragment())
         }
 
-        binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+       binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
             val sortedList = violations.filter {
                 when(binding.toggleButton.checkedButtonId){
                     binding.btnEnteredIncorrect.id -> {
@@ -56,8 +62,9 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
                     binding.btnNotEntered.id -> {
                         it.reason_violation == "not_entered"
                     }
-                   else -> it.reason_violation== "entered_incorrect"}
+                   else -> it.reason_violation== it.reason_violation}
                 }
+
             adapter.submitList(sortedList)
         }
 
@@ -66,7 +73,7 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
     private fun initObservers() {
 
         lifecycleScope.launch {
-            Log.d("Send", "get all orders request")
+            Log.d("Send", "get all violations request")
             viewModel.getAllViolations()
         }
 
@@ -74,9 +81,7 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
         viewModel.violationSuccessFlow.onEach {
             Log.d("Order by Id Success", "Success ${it.results}")
             adapter.submitList(violations)
-            violations.addAll(
-                it.results
-            )
+            violations.addAll(it.results)
         }.launchIn(lifecycleScope)
 
         viewModel.violationMessageFlow.onEach {
@@ -86,17 +91,14 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
         }.launchIn(lifecycleScope)
 
         viewModel.violationErrorFlow.onEach {
-            Log.d("Order by Id error", "errir")
+            Log.d("Order by Id error", "${it.printStackTrace()}")
 
             makeToast("Error, check your Internet connection")
         }.launchIn(lifecycleScope)
 
     }
 
-    private fun initViews() {
-        _adapter = TaxViolationAdapter()
-        binding.rvTaxViolations.adapter = adapter
-    }
+
 
 
 
