@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_userFragment_to_sellerProfile"
             app:destination="@id/sellerProfile" />
+        <action
+            android:id="@+id/action_userFragment_to_taxSettings"
+            app:destination="@id/taxSettings" />
     </fragment>
     <fragment
         android:id="@+id/formFragment"

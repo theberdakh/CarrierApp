@@ -62,12 +62,12 @@ class SellerFragment: Fragment(R.layout.fragment_seller) {
                 }
 
                 R.id.action_profile_tax -> {
-                    makeToast("Clicked")
                     findNavController().navigate(SellerFragmentDirections.actionUserFragmentToSellerProfile())
                     true
                 }
 
-                R.id.action_settings -> {
+                R.id.action_settings_tax -> {
+                    findNavController().navigate(SellerFragmentDirections.actionUserFragmentToTaxSettings())
                     true
                 }
                 else -> {true}
