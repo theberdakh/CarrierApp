@@ -13,7 +13,7 @@
         app:titleCentered="true"
         app:subtitleCentered="true"
         app:subtitle="@string/title_user_seller"
-        app:menu="@menu/menu_seller"
+        app:menu="@menu/menu_tax"
         />
 
     <com.google.android.material.tabs.TabLayout

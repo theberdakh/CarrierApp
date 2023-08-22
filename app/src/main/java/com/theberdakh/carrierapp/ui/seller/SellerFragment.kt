@@ -3,6 +3,7 @@ package com.theberdakh.carrierapp.ui.seller
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
@@ -10,6 +11,7 @@ import com.theberdakh.carrierapp.databinding.FragmentSellerBinding
 import com.theberdakh.carrierapp.ui.authentication.adapter.SignUpViewPagerAdapter
 import com.theberdakh.carrierapp.ui.tax.TaxOrdersFragment
 import com.theberdakh.carrierapp.ui.tax.TaxViolationsFragment
+import com.theberdakh.carrierapp.util.makeToast
 
 class SellerFragment: Fragment(R.layout.fragment_seller) {
     private lateinit var binding: FragmentSellerBinding
@@ -32,19 +34,6 @@ class SellerFragment: Fragment(R.layout.fragment_seller) {
 
         binding.tbSeller.title = SharedPrefStorage().name
 
-        binding.tbSeller.setOnMenuItemClickListener { menu ->
-            when(menu.itemId){
-                R.id.action_logout -> {
-                    SharedPrefStorage().signedIn= false
-                    requireActivity().finish()
-                    startActivity(requireActivity().intent)
-                    requireActivity().overridePendingTransition(0,0)
-                    true
-                }
-                else -> {true}
-            }
-        }
-
 
         TabLayoutMediator(binding.tblSeller, binding.vpSeller){ tab, position ->
             when(position){
@@ -66,15 +55,25 @@ class SellerFragment: Fragment(R.layout.fragment_seller) {
             when(menu.itemId){
                 R.id.action_logout -> {
                     SharedPrefStorage().signedIn= false
-
                     requireActivity().finish()
                     startActivity(requireActivity().intent)
                     requireActivity().overridePendingTransition(0,0)
                     true
                 }
+
+                R.id.action_profile_tax -> {
+                    makeToast("Clicked")
+                    findNavController().navigate(SellerFragmentDirections.actionUserFragmentToSellerProfile())
+                    true
+                }
+
+                R.id.action_settings -> {
+                    true
+                }
                 else -> {true}
             }
         }
+
 
 
     }
