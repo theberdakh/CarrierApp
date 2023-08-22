@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.flowOn
 
 class SellerRepository(private val api: SellerApi) {
 
-    suspend fun getOrdersByID( id: Int)= flow{
-        val response = api.getOrdersById(id)
+    suspend fun getOrdersBySellerID(id: Int)= flow{
+        val response = api.getOrdersBySellerId(id)
         if (response.isSuccessful && response.body() != null){
             Log.d("SellerRepo", "by id request is successful")
             emit(ResultData.Success(response.body()!!))
@@ -49,6 +49,29 @@ class SellerRepository(private val api: SellerApi) {
         Log.d("SellerRepo", "post request is error")
         emit(ResultData.Error(it))
     }.flowOn(Dispatchers.IO)
+
+    suspend fun getOrderDetails(id: Int)= flow{
+
+        Log.d("Token", "post order repo")
+        val response = api.getOrdersByID(id)
+        if (response.isSuccessful && response.body() != null){
+            Log.d("SellerRepo", "post request is successful")
+            emit(ResultData.Success(response.body()!!))
+        }
+        else {
+            Log.d("Tag", response.body().toString())
+            Log.d("Tag", response.message().toString())
+            Log.d("Tag", response.code().toString())
+            Log.d("Tag", response.headers().toString())
+            Log.d("Tag", response.raw().toString())
+            Log.d("SellerRepo", "post request is ${response.code()}")
+            emit(ResultData.Message(response.code().toString()))
+        }
+    }.catch {
+        Log.d("SellerRepo", "post request is error")
+        emit(ResultData.Error(it))
+    }.flowOn(Dispatchers.IO)
+
 
 
 

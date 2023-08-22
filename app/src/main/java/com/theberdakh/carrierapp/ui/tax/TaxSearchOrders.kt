@@ -91,13 +91,13 @@ class TaxSearchOrders: Fragment(R.layout.fragment_tax_search_orders) {
             val sortedList = orders.filter {
                 when(binding.groupFilters.checkedButtonId){
                     binding.toggleByAutoNumber.id -> {
-                        it.car_number.contains(query.toString())
+                        it.car_number.lowercase().contains(query.toString())
                     }
                     binding.toggleByPassport.id -> {
-                        it.driver_passport_or_id_number.contains(query.toString())
+                        it.driver_passport_or_id_number.lowercase().contains(query.toString())
                     }
                     binding.toggleByPhone.id -> {
-                        it.driver_phone_number.contains("+998${query.toString()}")
+                        it.driver_phone_number.lowercase().contains("+998${query.toString()}")
                     }
                     else  -> {it.car_number.contains(query.toString())}
                 }

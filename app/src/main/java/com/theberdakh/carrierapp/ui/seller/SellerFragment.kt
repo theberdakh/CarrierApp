@@ -44,7 +44,7 @@ class SellerFragment: Fragment(R.layout.fragment_user) {
         binding.rvUser.adapter = adapter
         lifecycleScope.launch {
             Log.d("Send", "Send Token")
-            viewModel.getOrdersById( SharedPrefStorage().id)
+            viewModel.getOrdersBySellerId( SharedPrefStorage().id)
         }
 
 
@@ -66,8 +66,7 @@ class SellerFragment: Fragment(R.layout.fragment_user) {
         }
 
         adapter.onOrderClickListener {
-            findNavController().navigate(SellerFragmentDirections.actionUserFragmentToOrderDetailsFragment(
-                    it
+            findNavController().navigate(SellerFragmentDirections.actionUserFragmentToOrderDetailsFragment(it.id
                 )
             )
         }

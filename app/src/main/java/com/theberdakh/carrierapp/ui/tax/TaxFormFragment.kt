@@ -50,22 +50,17 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
     private fun initObservers() {
 
         viewModel.allSellersSuccessFlow.onEach {
-            val names = mutableListOf<String>()
-            for (seller in it.results){
-                names.add(seller.karer_name)
-            }
-            binding.atvSellerName.setCustomAdapter(names)
-
-            makeToast("Success ${it.results.size}")
-        }
+            findNavController().popBackStack()
+            makeToast("Violation created")
+        }.launchIn(lifecycleScope)
 
         viewModel.allSellersMessageFlow.onEach {
             makeToast(it)
-        }
+        }.launchIn(lifecycleScope)
 
         viewModel.allSellersErrorFlow.onEach {
             makeToast(it.message.toString())
-        }
+        }.launchIn(lifecycleScope)
 
 
 
@@ -106,15 +101,10 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         }
 
 
-        binding.atvSellerName.setOnItemClickListener { parent, view, position, id ->
-
-        }
 
 
-        binding.btnSendForm.setOnClickListener {
-
-
-          /* viewModel.postViolation(
+        binding.btnSendForm.clicks().debounce(200).onEach {
+          viewModel.postViolation(
                 PostViolation(
                     car_brand = binding.etCarrierAutoBrand.getNotNullText(),
                     car_number = binding.etAutoNumber.getNotNullText(),
@@ -124,13 +114,16 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
                     driver_passport_or_id=  binding.atvDocumentType.text.toString(),
                     driver_passport_or_id_number = binding.etPassportSeries.getNotNullText(),
                     driver_phone_number = binding.etCarrierPhone.getNotNullText(),
-                    karer_name = binding.,
+                    karer_name = binding.atvSellerName.text.toString(),
                     location = "139349, 3403445" ,
                     reason_violation = binding.atViolationType.text.toString(),
+                    is_updated = false,
                     tax_officer = SharedPrefStorage().id
                 )
-            )*/
-        }
+            )
+
+            makeToast("Clicked")
+        }.launchIn(lifecycleScope)
 
     }
 

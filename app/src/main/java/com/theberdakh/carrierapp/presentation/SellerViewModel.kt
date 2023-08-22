@@ -26,8 +26,8 @@ class SellerViewModel(private val repository: SellerRepository): ViewModel() {
 
 
 
-  suspend fun getOrdersById( id : Int ) {
-      repository.getOrdersByID(id).onEach {
+  suspend fun getOrdersBySellerId(id : Int ) {
+      repository.getOrdersBySellerID(id).onEach {
           when (it) {
               is ResultData.Success -> {
                   postOrderByIdSuccessFlow.emit(it.data)
@@ -53,6 +53,26 @@ class SellerViewModel(private val repository: SellerRepository): ViewModel() {
                 }
                 is ResultData.Error -> {
                     postOrderErrorFlow.emit(it.error)
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+
+    val orderSuccessFlow = MutableSharedFlow<Order>()
+    val orderMessageFlow = MutableSharedFlow<String>()
+    val orderErrorFlow = MutableSharedFlow<Throwable>()
+    suspend fun getOrdersById(id: Int){
+        repository.getOrderDetails(id).onEach {
+            when(it){
+                is ResultData.Success -> {
+                    orderSuccessFlow.emit(it.data)
+                }
+                is ResultData.Message -> {
+                    orderMessageFlow.emit(it.message)
+                }
+                is ResultData.Error -> {
+                    orderErrorFlow.emit(it.error)
                 }
             }
         }.launchIn(viewModelScope)

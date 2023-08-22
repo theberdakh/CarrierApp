@@ -69,7 +69,7 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
     private fun initListeners() {
 
         adapter.onOrderClickListener {
-            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxFormFragment())
+            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToOrderDetailsFragment(it.id))
         }
 
         adapter.onOrderFineClickListener {

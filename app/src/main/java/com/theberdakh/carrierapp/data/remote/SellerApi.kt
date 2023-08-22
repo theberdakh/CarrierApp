@@ -16,9 +16,12 @@ interface SellerApi {
     suspend fun getAllOrders(): Response<OrderResponse>
 
     @GET("orders/by_karer_id/{karer_id}")
-    suspend fun getOrdersById(@Path("karer_id") id: Int): Response<List<Order>>
+    suspend fun getOrdersBySellerId(@Path("karer_id") id: Int): Response<List<Order>>
 
     @POST("orders/create/")
     suspend fun postOrder(@Body body: PostOrder): Response<ResponsePostOrder>
+
+    @GET("orders/{id}/")
+    suspend fun getOrdersByID(@Path("id") id: Int): Response<Order>
 
 }

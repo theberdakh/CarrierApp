@@ -62,8 +62,8 @@
         android:label="fragment_order_details"
         tools:layout="@layout/fragment_order_details" >
         <argument
-            android:name="Order"
-            app:argType="com.theberdakh.carrierapp.data.model.response.order.Order" />
+            android:name="id"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/taxFragment"
