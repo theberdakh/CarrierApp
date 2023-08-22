@@ -48,6 +48,11 @@ class TaxFragment : Fragment(R.layout.fragment_tax){
                     findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxProfile())
                     true
                 }
+
+                R.id.action_settings ->{
+                    findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxSettings())
+                    true
+                }
                 else -> {true}
             }
         }

@@ -82,6 +82,9 @@
         <action
             android:id="@+id/action_taxFragment_to_taxProfile"
             app:destination="@id/taxProfile" />
+        <action
+            android:id="@+id/action_taxFragment_to_taxSettings"
+            app:destination="@id/taxSettings" />
     </fragment>
     <fragment
         android:id="@+id/taxFormFragment"
@@ -107,4 +110,9 @@
         android:name="com.theberdakh.carrierapp.ui.tax.TaxProfile"
         android:label="TaxProfile"
         tools:layout="@layout/fragment_tax_profile"/>
+    <fragment
+        android:id="@+id/taxSettings"
+        android:name="com.theberdakh.carrierapp.ui.tax.TaxSettings"
+        android:label="TaxSettings"
+        tools:layout="@layout/fragment_tax_settings"/>
 </navigation>

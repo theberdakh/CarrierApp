@@ -55,5 +55,10 @@ class TaxProfile: Fragment(R.layout.fragment_tax_profile) {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
 
 }
