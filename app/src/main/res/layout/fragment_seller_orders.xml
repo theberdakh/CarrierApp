@@ -48,26 +48,26 @@
                 app:singleSelection="true">
 
                 <Button
-                    android:id="@+id/button1"
+                    android:id="@+id/btn_sort_by_name"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:text="Ati" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/btn_sort_by_phone"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tel" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/btn_sort_by_car"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hámmesi" />
+                    android:text="Avtomobil" />
+
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
 

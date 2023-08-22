@@ -3,11 +3,13 @@ package com.theberdakh.carrierapp.ui.seller
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
+import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.databinding.FragmentSellerOrdersBinding
 import com.theberdakh.carrierapp.presentation.SellerViewModel
 import com.theberdakh.carrierapp.ui.adapter.OrderAdapter
@@ -21,6 +23,8 @@ class SellerOrders : Fragment(R.layout.fragment_seller_orders) {
     private val viewModel by viewModel<SellerViewModel>()
     private var _adapter: OrderAdapter? = null
     private val adapter get() = _adapter!!
+    private val orders: ArrayList<Order> = arrayListOf()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSellerOrdersBinding.bind(view)
@@ -35,6 +39,8 @@ class SellerOrders : Fragment(R.layout.fragment_seller_orders) {
     private fun initViews() {
 
 
+        binding.btnSortByName.isSelected = true
+        binding.etSearch.requestFocus()
         _adapter = OrderAdapter()
         binding.rvOrders.adapter = adapter
         lifecycleScope.launch {
@@ -51,6 +57,7 @@ class SellerOrders : Fragment(R.layout.fragment_seller_orders) {
             Log.d("Order by Id Success", "Success ${it.size}")
 
             adapter.submitList(it.asReversed())
+            orders.addAll(it)
         }.launchIn(lifecycleScope)
 
     }
@@ -71,6 +78,39 @@ class SellerOrders : Fragment(R.layout.fragment_seller_orders) {
                 SellerFragmentDirections.actionUserFragmentToFormFragment()
             )
         }
+
+
+        binding.toggleButton.addOnButtonCheckedListener { _, checkedId, _ ->
+            when(checkedId){
+                binding.btnSortByName.id -> {
+                    binding.tilSearch.prefixText = "Ati:"
+                }
+                binding.btnSortByPhone.id -> {
+                    binding.tilSearch.prefixText = "Tel: +998:"
+                } binding.btnSortByCar.id -> {
+                    binding.tilSearch.prefixText = "Avtomobil nomeri:"
+                }
+            }
+        }
+
+        binding.etSearch.addTextChangedListener {query ->
+            val sortedList = orders.filter {
+                when(binding.toggleButton.checkedButtonId){
+                    binding.btnSortByName.id -> {
+                        it.driver_name.lowercase().contains(query.toString())
+                    }
+                    binding.btnSortByPhone.id -> {
+                        it.driver_phone_number.lowercase().contains(query.toString())
+                    }
+                    binding.btnSortByCar.id -> {
+                        it.car_number.lowercase().contains(query.toString())
+                    }
+                    else  -> {it.driver_name.contains(query.toString())}
+                }
+            }
+            adapter.submitList(sortedList)
+        }
+
 
 
     }
