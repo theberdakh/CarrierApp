@@ -68,6 +68,10 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
 
     private fun initListeners() {
 
+        binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+
+        }
+
         adapter.onOrderClickListener {
             findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToOrderDetailsFragment(it.id))
         }
