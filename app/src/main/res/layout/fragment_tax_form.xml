@@ -277,6 +277,25 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_custom_reason"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Toliqraq (ma'jbu'riy emes)"
+            android:layout_marginVertical="4dp"
+            android:layout_marginHorizontal="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_custom_reason"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="date"
+                />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_send_form"
