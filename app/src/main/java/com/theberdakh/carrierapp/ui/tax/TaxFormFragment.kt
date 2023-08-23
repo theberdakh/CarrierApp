@@ -2,6 +2,7 @@ package com.theberdakh.carrierapp.ui.tax
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
@@ -9,6 +10,8 @@ import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -97,11 +100,17 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         }
 
         binding.ivFormImage.setOnClickListener {
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            if (takePictureIntent.resolveActivity(requireActivity().packageManager) != null) {
-                startActivityForResult(takePictureIntent, 42)
-            } else {
-                makeToast("Unable to open camera")
+            if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED){
+                ActivityCompat.requestPermissions(requireActivity(),  arrayOf(android.Manifest.permission.CAMERA), 42)
+            }
+            else {
+                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                if (takePictureIntent.resolveActivity(requireActivity().packageManager) != null) {
+                    startActivityForResult(takePictureIntent, 42)
+                } else {
+                    makeToast("Unable to open camera")
+                }
             }
         }
 

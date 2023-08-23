@@ -60,7 +60,6 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
                 .load(it.car_photo)
                 .placeholder(R.drawable.baseline_add_a_photo_24)
                 .thumbnail(Glide.with(requireActivity()).load(it.car_photo))
-                .apply(requestOptions)
                 .into(binding.ivOrder)
 
 
