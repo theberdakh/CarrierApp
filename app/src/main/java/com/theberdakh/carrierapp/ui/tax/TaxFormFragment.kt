@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
 import com.theberdakh.carrierapp.data.model.response.order.Order
@@ -19,6 +21,7 @@ import com.theberdakh.carrierapp.data.model.response.seller.GetAllSellerResult
 import com.theberdakh.carrierapp.data.model.response.violation.PostViolation
 import com.theberdakh.carrierapp.databinding.FragmentTaxFormBinding
 import com.theberdakh.carrierapp.presentation.TaxViewModel
+import com.theberdakh.carrierapp.util.DefaultLocationClient
 import com.theberdakh.carrierapp.util.getNotNullText
 import com.theberdakh.carrierapp.util.makeToast
 import com.theberdakh.carrierapp.util.setCustomAdapter
@@ -44,6 +47,7 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         initViews()
         initListeners()
         initObservers()
+
 
     }
 
@@ -79,6 +83,10 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         binding.atViolationType.setCustomAdapter(listOf("Mag'liwmat kiritilmegen", "Mag'liwmat toliq emes"))
         binding.atvCargoType.setCustomAdapter(listOf("Sheben", "Shege qum"))
 
+        val request = LocationRequest.Builder(1000).build()
+        Intent(requireContext(), requireActivity().javaClass).apply {
+            putExtra("request", request)
+        }
 
     }
 
@@ -96,8 +104,6 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
                 makeToast("Unable to open camera")
             }
         }
-
-
 
 
 

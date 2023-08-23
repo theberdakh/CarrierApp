@@ -55,6 +55,7 @@ class SellerFragment: Fragment(R.layout.fragment_seller) {
             when(menu.itemId){
                 R.id.action_logout -> {
                     SharedPrefStorage().signedIn= false
+                    SharedPrefStorage().token = ""
                     requireActivity().finish()
                     startActivity(requireActivity().intent)
                     requireActivity().overridePendingTransition(0,0)

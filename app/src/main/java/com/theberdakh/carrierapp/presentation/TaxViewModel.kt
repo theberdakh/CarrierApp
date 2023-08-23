@@ -23,6 +23,9 @@ class TaxViewModel(private val repository: TaxRepository): ViewModel() {
     val errorFlow = MutableSharedFlow<Throwable>()
 
 
+
+
+
     suspend fun getAllOrders(){
 
         repository.getAllOrders().onEach {

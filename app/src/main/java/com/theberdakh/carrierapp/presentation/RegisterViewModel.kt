@@ -48,7 +48,7 @@ class RegisterViewModel(private val repository: AuthRepository): ViewModel() {
             passport_or_id = if (passportOrId == "ID") "passport" else "document_id",
             password_or_id_number = passportOrIdSeries,
             position = position,
-            working_region = workingRegion,
+            working_region = 1,
             password = password,
             password2 = password2
         )).onEach {

@@ -21,6 +21,7 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
     private val viewModel by viewModel<TaxViewModel>()
     private var _adapter: TaxOrderAdapter? = null
     private val adapter get() = _adapter!!
+    private var sellers = mutableMapOf<Int, String>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTaxOrdersBinding.bind(view)
@@ -44,12 +45,22 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
         lifecycleScope.launch {
             Log.d("Send", "get all orders request")
             viewModel.getAllOrders()
+            viewModel.getAllSellers()
         }
+
+        viewModel.allSellersSuccessFlow.onEach {
+            for (seller in it.results){
+                sellers[seller.id] = seller.karer_name
+            }
+            adapter.sellers = sellers
+
+        }.launchIn(lifecycleScope)
 
 
         viewModel.successFlow.onEach {
             Log.d("Order by Id Success", "Success ${it.results}")
             adapter.submitList(it.results.asReversed())
+
         }.launchIn(lifecycleScope)
 
         viewModel.messageFlow.onEach {

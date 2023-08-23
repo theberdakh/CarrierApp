@@ -10,6 +10,8 @@ import com.theberdakh.carrierapp.databinding.ItemRecyclerOrderTaxBinding
 
 class TaxOrderAdapter: ListAdapter<Order, TaxOrderAdapter.TaxOrderViewHolder>(TaxOrderCallBack)  {
 
+     var sellers = mutableMapOf<Int, String>()
+
     inner class TaxOrderViewHolder(private val binding: ItemRecyclerOrderTaxBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
@@ -19,8 +21,11 @@ class TaxOrderAdapter: ListAdapter<Order, TaxOrderAdapter.TaxOrderViewHolder>(Ta
                 tvCarNumber.text = order.car_number
                 tvFullName.text = order.driver_name
                 tvTimeDate.text = order.date
-                tvCargoType.text = if (order.cargo_type == 1)"Sheben" else "Topıraq (default)"
-                tvCargoValue.text = "${order.weight} ${if(order.cargo_unit == 1) "m3" else "Kg"}"
+                tvCargoType.text = order.cargo_type
+                tvSellerName.text = sellers[order.karer]
+
+                val cargoUnit  = if (order.cargo_unit == 1) "m3" else "kg"
+                tvCargoValue.text = "${order.cargo_value} $cargoUnit"
 
             }
 
