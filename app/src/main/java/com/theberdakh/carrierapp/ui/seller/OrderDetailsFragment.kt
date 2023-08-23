@@ -100,10 +100,7 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
 
     override fun onResume() {
         super.onResume()
-
         initObservers(args.id)
-
-
     }
 
 

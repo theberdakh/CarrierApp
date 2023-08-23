@@ -60,14 +60,23 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         sellerViewModel.orderSuccessFlow.onEach {
 
             binding.etAutoNumber.setText(it.car_number)
+            binding.etAutoNumber.isEnabled = false
             binding.etCarrierAutoBrand.setText(it.car_brand)
+            binding.etCarrierAutoBrand.isEnabled = false
             binding.etCarrierName.setText(it.driver_name)
+            binding.etCarrierName.isEnabled = false
             binding.etCarrierPhone.setText(it.driver_phone_number)
+            binding.etCarrierPhone.isEnabled =false
             binding.atvSellerName.setText(it.driver_name)
+            binding.atvSellerName.isEnabled = false
             binding.atvDocumentType.setText(if(it.driver_passport_or_id_number != "passport") "ID" else "passport")
+            binding.atvDocumentType.isEnabled = false
             binding.etPassportSeries.setText(it.driver_passport_or_id_number)
+            binding.etPassportSeries.isEnabled = false
             binding.atvCargoType.setText(it.cargo_type)
+            binding.atvCargoType.isEnabled = false
             binding.etCargoDate.setText(it.date)
+            binding.etCargoDate.isEnabled = false
 
 
         }.launchIn(lifecycleScope)
