@@ -1,12 +1,9 @@
 package com.theberdakh.carrierapp.ui.seller
 
-import android.location.Geocoder
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,16 +11,13 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.signature.ObjectKey
 import com.theberdakh.carrierapp.R
-import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.databinding.FragmentOrderDetailsBinding
 import com.theberdakh.carrierapp.presentation.SellerViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.Locale
 
 
 class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
@@ -31,6 +25,7 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
     private val binding get() = _binding!!
     private val viewModel by viewModel<SellerViewModel>()
     private val args: OrderDetailsFragmentArgs by navArgs()
+    private var id = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +44,7 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
 
     private fun initObservers(id: Int) {
         lifecycleScope.launch {
-            viewModel.getOrdersById(id)
+            viewModel.getOrderById(id)
         }
 
         viewModel.orderSuccessFlow.onEach {
@@ -60,11 +55,13 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
                 .load(it.car_photo)
                 .placeholder(R.drawable.baseline_add_a_photo_24)
                 .thumbnail(Glide.with(requireActivity()).load(it.car_photo))
-                .into(binding.ivOrder)
+                .into(binding.ivViolation)
+
+            this.id = it.id
 
 
             binding.apply {
-                tvOrderType.text = it.cargo_type.toString()
+                tvOrderType.text = it.cargo_type
                 tvOrderValue.text = it.cargo_value
                 tvOrderUnit.text = if(it.cargo_unit ==1 ) "m3" else "kg"
                 tvCarrierName.text = it.driver_name
@@ -84,13 +81,27 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
             findNavController().popBackStack()
         }
 
+        binding.btnAddViolation.setOnClickListener {
+            findNavController().navigate(OrderDetailsFragmentDirections.actionOrderDetailsFragmentToTaxFormFragment(id))
+        }
+
     }
 
     private fun initViews() {
 
+        binding.btnAddViolation.isVisible = args.isTaxOfficer
+
         requireActivity().window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        initObservers(args.id)
 
 
     }
@@ -102,7 +113,6 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
             WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY)
         super.onDestroyView()
-        _binding = null
     }
 
 }

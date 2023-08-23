@@ -45,7 +45,7 @@ class SellerViolations : Fragment(
         }
 
         binding.fabAddNewViolation.setOnClickListener {
-            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxFormFragment())
+            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxFormFragment(-1))
         }
 
         binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->

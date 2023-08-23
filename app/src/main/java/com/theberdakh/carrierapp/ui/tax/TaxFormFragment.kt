@@ -9,22 +9,19 @@ import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.location.FusedLocationProviderClient
+import androidx.navigation.fragment.navArgs
 import com.google.android.gms.location.LocationRequest
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
-import com.theberdakh.carrierapp.data.model.response.order.Order
-import com.theberdakh.carrierapp.data.model.response.seller.GetAllSellerResult
 import com.theberdakh.carrierapp.data.model.response.violation.PostViolation
 import com.theberdakh.carrierapp.databinding.FragmentTaxFormBinding
+import com.theberdakh.carrierapp.presentation.SellerViewModel
 import com.theberdakh.carrierapp.presentation.TaxViewModel
-import com.theberdakh.carrierapp.util.DefaultLocationClient
 import com.theberdakh.carrierapp.util.getNotNullText
 import com.theberdakh.carrierapp.util.makeToast
 import com.theberdakh.carrierapp.util.setCustomAdapter
@@ -42,6 +39,40 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
     private var _encoded: String? = null
     private val encoded get() = _encoded!!
     private val viewModel by viewModel<TaxViewModel>()
+    private val sellerViewModel by viewModel<SellerViewModel>()
+    private val args: TaxFormFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        if (args.id !=-1){
+            insertValues(args.id)
+        }
+
+    }
+
+    private fun insertValues(id: Int) {
+
+        lifecycleScope.launch {
+            sellerViewModel.getOrderById(id)
+        }
+
+        sellerViewModel.orderSuccessFlow.onEach {
+
+            binding.etAutoNumber.setText(it.car_number)
+            binding.etCarrierAutoBrand.setText(it.car_brand)
+            binding.etCarrierName.setText(it.driver_name)
+            binding.etCarrierPhone.setText(it.driver_phone_number)
+            binding.atvSellerName.setText(it.driver_name)
+            binding.atvDocumentType.setText(if(it.driver_passport_or_id_number != "passport") "ID" else "passport")
+            binding.etPassportSeries.setText(it.driver_passport_or_id_number)
+            binding.atvCargoType.setText(it.cargo_type)
+            binding.etCargoDate.setText(it.date)
+
+
+        }.launchIn(lifecycleScope)
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

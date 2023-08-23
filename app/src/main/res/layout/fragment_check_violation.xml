@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".ui.seller.OrderDetailsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_violation"
+            android:layout_width="match_parent"
+            android:visibility="visible"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            />
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/tb_check_violation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Ja'riyma"
+            app:menu="@menu/menu_tax_edit_violation"
+            app:navigationIcon="@drawable/baseline_arrow_back_ios_new_24" />
+
+        <LinearLayout
+            android:id="@+id/ll_info_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_form_image"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:layout_weight="3"
+                    android:padding="8dp"
+                    android:src="@drawable/baseline_add_a_photo_24"
+                    />
+
+
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="7">
+
+
+                <TextView
+                    android:id="@+id/tv_car_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="95 A113 BC"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+
+                <TextView
+                    android:id="@+id/tv_car_model"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Nexia"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_order_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="193443, 1243349"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_reason_violation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="not entered"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:padding="8dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+
+            <LinearLayout
+                android:id="@+id/ll_info_carrier"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="8dp"
+                android:weightSum="10">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_account_circle_24"
+                        android:layout_marginTop="8dp"
+                        android:layout_gravity="center|top" />
+
+                </FrameLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="9">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Shafyor"
+                        android:textStyle="bold"
+                        android:textAppearance="?textAppearanceBody1"
+                        android:padding="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_driver_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="@tools:sample/full_names"
+                        android:textAppearance="?textAppearanceBody1"
+                        android:padding="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_driver_passport_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="KA12334"
+                        android:textAppearance="?textAppearanceBody1"
+                        android:padding="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_driver_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="@tools:sample/us_phones"
+                        android:textAppearance="?textAppearanceBody1"
+                        android:padding="8dp"/>
+
+
+                </LinearLayout>
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:weightSum="10">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_directions_car_filled_24"
+                        android:layout_gravity="center|top"
+                        android:layout_marginTop="8dp"/>
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="9">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ju'k"
+                        android:textStyle="bold"
+                        android:textAppearance="?textAppearanceBody1"
+                        android:padding="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_cargo_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="Sheben"
+                        android:textAppearance="?textAppearanceBody1"
+                        android:padding="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_seller_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="Karer 193"
+                        android:textAppearance="?textAppearanceBody1"
+                        android:padding="8dp"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_cargo_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="@tools:sample/date/mmddyy"
+                        android:textAppearance="?textAppearanceBody1"
+                        android:padding="8dp"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:layout_marginTop="36dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="O'zgerisler"
+            android:drawableStart="@drawable/baseline_mode_edit_24"
+            android:drawablePadding="8dp"
+            android:padding="8dp"
+            android:textAppearance="?textAppearanceHeadline6"
+            android:layout_marginHorizontal="4dp"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_check_violation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_recycler_update_violation"
+            tools:itemCount="10"
+            />
+
+
+    </LinearLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>

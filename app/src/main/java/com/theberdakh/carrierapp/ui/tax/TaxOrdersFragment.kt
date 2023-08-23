@@ -84,12 +84,9 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
         }
 
         adapter.onOrderClickListener {
-            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToOrderDetailsFragment(it.id))
+            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToOrderDetailsFragment(it.id, true))
         }
 
-        adapter.onOrderFineClickListener {
-            makeToast("Fine clicked")
-        }
 
         binding.fabSearchOrders.setOnClickListener {
             findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxSearchOrders())

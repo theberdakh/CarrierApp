@@ -62,7 +62,7 @@ class SellerViewModel(private val repository: SellerRepository): ViewModel() {
     val orderSuccessFlow = MutableSharedFlow<Order>()
     val orderMessageFlow = MutableSharedFlow<String>()
     val orderErrorFlow = MutableSharedFlow<Throwable>()
-    suspend fun getOrdersById(id: Int){
+    suspend fun getOrderById(id: Int){
         repository.getOrderDetails(id).onEach {
             when(it){
                 is ResultData.Success -> {

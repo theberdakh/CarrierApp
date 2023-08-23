@@ -84,4 +84,20 @@ class TaxRepository(private val api: TaxApi) {
         emit(ResultData.Error(it))
     }.flowOn(Dispatchers.IO)
 
+    suspend fun getViolationByID(id: Int) = flow {
+        val response = api.getViolationByID(id)
+
+        if (response.isSuccessful && response.body() != null) {
+            Log.d("SellerRepo", "post is successful post")
+            emit(ResultData.Success(response.body()!!))
+        } else {
+            Log.d("SellerRepo", " all orders request is ${response.body()}")
+
+            emit(ResultData.Message(response.body().toString()))
+        }
+    }.catch {
+        Log.d("SellerRepo", " all orders request is error")
+        emit(ResultData.Error(it))
+    }.flowOn(Dispatchers.IO)
+
 }

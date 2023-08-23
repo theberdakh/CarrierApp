@@ -46,11 +46,11 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
     private fun initListeners() {
 
         adapter.onViolationClickListener {
-            makeToast("Violation clicked")
+           findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxCheckViolation(it.id))
         }
 
         binding.fabAddNewViolation.setOnClickListener {
-            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxFormFragment())
+            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxFormFragment(-1))
         }
 
        binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->

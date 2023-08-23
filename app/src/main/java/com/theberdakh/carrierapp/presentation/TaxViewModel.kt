@@ -114,6 +114,27 @@ class TaxViewModel(private val repository: TaxRepository): ViewModel() {
     }
 
 
+    val singleViolationSuccessFlow = MutableSharedFlow<Violation>()
+    val singleViolationMessage = MutableSharedFlow<String>()
+    val singleViolationError = MutableSharedFlow<Throwable>()
+
+    suspend fun getViolationById(id: Int) {
+        repository.getViolationByID(id).onEach {
+            when(it){
+                is ResultData.Success -> {
+                    singleViolationSuccessFlow.emit(it.data)
+                }
+                is ResultData.Message -> {
+                    singleViolationMessage.emit(it.message)
+                }
+                is ResultData.Error -> {
+                    singleViolationError.emit(it.error)
+                }
+            }
+
+        }.launchIn(viewModelScope)
+    }
+
 
 
 

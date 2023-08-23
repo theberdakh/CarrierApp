@@ -34,9 +34,6 @@ class TaxOrderAdapter: ListAdapter<Order, TaxOrderAdapter.TaxOrderViewHolder>(Ta
                 onOrderClick.invoke(order)
             }
 
-            binding.btnFine.setOnClickListener {
-                onFineClick.invoke(order)
-            }
 
         }
 

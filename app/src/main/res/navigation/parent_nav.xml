@@ -70,6 +70,12 @@
         <argument
             android:name="id"
             app:argType="integer" />
+        <argument
+            android:name="isTaxOfficer"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_taxFormFragment"
+            app:destination="@id/taxFormFragment" />
     </fragment>
     <fragment
         android:id="@+id/taxFragment"
@@ -91,6 +97,9 @@
         <action
             android:id="@+id/action_taxFragment_to_taxSettings"
             app:destination="@id/taxSettings" />
+        <action
+            android:id="@+id/action_taxFragment_to_taxCheckViolation"
+            app:destination="@id/taxCheckViolation" />
     </fragment>
     <fragment
         android:id="@+id/taxFormFragment"
@@ -100,6 +109,9 @@
         <action
             android:id="@+id/action_taxFormFragment_to_taxSearchSellers"
             app:destination="@id/taxSearchSellers" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/taxSearchOrders"
@@ -126,4 +138,25 @@
         android:name="com.theberdakh.carrierapp.ui.seller.SellerProfile"
         android:label="SellerProfile"
         tools:layout="@layout/fragment_seller_profile"/>
+    <fragment
+        android:id="@+id/taxUpdateViolation"
+        android:name="com.theberdakh.carrierapp.ui.tax.TaxUpdateViolation"
+        android:label="TaxUpdateViolation"
+        tools:layout="@layout/fragment_update_violation">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/taxCheckViolation"
+        android:name="com.theberdakh.carrierapp.ui.tax.TaxCheckViolation"
+        android:label="TaxCheckViolation"
+        tools:layout="@layout/fragment_check_violation">
+        <action
+            android:id="@+id/action_taxCheckViolation_to_taxUpdateViolation"
+            app:destination="@id/taxUpdateViolation" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

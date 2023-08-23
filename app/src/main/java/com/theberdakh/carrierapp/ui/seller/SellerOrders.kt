@@ -68,7 +68,7 @@ class SellerOrders : Fragment(R.layout.fragment_seller_orders) {
         adapter.onOrderClickListener {
             findNavController().navigate(
                 SellerFragmentDirections.actionUserFragmentToOrderDetailsFragment(
-                    it.id
+                    it.id, false
                 )
             )
         }
