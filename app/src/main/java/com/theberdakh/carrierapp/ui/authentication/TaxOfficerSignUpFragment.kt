@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
+import com.theberdakh.carrierapp.data.local.SharedPrefStorage
+import com.theberdakh.carrierapp.data.model.response.login.LoginResponse
+import com.theberdakh.carrierapp.data.model.response.tax_officer.TaxOfficerRegisterResponse
 import com.theberdakh.carrierapp.databinding.TaxOfficerSignUpBinding
 import com.theberdakh.carrierapp.presentation.RegisterViewModel
 import com.theberdakh.carrierapp.util.getNotNullText
@@ -21,11 +24,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.ldralighieri.corbind.view.clicks
+import kotlin.math.log
 
 class TaxOfficerSignUpFragment: Fragment(R.layout.tax_officer_sign_up) {
     private lateinit var binding: TaxOfficerSignUpBinding
     private val viewModel by viewModel<RegisterViewModel>()
-
+    private var phone = ""
+    private var password = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = TaxOfficerSignUpBinding.bind(view)
@@ -38,9 +43,18 @@ class TaxOfficerSignUpFragment: Fragment(R.layout.tax_officer_sign_up) {
     }
 
     private fun initObservers() {
+
+        viewModel.loginSuccessFlow.onEach {
+            login(it)
+            makeToast("Login success")
+           findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToTaxFragment())
+        }.launchIn(lifecycleScope)
+
         viewModel.successTaxFlow.onEach {
             Log.d("Login Success", "Success ${it.token}")
             showSnackBar(binding.root, "Akkount registratciya etildi.")
+            viewModel.login(phone = phone, password = password)
+
 
         }.launchIn(lifecycleScope)
 
@@ -51,6 +65,22 @@ class TaxOfficerSignUpFragment: Fragment(R.layout.tax_officer_sign_up) {
         viewModel.errorTaxFlow.onEach {
             makeToast("Error")
         }.launchIn(lifecycleScope)
+
+    }
+
+    private fun login(loginResponse: LoginResponse) {
+
+        SharedPrefStorage().id = loginResponse.id
+        SharedPrefStorage().type = loginResponse.type
+        SharedPrefStorage().phoneNumber = phone
+        SharedPrefStorage().token = loginResponse.token
+        SharedPrefStorage().name = loginResponse.full_name
+        SharedPrefStorage().region = loginResponse.working_region
+        SharedPrefStorage().position = loginResponse.position
+        SharedPrefStorage().password = password
+        SharedPrefStorage().signedIn = true
+        SharedPrefStorage().passportOrId = loginResponse.passport_or_id
+        SharedPrefStorage().passportOrIdNumber = loginResponse.password_or_id_number
 
     }
 
@@ -94,6 +124,8 @@ class TaxOfficerSignUpFragment: Fragment(R.layout.tax_officer_sign_up) {
 
         binding.btnRegister.clicks().debounce(300).onEach {
             makeToast("Clicked")
+            phone = binding.etPhoneNumber.getNotNullText()
+            password = binding.etPassword.getNotNullText()
 
             viewModel.registerTaxOfficer(
                 binding.etFirstLastPoetricName.getNotNullText(),
@@ -105,8 +137,6 @@ class TaxOfficerSignUpFragment: Fragment(R.layout.tax_officer_sign_up) {
                 binding.etPassword.getNotNullText(),
                 binding.etPassword.getNotNullText()
             )
-
-            findNavController().popBackStack()
 
         }.launchIn(lifecycleScope)
     }

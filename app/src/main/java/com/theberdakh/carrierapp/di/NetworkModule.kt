@@ -24,7 +24,7 @@ val networkModule = module {
             .addInterceptor(httpLoggingInterceptor)
             .addInterceptor { chain: Interceptor.Chain ->
                 val newRequest = chain.request().newBuilder()
-                    .addHeader("Authorization", "Token 3abb96aa2e571cfe48bfda6b4aaaae657b036e89")
+                    .addHeader("Authorization", SharedPrefStorage().token)
                     .build()
 
                 chain.proceed(newRequest)

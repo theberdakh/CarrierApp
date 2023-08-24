@@ -58,6 +58,8 @@ class TaxFragment : Fragment(R.layout.fragment_tax){
         }
 
 
+
+
         TabLayoutMediator(binding.tblTax, binding.vpTax){ tab, position ->
             when(position){
                 0 -> tab.text = "Buyırtpalar"

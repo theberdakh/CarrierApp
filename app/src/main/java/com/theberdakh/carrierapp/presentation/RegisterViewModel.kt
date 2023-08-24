@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.theberdakh.carrierapp.data.model.response.ResultData
+import com.theberdakh.carrierapp.data.model.response.login.LoginBody
+import com.theberdakh.carrierapp.data.model.response.login.LoginResponse
 import com.theberdakh.carrierapp.data.model.response.seller.SellerRegisterBody
 import com.theberdakh.carrierapp.data.model.response.seller.SellerResponse
 import com.theberdakh.carrierapp.data.model.response.tax_officer.TaxOfficerRegisterBody
@@ -67,4 +69,24 @@ class RegisterViewModel(private val repository: AuthRepository): ViewModel() {
             }
         }.launchIn(viewModelScope)
     }
-}
+
+    val loginSuccessFlow = MutableSharedFlow<LoginResponse>()
+    val loginMessageFlow = MutableSharedFlow<String>()
+    val loginErrorFlow = MutableSharedFlow<Throwable>()
+    suspend fun login(phone: String, password: String){
+        repository.login(LoginBody( "+${998}$phone", password)).onEach {
+            Log.d("Login click", "+${998}$phone, $password")
+
+            when(it){
+                is ResultData.Success -> {
+                    loginSuccessFlow.emit(it.data)
+                }
+                is ResultData.Message -> {
+                    loginMessageFlow.emit(it.message)
+                }
+                is ResultData.Error -> {
+                    loginErrorFlow.emit(it.error)
+                }
+            }
+        }.launchIn(viewModelScope)
+}}

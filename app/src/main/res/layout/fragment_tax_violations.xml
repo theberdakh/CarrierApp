@@ -20,12 +20,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:paddingHorizontal="8dp"
+                android:overScrollMode="always"
+                android:nestedScrollingEnabled="true"
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:checkedButton="@id/btn_entered_incorrect"
+                app:selectionRequired="true"
+                app:checkedButton="@id/btn_all"
                 app:singleSelection="true">
+
+                <Button
+                    android:id="@+id/btn_all"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ha'mmesi" />
 
                 <Button
                     android:id="@+id/btn_entered_incorrect"

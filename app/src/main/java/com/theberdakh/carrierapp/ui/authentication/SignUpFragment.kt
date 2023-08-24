@@ -36,7 +36,7 @@ class SignUpFragment: Fragment(R.layout.fragment_sign_up) {
 
     private fun setListeners() {
         binding.tbSignUp.setNavigationOnClickListener {
-            findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment())
+            findNavController().popBackStack()
         }
 
     }

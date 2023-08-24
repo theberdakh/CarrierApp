@@ -40,34 +40,6 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
     private fun initViews() {
         _adapter = TaxViolationAdapter()
         binding.rvTaxViolations.adapter = adapter
-        binding.btnEnteredIncorrect.isSelected = true
-    }
-
-    private fun initListeners() {
-
-        adapter.onViolationClickListener {
-           findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxCheckViolation(it.id))
-        }
-
-        binding.fabAddNewViolation.setOnClickListener {
-            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxFormFragment(-1))
-        }
-
-       binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            val sortedList = violations.filter {
-                when(binding.toggleButton.checkedButtonId){
-                    binding.btnEnteredIncorrect.id -> {
-                        it.reason_violation =="entered_incorrect"
-                    }
-                    binding.btnNotEntered.id -> {
-                        it.reason_violation == "not_entered"
-                    }
-                   else -> it.reason_violation== it.reason_violation}
-                }
-
-            adapter.submitList(sortedList)
-        }
-
     }
 
     private fun initObservers() {
@@ -80,7 +52,7 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
 
         viewModel.violationSuccessFlow.onEach {
             Log.d("Order by Id Success", "Success ${it.results}")
-            adapter.submitList(violations)
+            adapter.submitList(it.results.asReversed())
             violations.addAll(it.results)
         }.launchIn(lifecycleScope)
 
@@ -97,6 +69,36 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
         }.launchIn(lifecycleScope)
 
     }
+
+    private fun initListeners() {
+
+        adapter.onViolationClickListener {
+           findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxCheckViolation(it.id))
+        }
+
+        binding.fabAddNewViolation.setOnClickListener {
+            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxFormFragment(-1))
+        }
+
+       binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            val sortedList = violations.filter {
+                when(binding.toggleButton.checkedButtonId){
+                    binding.btnEnteredIncorrect.id -> {
+
+                        it.reason_violation =="entered_incorrect"
+                    }
+                    binding.btnNotEntered.id -> {
+                        it.reason_violation == "not_entered"
+                    }
+                   else -> it.id == it.id
+                }
+                }
+            adapter.submitList(sortedList)
+        }
+
+    }
+
+
 
 
 

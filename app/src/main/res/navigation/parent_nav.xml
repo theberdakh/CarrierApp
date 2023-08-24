@@ -38,18 +38,23 @@
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment"
+            app:launchSingleTop="true"
             app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_loginFragment_to_userFragment"
-            app:destination="@id/userFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/userFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/userFragment" />
         <action
             android:id="@+id/action_loginFragment_to_taxFragment"
-            app:destination="@id/taxFragment"
-            app:launchSingleTop="true" />
+            app:destination="@id/taxFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment2"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment3"
+            app:destination="@id/signUpFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -57,10 +62,12 @@
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
-            android:id="@+id/action_signUpFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:launchSingleTop="true"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_signUpFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_taxFragment"
+            app:destination="@id/taxFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/orderDetailsFragment"
