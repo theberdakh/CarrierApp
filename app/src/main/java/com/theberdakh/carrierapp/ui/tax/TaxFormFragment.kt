@@ -35,6 +35,8 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.ldralighieri.corbind.view.clicks
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
     private lateinit var binding: FragmentTaxFormBinding
@@ -50,6 +52,7 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
         getLocation()
+        getTime()
 
         if (args.id !=-1){
             insertValues(args.id)
@@ -97,7 +100,12 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         initListeners()
         initObservers()
 
+    }
 
+    private fun getTime() {
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
+        makeToast("Date: $currentDate")
     }
 
     private fun getLocation() {
