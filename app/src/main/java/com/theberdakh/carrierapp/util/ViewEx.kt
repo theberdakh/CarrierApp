@@ -6,7 +6,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.theberdakh.carrierapp.app.App
 
 
-fun makeToast(msg: String) {
+fun makeToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(App.instance, msg, Toast.LENGTH_SHORT).show()
 }
 

@@ -9,13 +9,16 @@ import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
 import com.theberdakh.carrierapp.data.model.response.violation.PostViolation
@@ -34,8 +37,8 @@ import ru.ldralighieri.corbind.view.clicks
 import java.io.ByteArrayOutputStream
 
 class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
-    lateinit var binding: FragmentTaxFormBinding
-
+    private lateinit var binding: FragmentTaxFormBinding
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var _encoded: String? = null
     private val encoded get() = _encoded!!
     private val viewModel by viewModel<TaxViewModel>()
@@ -44,6 +47,9 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        getLocation()
 
         if (args.id !=-1){
             insertValues(args.id)
@@ -92,6 +98,39 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         initObservers()
 
 
+    }
+
+    private fun getLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 100
+            )
+        }
+
+        val location = fusedLocationProviderClient.lastLocation
+        location.addOnSuccessListener {
+            if (it != null){
+                val lat = it.latitude.toString()
+                val long = it.longitude.toString()
+                makeToast("lat: $lat, long: $long")
+            }
+            else {
+               makeToast("else")
+            }
+        }
+
+        location.addOnCanceledListener {
+            makeToast("Canceled")
+        }
     }
 
     private fun initObservers() {

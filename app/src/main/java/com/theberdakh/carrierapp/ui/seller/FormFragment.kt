@@ -10,6 +10,7 @@ import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -113,6 +114,9 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
 
         binding.atvCarrierTrailer.setOnItemClickListener { parent, view, position, id ->
             binding.tilCarrierTrailerWeight.isVisible = parent.getItemAtPosition(position) == "Bar"
+           if (parent.getItemAtPosition(position) == "Joq"){
+               binding.tilCarrierTrailerWeight.error = null
+           }
         }
 
         binding.tbForm.setNavigationOnClickListener {
@@ -121,34 +125,16 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
 
 
         binding.btnSendForm.setOnClickListener {
-
-            if (binding.etAutoNumber.setErrorText(binding.tilAutoNumber) {
-                    it.toString().isEmpty()
-                } &&
-                binding.etCarrierAutoBrand.setErrorText(binding.tilCarrierAutoBrand) {
-                    it.toString().isEmpty()
-                } &&
-                binding.etCarrierName.setErrorText(binding.tilCarrierName) {
-                    it.toString().isEmpty()
-                } &&
-                binding.etCarrierPhone.setErrorText(binding.tilCarrierPhone) {
-                    it.toString().isEmpty()
-                } &&
-                binding.etPassportSeries.setErrorText(binding.tilPassportSeries) {
-                    it.toString().isEmpty()
-                } &&
-                binding.etWeight.setErrorText(binding.tilWeight) {
-                    it.toString().isEmpty()
-                } &&
-                binding.etCarrierTrailerWeight.setErrorText(binding.tilCarrierTrailerWeight) {
-                    it.toString().isEmpty()
-                }
-            ) {
-                findNavController().popBackStack()
+            if (_encoded == null){
+                makeToast("Su'wret qospadin'iz!", Toast.LENGTH_LONG)
             } else {
-                showSnackBar(binding.btnSendForm, "Ha'mme kerek jerledi toltirin'!")
+                val everythingOkay = checkEditTexts()
+                if (everythingOkay){
+                  /*  viewModel.postOrder(PostOrder(
+                        binding.
+                    ))*/
+                }
             }
-
         }
 
         binding.ivFormImage.setOnClickListener {
@@ -166,6 +152,31 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
                 }
             }
         }
+    }
+
+    private fun checkEditTexts(): Boolean {
+
+        var isEverythingOkay = false
+        if (binding.tilAutoNumber.error != null || binding.etAutoNumber.text.toString().isNullOrEmpty()){
+            binding.tilAutoNumber.error = "Toltiriw kerek!"
+        } else if(binding.tilCarrierAutoBrand.error != null || binding.etCarrierAutoBrand.text.toString().isNullOrEmpty())  {
+            binding.tilCarrierAutoBrand.error = "Toltiriw kerek!"
+        }else if(binding.tilCarrierName.error != null || binding.etCarrierName.text.toString().isNullOrEmpty())  {
+            binding.tilCarrierName.error = "Toltiriw kerek!"
+        }else if(binding.tilCarrierPhone.error != null || binding.etCarrierPhone.text.toString().isNullOrEmpty() || binding.etCarrierPhone.text.toString().trim().length <9)  {
+            binding.tilCarrierPhone.error = "Toltiriw kerek!"
+        }else if(binding.tilPassportSeries.error != null || binding.etPassportSeries.text.toString().isNullOrEmpty())  {
+            binding.tilPassportSeries.error = "Toltiriw kerek!"
+        }else if(binding.tilDirection.error != null || binding.etDirection.text.toString().isNullOrEmpty())  {
+            binding.tilDirection.error = "Toltiriw kerek!"
+        }else if(binding.tilWeight.error != null || binding.etWeight.text.toString().isNullOrEmpty())  {
+            binding.tilWeight.error = "Toltiriw kerek!"
+        } else if(binding.tilCarrierTrailer.isVisible && binding.tilCarrierTrailerWeight.error != null || binding.tilCarrierTrailerWeight.isVisible && binding.etCarrierTrailerWeight.text.toString().isNullOrEmpty())  {
+            binding.tilCarrierTrailerWeight.error = "Toltiriw kerek!"
+        } else {
+            isEverythingOkay = true
+        }
+        return isEverythingOkay
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

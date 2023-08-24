@@ -1,8 +1,10 @@
 package com.theberdakh.carrierapp.ui.tax
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -77,7 +79,23 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
         }
 
         binding.fabAddNewViolation.setOnClickListener {
-            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxFormFragment(-1))
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 100
+                )
+            }
+            else {
+                findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxFormFragment(-1))
+            }
         }
 
        binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
