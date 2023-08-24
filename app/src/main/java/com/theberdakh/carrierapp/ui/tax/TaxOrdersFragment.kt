@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.theberdakh.carrierapp.R
+import com.theberdakh.carrierapp.data.model.response.order.Order
+import com.theberdakh.carrierapp.data.model.response.violation.Violation
 import com.theberdakh.carrierapp.databinding.FragmentTaxOrdersBinding
 import com.theberdakh.carrierapp.presentation.TaxViewModel
 import com.theberdakh.carrierapp.ui.adapter.TaxOrderAdapter
@@ -15,11 +17,17 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
-class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
+class TaxOrdersFragment : Fragment(R.layout.fragment_tax_orders) {
     private lateinit var binding: FragmentTaxOrdersBinding
     private val viewModel by viewModel<TaxViewModel>()
     private var _adapter: TaxOrderAdapter? = null
+    private val orders: ArrayList<Order> = arrayListOf()
+
     private val adapter get() = _adapter!!
     private var sellers = mutableMapOf<Int, String>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,17 +57,28 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
         }
 
         viewModel.allSellersSuccessFlow.onEach {
-            for (seller in it.results){
+
+            Log.d("TaxOrdersFragment", "${it.results}")
+
+            for (seller in it.results) {
                 sellers[seller.id] = seller.karer_name
             }
+            Log.d("Tax Orders", "${sellers.size}")
             adapter.sellers = sellers
-
         }.launchIn(lifecycleScope)
 
+        viewModel.allSellersMessageFlow.onEach {
+            Log.d("All Sellers", it)
+        }.launchIn(lifecycleScope)
+
+        viewModel.allSellersErrorFlow.onEach {
+            Log.d("All Sellers", it.stackTraceToString())
+        }.launchIn(lifecycleScope)
 
         viewModel.successFlow.onEach {
             Log.d("Order by Id Success", "Success ${it.results}")
             adapter.submitList(it.results.asReversed())
+            orders.addAll(it.results)
 
         }.launchIn(lifecycleScope)
 
@@ -77,6 +96,8 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
     }
 
 
+    private fun String.extractString(from: Int, until: Int) = this.substring(from, until)
+
     private fun initListeners() {
 
         binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
@@ -84,12 +105,41 @@ class TaxOrdersFragment: Fragment(R.layout.fragment_tax_orders) {
         }
 
         adapter.onOrderClickListener {
-            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToOrderDetailsFragment(it.id, true))
+            findNavController().navigate(
+                TaxFragmentDirections.actionTaxFragmentToOrderDetailsFragment(
+                    it.id,
+                    true
+                )
+            )
         }
 
 
         binding.fabSearchOrders.setOnClickListener {
             findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxSearchOrders())
+        }
+
+        binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+
+          /*  val calendar = Calendar.getInstance()
+            val dateFormat = SimpleDateFormat("MM")
+            val date = Date()
+            Log.d("Date", "month ${dateFormat.format(date)}")
+            Log.d("Date", "date ${calendar.get(Calendar.DATE)}")
+            Log.d("Date", "day of the week ${calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)}")
+
+*/
+            val sortedList = orders.filter {
+                when (binding.toggleButton.checkedButtonId) {
+                    binding.btnByDay.id -> {
+                        it.date.endsWith("23")
+                    }
+                    binding.btnByWeek.id -> {
+                        it.date.endsWith("08")
+                    }
+                    else -> true
+                }
+            }
+            adapter.submitList(sortedList)
         }
 
 

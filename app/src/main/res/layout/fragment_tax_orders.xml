@@ -20,32 +20,40 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
+                app:selectionRequired="true"
+                app:checkedButton="@id/btn_all_orders"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:singleSelection="true">
 
-                <Button
-                    android:id="@+id/button1"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text="Kún" />
 
                 <Button
-                    android:id="@+id/button2"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hápte" />
-
-                <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/btn_all_orders"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hámmesi" />
+
+
+
+                <Button
+                    android:id="@+id/btn_by_day"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bu'gin" />
+
+                <Button
+                    android:id="@+id/btn_by_week"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:text="Hápte" />
+
+
+
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
 
