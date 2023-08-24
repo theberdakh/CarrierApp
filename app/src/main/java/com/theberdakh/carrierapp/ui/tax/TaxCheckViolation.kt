@@ -43,6 +43,17 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
         binding.tbCheckViolation.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
+        binding.tbCheckViolation.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.action_edit_violation -> {
+                    findNavController().navigate(TaxCheckViolationDirections.actionTaxCheckViolationToTaxFormFragment(args.id))
+                    true
+                }
+
+                else -> {true}
+            }
+        }
     }
 
     private fun initObservers(id: Int) {
@@ -85,6 +96,10 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
             tvCargoType.text = violation.cargo_type
 
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        initObservers(args.id)
     }
 }

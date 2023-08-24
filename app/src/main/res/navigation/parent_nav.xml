@@ -146,24 +146,15 @@
         android:label="SellerProfile"
         tools:layout="@layout/fragment_seller_profile"/>
     <fragment
-        android:id="@+id/taxUpdateViolation"
-        android:name="com.theberdakh.carrierapp.ui.tax.TaxUpdateViolation"
-        android:label="TaxUpdateViolation"
-        tools:layout="@layout/fragment_update_violation">
-        <argument
-            android:name="id"
-            app:argType="integer" />
-    </fragment>
-    <fragment
         android:id="@+id/taxCheckViolation"
         android:name="com.theberdakh.carrierapp.ui.tax.TaxCheckViolation"
         android:label="TaxCheckViolation"
         tools:layout="@layout/fragment_check_violation">
-        <action
-            android:id="@+id/action_taxCheckViolation_to_taxUpdateViolation"
-            app:destination="@id/taxUpdateViolation" />
         <argument
             android:name="id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_taxCheckViolation_to_taxFormFragment"
+            app:destination="@id/taxFormFragment" />
     </fragment>
 </navigation>

@@ -41,7 +41,6 @@ fun TextInputEditText.setErrorText(
     errorText: String = "Toltiriw kerek!",
     doAfter: Boolean = false,
     condition: (Editable?) -> Boolean
-
 ): Boolean {
 
     var setError = true
@@ -66,7 +65,7 @@ fun TextInputEditText.setErrorText(
         }
     }
 
-    return !setError
+    return setError
 }
 
 

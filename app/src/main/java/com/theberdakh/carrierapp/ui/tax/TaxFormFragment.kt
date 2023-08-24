@@ -161,6 +161,7 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         }
 
         binding.btnSendForm.clicks().debounce(200).onEach {
+
           viewModel.postViolation(
                 PostViolation(
                     car_brand = binding.etCarrierAutoBrand.getNotNullText(),
@@ -175,7 +176,7 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
                     karer_name = binding.atvSellerName.text.toString(),
                     location = "139349, 3403445" ,
                     reason_violation = "not_entered",
-                    is_updated = false,
+                    is_updated = args.id != -1,
                     tax_officer = SharedPrefStorage().id
                 )
             )
