@@ -108,7 +108,7 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
                     binding.btnNotEntered.id -> {
                         it.reason_violation == "not_entered"
                     }
-                   else -> it.id == it.id
+                   else ->true
                 }
                 }
             adapter.submitList(sortedList)

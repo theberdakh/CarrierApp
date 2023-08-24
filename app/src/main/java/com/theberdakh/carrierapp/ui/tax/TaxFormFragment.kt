@@ -1,22 +1,22 @@
 package com.theberdakh.carrierapp.ui.tax
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.theberdakh.carrierapp.R
@@ -25,6 +25,8 @@ import com.theberdakh.carrierapp.data.model.response.violation.PostViolation
 import com.theberdakh.carrierapp.databinding.FragmentTaxFormBinding
 import com.theberdakh.carrierapp.presentation.SellerViewModel
 import com.theberdakh.carrierapp.presentation.TaxViewModel
+import com.theberdakh.carrierapp.util.checkLocationPermissions
+import com.theberdakh.carrierapp.util.getCurrentDate
 import com.theberdakh.carrierapp.util.getNotNullText
 import com.theberdakh.carrierapp.util.makeToast
 import com.theberdakh.carrierapp.util.setCustomAdapter
@@ -40,19 +42,25 @@ import java.util.Date
 
 class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
     private lateinit var binding: FragmentTaxFormBinding
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+   // private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var _encoded: String? = null
     private val encoded get() = _encoded!!
     private val viewModel by viewModel<TaxViewModel>()
     private val sellerViewModel by viewModel<SellerViewModel>()
     private val args: TaxFormFragmentArgs by navArgs()
+    private var location: String = ""
+    private var date: String = ""
+    private var _photo: Bitmap? =  null
+    private val photo get() = _photo!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        getLocation()
-        getTime()
+      //  fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+      //  getLocation()
+       // getTime()
+
+
 
         if (args.id !=-1){
             insertValues(args.id)
@@ -61,6 +69,8 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
     }
 
     private fun insertValues(id: Int) {
+
+
 
         lifecycleScope.launch {
             sellerViewModel.getOrderById(id)
@@ -92,6 +102,7 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
 
     }
 
+    @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTaxFormBinding.bind(view)
@@ -100,45 +111,24 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         initListeners()
         initObservers()
 
-    }
+        this.date = getCurrentDate()
+        makeToast("Date $date")
 
-    private fun getTime() {
-        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-        val currentDate = sdf.format(Date())
-        makeToast("Date: $currentDate")
-    }
-
-    private fun getLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 100
-            )
-        }
-
-        val location = fusedLocationProviderClient.lastLocation
-        location.addOnSuccessListener {
-            if (it != null){
-                val lat = it.latitude.toString()
-                val long = it.longitude.toString()
-                makeToast("lat: $lat, long: $long")
-            }
-            else {
-               makeToast("else")
+        if (requireActivity().checkLocationPermissions()){
+            val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+            val location = fusedLocationProviderClient.lastLocation
+            location.addOnSuccessListener {
+                if (it != null){
+                    val lat = it.latitude.toString()
+                    val long = it.longitude.toString()
+                    val locationText = "$lat, $long"
+                    makeToast("Here: $locationText")
+                    this.location = locationText
+                    makeToast("Now, ${this.location}")
+                }
             }
         }
 
-        location.addOnCanceledListener {
-            makeToast("Canceled")
-        }
     }
 
     private fun initObservers() {
@@ -209,20 +199,23 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
 
         binding.btnSendForm.clicks().debounce(200).onEach {
 
-          viewModel.postViolation(
+            makeToast("Send : ${this.location}")
+            makeToast("Send:  ${this.date}")
+
+         viewModel.postViolation(
                 PostViolation(
                     car_brand = binding.etCarrierAutoBrand.getNotNullText(),
                     car_photo =encoded,
                     car_number = binding.etAutoNumber.getNotNullText(),
-                    cargo_date = "2023-08-18T00:50:46+05:00",
+                    cargo_date = "2023-08-18 00:50:46+05:00",
                     cargo_type = binding.atvCargoType.text.toString(),
                     driver_name = binding.etCarrierName.getNotNullText(),
                     driver_passport_or_id=  "passport",
                     driver_passport_or_id_number = binding.etPassportSeries.getNotNullText(),
                     driver_phone_number = binding.etCarrierPhone.getNotNullText(),
                     karer_name = binding.atvSellerName.text.toString(),
-                    location = "139349, 3403445" ,
-                    reason_violation = "not_entered",
+                    location = this.location ,
+                    reason_violation =" ${binding.atViolationType.text.toString()} ${binding.etCustomReason.text.toString()}",
                     is_updated = args.id != -1,
                     tax_officer = SharedPrefStorage().id
                 )
@@ -236,7 +229,7 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 42 && resultCode == Activity.RESULT_OK) {
             val takenImage = data?.extras?.get("data") as Bitmap
-            binding.ivFormImage.setImageBitmap(takenImage)
+            _photo = takenImage
             binding.ivFormImage.setImageBitmap(takenImage)
 
             val byteArrayOutputStream = ByteArrayOutputStream()
