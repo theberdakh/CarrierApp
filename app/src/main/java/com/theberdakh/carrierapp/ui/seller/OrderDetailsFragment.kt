@@ -62,8 +62,7 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
 
             binding.apply {
                 tvOrderType.text = it.cargo_type
-                tvOrderValue.text = it.cargo_value
-                tvOrderUnit.text = if(it.cargo_unit ==1 ) "m3" else "kg"
+                tvOrderValue.text = "${it.cargo_value} ${if(it.cargo_unit ==1 ) "m3" else "kg"}"
                 tvCarrierName.text = it.driver_name
                 tvCarrierPassport.text = it.driver_passport_or_id_number
                 tvCarrierPhone.text = it.driver_phone_number
