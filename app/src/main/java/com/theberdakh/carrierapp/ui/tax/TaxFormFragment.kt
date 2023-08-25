@@ -21,6 +21,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
+import com.theberdakh.carrierapp.data.model.response.violation.PostUpdateViolation
 import com.theberdakh.carrierapp.data.model.response.violation.PostViolation
 import com.theberdakh.carrierapp.databinding.FragmentTaxFormBinding
 import com.theberdakh.carrierapp.presentation.SellerViewModel
@@ -50,8 +51,6 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
     private val args: TaxFormFragmentArgs by navArgs()
     private var location: String = ""
     private var date: String = ""
-    private var _photo: Bitmap? =  null
-    private val photo get() = _photo!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,7 +95,6 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
             binding.atvCargoType.isEnabled = false
             binding.etCargoDate.setText(it.date)
             binding.etCargoDate.isEnabled = false
-
 
         }.launchIn(lifecycleScope)
 
@@ -163,10 +161,6 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         binding.atViolationType.setCustomAdapter(listOf("Mag'liwmat kiritilmegen", "Mag'liwmat toliq emes"))
         binding.atvCargoType.setCustomAdapter(listOf("Sheben", "Shege qum"))
 
-        val request = LocationRequest.Builder(1000).build()
-        Intent(requireContext(), requireActivity().javaClass).apply {
-            putExtra("request", request)
-        }
 
     }
 
@@ -203,22 +197,22 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
             makeToast("Send:  ${this.date}")
 
          viewModel.postViolation(
-                PostViolation(
-                    car_brand = binding.etCarrierAutoBrand.getNotNullText(),
-                    car_photo =encoded,
-                    car_number = binding.etAutoNumber.getNotNullText(),
-                    cargo_date = "2023-08-18 00:50:46+05:00",
-                    cargo_type = binding.atvCargoType.text.toString(),
-                    driver_name = binding.etCarrierName.getNotNullText(),
-                    driver_passport_or_id=  "passport",
-                    driver_passport_or_id_number = binding.etPassportSeries.getNotNullText(),
-                    driver_phone_number = binding.etCarrierPhone.getNotNullText(),
-                    karer_name = binding.atvSellerName.text.toString(),
-                    location = this.location ,
-                    reason_violation =" ${binding.atViolationType.text.toString()} ${binding.etCustomReason.text.toString()}",
-                    is_updated = args.id != -1,
-                    tax_officer = SharedPrefStorage().id
-                )
+                 PostViolation(
+                     car_brand = binding.etCarrierAutoBrand.getNotNullText(),
+                     car_photo =encoded,
+                     car_number = binding.etAutoNumber.getNotNullText(),
+                     cargo_date = "2023-08-18 00:50:46+05:00",
+                     cargo_type = binding.atvCargoType.text.toString(),
+                     driver_name = binding.etCarrierName.getNotNullText(),
+                     driver_passport_or_id=  "passport",
+                     driver_passport_or_id_number = binding.etPassportSeries.getNotNullText(),
+                     driver_phone_number = binding.etCarrierPhone.getNotNullText(),
+                     karer_name = binding.atvSellerName.text.toString(),
+                     location = this.location ,
+                     reason_violation =" ${binding.atViolationType.text.toString()} ${binding.etCustomReason.text.toString()}",
+                     is_updated = true,
+                     tax_officer = SharedPrefStorage().id,
+                 )
             )
 
             makeToast("Clicked")
@@ -229,7 +223,6 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 42 && resultCode == Activity.RESULT_OK) {
             val takenImage = data?.extras?.get("data") as Bitmap
-            _photo = takenImage
             binding.ivFormImage.setImageBitmap(takenImage)
 
             val byteArrayOutputStream = ByteArrayOutputStream()

@@ -78,6 +78,11 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
            findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxCheckViolation(it.id))
         }
 
+        binding.swipeRefresh.setOnRefreshListener {
+            initObservers()
+            binding.swipeRefresh.isRefreshing = false
+        }
+
         binding.fabAddNewViolation.setOnClickListener {
             if (ActivityCompat.checkSelfPermission(
                     requireContext(),
@@ -99,10 +104,15 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
         }
 
        binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+
+           lifecycleScope.launch {
+               viewModel.getAllViolations()
+               viewModel.getAllSellers()
+           }
+
             val sortedList = violations.filter {
                 when(binding.toggleButton.checkedButtonId){
                     binding.btnEnteredIncorrect.id -> {
-
                         it.reason_violation =="entered_incorrect"
                     }
                     binding.btnNotEntered.id -> {

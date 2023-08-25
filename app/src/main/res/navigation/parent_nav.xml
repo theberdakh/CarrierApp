@@ -154,7 +154,15 @@
             android:name="id"
             app:argType="integer" />
         <action
-            android:id="@+id/action_taxCheckViolation_to_taxFormFragment"
-            app:destination="@id/taxFormFragment" />
+            android:id="@+id/action_taxCheckViolation_to_taxUpdateViolation"
+            app:destination="@id/taxUpdateViolation" />
+    </fragment>
+    <fragment
+        android:id="@+id/taxUpdateViolation"
+        android:name="com.theberdakh.carrierapp.ui.tax.TaxUpdateViolation"
+        android:label="TaxUpdateViolation" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
 </navigation>

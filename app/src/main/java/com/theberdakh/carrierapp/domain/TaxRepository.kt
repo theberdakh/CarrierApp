@@ -2,7 +2,9 @@ package com.theberdakh.carrierapp.domain
 
 import android.util.Log
 import com.theberdakh.carrierapp.data.model.response.ResultData
+import com.theberdakh.carrierapp.data.model.response.violation.PostUpdateViolation
 import com.theberdakh.carrierapp.data.model.response.violation.PostViolation
+import com.theberdakh.carrierapp.data.model.response.violation.PostViolationGeneral
 import com.theberdakh.carrierapp.data.remote.TaxApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -68,6 +70,23 @@ class TaxRepository(private val api: TaxApi) {
         Log.d("SellerRepo", " all orders request is error")
         emit(ResultData.Error(it))
     }.flowOn(Dispatchers.IO)
+
+    suspend fun addNewUpdatedViolation(postViolation: PostUpdateViolation) = flow {
+        val response = api.addNewUpdatedViolation(postViolation)
+        if (response.isSuccessful && response.body() != null) {
+            Log.d("SellerRepo", "post is successful post")
+            emit(ResultData.Success(response.body()!!))
+        } else {
+            Log.d("SellerRepo", " all orders request is ${response.body()}")
+
+            emit(ResultData.Message(response.body().toString()))
+        }
+    }.catch {
+        Log.d("SellerRepo", " all orders request is error")
+        emit(ResultData.Error(it))
+    }.flowOn(Dispatchers.IO)
+
+
 
     suspend fun getAllSellers() = flow {
         val response = api.getAllSellers()

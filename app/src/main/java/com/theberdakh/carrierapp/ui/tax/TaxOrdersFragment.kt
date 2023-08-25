@@ -78,7 +78,7 @@ class TaxOrdersFragment : Fragment(R.layout.fragment_tax_orders) {
         viewModel.successFlow.onEach {
             Log.d("Order by Id Success", "Success ${it.results}")
             adapter.submitList(it.results.asReversed())
-            orders.addAll(it.results)
+            orders.addAll(it.results.asReversed())
 
         }.launchIn(lifecycleScope)
 
@@ -100,9 +100,11 @@ class TaxOrdersFragment : Fragment(R.layout.fragment_tax_orders) {
 
     private fun initListeners() {
 
-        binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+      binding.swipeRefreshTaxOrders.setOnRefreshListener {
+          initObservers()
+          binding.swipeRefreshTaxOrders.isRefreshing = false
+      }
 
-        }
 
         adapter.onOrderClickListener {
             findNavController().navigate(
@@ -120,23 +122,24 @@ class TaxOrdersFragment : Fragment(R.layout.fragment_tax_orders) {
 
         binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
 
-          /*  val calendar = Calendar.getInstance()
-            val dateFormat = SimpleDateFormat("MM")
-            val date = Date()
-            Log.d("Date", "month ${dateFormat.format(date)}")
-            Log.d("Date", "date ${calendar.get(Calendar.DATE)}")
-            Log.d("Date", "day of the week ${calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)}")
+           lifecycleScope.launch {
+            viewModel.getAllOrders()
+           }
 
-*/
+            val sdf = SimpleDateFormat("yyyy-MM-dd")
+            Log.d("Date", sdf.format(Date()))
+
             val sortedList = orders.filter {
-                when (binding.toggleButton.checkedButtonId) {
+                when (checkedId) {
                     binding.btnByDay.id -> {
-                        it.date.endsWith("23")
+                        it.date == "1"//sdf.format(Date())
                     }
                     binding.btnByWeek.id -> {
                         it.date.endsWith("08")
                     }
-                    else -> true
+                    else -> {
+                        true
+                    }
                 }
             }
             adapter.submitList(sortedList)

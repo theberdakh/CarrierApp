@@ -12,6 +12,8 @@ import com.theberdakh.carrierapp.data.model.fake.Updates
 import com.theberdakh.carrierapp.data.model.response.violation.Violation
 import com.theberdakh.carrierapp.databinding.FragmentCheckViolationBinding
 import com.theberdakh.carrierapp.presentation.TaxViewModel
+import com.theberdakh.carrierapp.util.checkLocationPermissions
+import com.theberdakh.carrierapp.util.makeToast
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -47,8 +49,13 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
         binding.tbCheckViolation.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.action_edit_violation -> {
-                    findNavController().navigate(TaxCheckViolationDirections.actionTaxCheckViolationToTaxFormFragment(args.id))
-                    true
+                   if( requireActivity().checkLocationPermissions()){
+                       findNavController().navigate(TaxCheckViolationDirections.actionTaxCheckViolationToTaxUpdateViolation(args.id))
+                   }
+                    else {
+                        makeToast("O'zgeris kiritiwin'iz ushin lokaciyan'zidi aniqlawg'a ruxsat beriwin'iz kerek.")
+                   }
+                   true
                 }
 
                 else -> {true}

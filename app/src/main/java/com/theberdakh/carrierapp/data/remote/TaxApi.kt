@@ -2,7 +2,9 @@ package com.theberdakh.carrierapp.data.remote
 
 import com.theberdakh.carrierapp.data.model.response.order.OrderResponse
 import com.theberdakh.carrierapp.data.model.response.seller.GetAllSellerResponse
+import com.theberdakh.carrierapp.data.model.response.violation.PostUpdateViolation
 import com.theberdakh.carrierapp.data.model.response.violation.PostViolation
+import com.theberdakh.carrierapp.data.model.response.violation.PostViolationGeneral
 import com.theberdakh.carrierapp.data.model.response.violation.Violation
 import com.theberdakh.carrierapp.data.model.response.violation.ViolationResponse
 import retrofit2.Response
@@ -21,6 +23,9 @@ interface TaxApi {
 
     @POST("violations/create/")
     suspend fun postViolation(@Body body: PostViolation): Response<PostViolation>
+
+    @POST("violations/create/")
+    suspend fun addNewUpdatedViolation(@Body body: PostUpdateViolation): Response<PostUpdateViolation>
 
     @GET("karer/")
     suspend fun getAllSellers(): Response<GetAllSellerResponse>

@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.theberdakh.carrierapp.data.model.response.ResultData
 import com.theberdakh.carrierapp.data.model.response.order.OrderResponse
 import com.theberdakh.carrierapp.data.model.response.seller.GetAllSellerResponse
+import com.theberdakh.carrierapp.data.model.response.violation.PostUpdateViolation
 import com.theberdakh.carrierapp.data.model.response.violation.PostViolation
+import com.theberdakh.carrierapp.data.model.response.violation.PostViolationGeneral
 import com.theberdakh.carrierapp.data.model.response.violation.Violation
 import com.theberdakh.carrierapp.data.model.response.violation.ViolationResponse
 import com.theberdakh.carrierapp.domain.TaxRepository
@@ -85,6 +87,28 @@ class TaxViewModel(private val repository: TaxRepository): ViewModel() {
                 }
                 is ResultData.Error -> {
                     postViolationErrorFlow.emit(it.error)
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    val postUpdatedViolationSuccessFlow = MutableSharedFlow<PostUpdateViolation>()
+    val postUpdatedViolationMessageFlow = MutableSharedFlow<String>()
+    val postUpdatedViolationErrorFlow = MutableSharedFlow<Throwable>()
+
+    suspend fun postUpdatedViolation(postUpdateViolation: PostUpdateViolation){
+
+
+      repository.addNewUpdatedViolation(postUpdateViolation).onEach {
+            when(it){
+                is ResultData.Success -> {
+                    postUpdatedViolationSuccessFlow.emit(it.data)
+                }
+                is ResultData.Message -> {
+                    postUpdatedViolationMessageFlow.emit(it.message)
+                }
+                is ResultData.Error -> {
+                    postUpdatedViolationErrorFlow.emit(it.error)
                 }
             }
         }.launchIn(viewModelScope)

@@ -16,5 +16,6 @@ data class Violation(
     val is_updated: Boolean,
     val cargo_date: String,
     val created_at: String,
-    val tax_officer: Int
+    val tax_officer: Int,
+    val unique_number: Int
 )

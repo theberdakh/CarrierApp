@@ -31,7 +31,7 @@ class TaxFragment : Fragment(R.layout.fragment_tax){
     }
 
     private fun initViews() {
-        binding.vpTax.adapter = SignUpViewPagerAdapter(arrayListOf(TaxOrdersFragment(), TaxViolationsFragment()), requireActivity().supportFragmentManager, requireActivity().lifecycle)
+        binding.vpTax.adapter = SignUpViewPagerAdapter(arrayListOf(TaxViolationsFragment(), TaxOrdersFragment()), requireActivity().supportFragmentManager, requireActivity().lifecycle)
 
         binding.tbTax.title = SharedPrefStorage().name
 
@@ -62,8 +62,8 @@ class TaxFragment : Fragment(R.layout.fragment_tax){
 
         TabLayoutMediator(binding.tblTax, binding.vpTax){ tab, position ->
             when(position){
-                0 -> tab.text = "Buyırtpalar"
-                1 -> tab.text = "Járiymalar"
+                0 -> tab.text = "Járiymalar"
+                1 -> tab.text = "Buyırtpalar"
             }
         }.attach()
     }

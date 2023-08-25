@@ -1,8 +1,8 @@
 package com.theberdakh.carrierapp.data.model.response.violation
 
-data class PostViolation(
-    val karer_name: String,
+data class PostUpdateViolation(
     val car_photo: String,
+    val karer_name: String,
     val driver_name: String,
     val driver_phone_number: String,
     val driver_passport_or_id: String,
@@ -14,5 +14,7 @@ data class PostViolation(
     val reason_violation: String,
     var is_updated: Boolean,
     val cargo_date: String,
+    val unique_number: Int,
     val tax_officer: Int
+
 ): PostViolationGeneral()
