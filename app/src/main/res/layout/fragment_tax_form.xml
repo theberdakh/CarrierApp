@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/title_form"
+            app:navigationIconTint="?colorOnSurface"
             app:navigationIcon="@drawable/baseline_arrow_back_ios_new_24"
             />
 
@@ -55,6 +56,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"
                 android:padding="8dp"
+                app:tint="?colorOnSurface"
                 android:src="@drawable/baseline_add_a_photo_24"
                 android:layout_weight="0.5"
                 />

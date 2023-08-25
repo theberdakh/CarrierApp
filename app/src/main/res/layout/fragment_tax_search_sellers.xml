@@ -17,6 +17,7 @@
             android:id="@+id/tb_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:navigationIconTint="?colorOnSurface"
             app:title="Karerlardi izlew"
             app:navigationIcon="@drawable/baseline_close_24"
             />

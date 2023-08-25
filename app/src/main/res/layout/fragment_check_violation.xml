@@ -26,6 +26,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/tb_check_violation"
             android:layout_width="match_parent"
+            app:navigationIconTint="?colorOnSurface"
             android:layout_height="wrap_content"
             app:title="Ja'riyma"
             app:menu="@menu/menu_tax_edit_violation"
@@ -45,6 +46,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="8dp"
+                    app:tint="?colorOnSurface"
                     android:layout_weight="3"
                     android:padding="8dp"
                     android:src="@drawable/baseline_add_a_photo_24"
@@ -121,6 +123,7 @@
                     <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        app:tint="?colorOnSurface"
                         android:src="@drawable/baseline_account_circle_24"
                         android:layout_marginTop="8dp"
                         android:layout_gravity="center|top" />
@@ -187,6 +190,7 @@
                     <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        app:tint="?colorOnSurface"
                         android:src="@drawable/baseline_directions_car_filled_24"
                         android:layout_gravity="center|top"
                         android:layout_marginTop="8dp"/>
@@ -247,6 +251,7 @@
             android:layout_marginTop="36dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableTint="?colorOnSurface"
             android:text="O'zgerisler"
             android:drawableStart="@drawable/baseline_mode_edit_24"
             android:drawablePadding="8dp"

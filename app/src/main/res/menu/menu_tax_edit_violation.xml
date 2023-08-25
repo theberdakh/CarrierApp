@@ -4,5 +4,6 @@
     <item android:id="@+id/action_edit_violation"
         android:icon="@drawable/baseline_mode_edit_24"
         android:title="Edit violation"
+        android:iconTint="?colorOnSurface"
         app:showAsAction="always"/>
 </menu>

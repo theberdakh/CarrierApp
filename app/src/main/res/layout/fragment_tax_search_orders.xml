@@ -16,6 +16,7 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/tb_search"
         android:layout_width="match_parent"
+        app:navigationIconTint="?colorOnSurface"
         android:layout_height="wrap_content"
         app:title="Buyirtpalardi izlew"
         app:navigationIcon="@drawable/baseline_close_24"

@@ -27,6 +27,7 @@
             tools:text="95 | 123AA "
             android:textAlignment="center"
             android:textAllCaps="true"
+            android:textColor="@color/black"
             android:background="@drawable/shape_car_number"
             android:textAppearance="?textAppearanceBody1"/>
 
@@ -43,11 +44,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="viewStart"
-            android:textColor="?colorOnPrimary"
+            android:textColor="@color/white"
             android:textAppearance="?textAppearanceBody1"
             tools:text="@tools:sample/date/ddmmyy"
             app:drawableStartCompat="@drawable/baseline_calendar_month_24"
-            app:drawableTint="?colorOnPrimary" />
+            app:drawableTint="@color/white" />
 
     </LinearLayout>
 
