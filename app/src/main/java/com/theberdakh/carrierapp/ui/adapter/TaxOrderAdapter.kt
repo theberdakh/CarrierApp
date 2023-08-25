@@ -58,10 +58,6 @@ class TaxOrderAdapter: ListAdapter<Order, TaxOrderAdapter.TaxOrderViewHolder>(Ta
         this.onOrderClick = onOrderClick
     }
 
-    private lateinit var onFineClick: (Order) -> Unit
-    fun onOrderFineClickListener(onFineClick:(Order) -> Unit ){
-        this.onFineClick = onFineClick
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TaxOrderViewHolder(ItemRecyclerOrderTaxBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 

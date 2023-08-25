@@ -76,8 +76,8 @@ class TaxSearchOrders: Fragment(R.layout.fragment_tax_search_orders) {
             findNavController().popBackStack()
         }
 
-        adapter.onOrderFineClickListener {
-            makeToast("Fine clicked")
+        adapter.onOrderClickListener {
+            findNavController().navigate(TaxSearchOrdersDirections.actionTaxSearchOrdersToOrderDetailsFragment(it.id, true))
         }
 
         binding.groupFilters.addOnButtonCheckedListener { _, checkedId, _ ->

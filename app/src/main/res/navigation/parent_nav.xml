@@ -124,7 +124,11 @@
         android:id="@+id/taxSearchOrders"
         android:name="com.theberdakh.carrierapp.ui.tax.TaxSearchOrders"
         android:label="TaxSearchOrders"
-        tools:layout="@layout/fragment_tax_search_orders"/>
+        tools:layout="@layout/fragment_tax_search_orders">
+        <action
+            android:id="@+id/action_taxSearchOrders_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/taxSearchSellers"
         android:name="com.theberdakh.carrierapp.ui.tax.TaxSearchSellers"
