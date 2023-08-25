@@ -21,10 +21,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 app:endIconMode="clear_text"
-                app:boxCornerRadiusTopStart="16dp"
-                app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusBottomStart="16dp"
-                app:boxCornerRadiusBottomEnd="16dp">
+                app:boxCornerRadiusTopStart="24dp"
+                app:boxCornerRadiusTopEnd="24dp"
+                app:boxCornerRadiusBottomStart="24dp"
+                app:boxCornerRadiusBottomEnd="24dp">
 
 
                 <com.google.android.material.textfield.TextInputEditText

@@ -80,6 +80,7 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
 
         binding.swipeRefresh.setOnRefreshListener {
             initObservers()
+
             binding.swipeRefresh.isRefreshing = false
         }
 

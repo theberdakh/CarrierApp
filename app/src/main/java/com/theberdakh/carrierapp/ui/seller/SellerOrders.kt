@@ -39,8 +39,6 @@ class SellerOrders : Fragment(R.layout.fragment_seller_orders) {
     private fun initViews() {
 
 
-        binding.btnSortByName.isSelected = true
-        binding.etSearch.requestFocus()
         _adapter = OrderAdapter()
         binding.rvOrders.adapter = adapter
         lifecycleScope.launch {
@@ -84,38 +82,49 @@ class SellerOrders : Fragment(R.layout.fragment_seller_orders) {
             )
         }
 
+        binding.tilSearch.hint = "Buyirtpalardan izlew..."
 
-        binding.toggleButton.addOnButtonCheckedListener { _, checkedId, _ ->
-            when(checkedId){
+     /*   binding.toggleButton.addOnButtonCheckedListener { _, checkedId, _ ->
+            when (checkedId) {
                 binding.btnSortByName.id -> {
+                    binding.tilSearch.hint = "Ati:"
                     binding.tilSearch.prefixText = "Ati:"
                 }
+
                 binding.btnSortByPhone.id -> {
+                    binding.tilSearch.hint = "Tel: +998"
                     binding.tilSearch.prefixText = "Tel: +998:"
-                } binding.btnSortByCar.id -> {
+                }
+
+                binding.btnSortByCar.id -> {
+                    binding.tilSearch.hint = "Avtomobil nomeri:"
                     binding.tilSearch.prefixText = "Avtomobil nomeri:"
                 }
             }
-        }
+        }*/
 
-        binding.etSearch.addTextChangedListener {query ->
+        binding.etSearch.addTextChangedListener { query ->
             val sortedList = orders.filter {
-                when(binding.toggleButton.checkedButtonId){
+                when (binding.toggleButton.checkedButtonId) {
                     binding.btnSortByName.id -> {
                         it.driver_name.lowercase().contains(query.toString())
                     }
+
                     binding.btnSortByPhone.id -> {
                         it.driver_phone_number.lowercase().contains(query.toString())
                     }
+
                     binding.btnSortByCar.id -> {
                         it.car_number.lowercase().contains(query.toString())
                     }
-                    else  -> {it.driver_name.contains(query.toString())}
+
+                    else -> {
+                        it.driver_name.contains(query.toString())
+                    }
                 }
             }
             adapter.submitList(sortedList)
         }
-
 
 
     }

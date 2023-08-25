@@ -120,9 +120,7 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
                     val lat = it.latitude.toString()
                     val long = it.longitude.toString()
                     val locationText = "$lat, $long"
-                    makeToast("Here: $locationText")
                     this.location = locationText
-                    makeToast("Now, ${this.location}")
                 }
             }
         }
@@ -193,8 +191,6 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
 
         binding.btnSendForm.clicks().debounce(200).onEach {
 
-            makeToast("Send : ${this.location}")
-            makeToast("Send:  ${this.date}")
 
          viewModel.postViolation(
                  PostViolation(
