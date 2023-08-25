@@ -13,6 +13,8 @@ import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.databinding.FragmentSellerOrdersBinding
 import com.theberdakh.carrierapp.presentation.SellerViewModel
 import com.theberdakh.carrierapp.ui.adapter.OrderAdapter
+import com.theberdakh.carrierapp.util.checkLocationPermissions
+import com.theberdakh.carrierapp.util.makeToast
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -77,9 +79,14 @@ class SellerOrders : Fragment(R.layout.fragment_seller_orders) {
         }
 
         binding.fabAddOrders.setOnClickListener {
-            findNavController().navigate(
-                SellerFragmentDirections.actionUserFragmentToFormFragment()
-            )
+            if (requireActivity().checkLocationPermissions()){
+                findNavController().navigate(
+                    SellerFragmentDirections.actionUserFragmentToFormFragment()
+                )
+            } else {
+                makeToast("Buyirtpa qosiw ushin lokatsiyanizdan paydalaniwg'a ruxsat beriwiniz kerek.")
+            }
+
         }
 
         binding.tilSearch.hint = "Buyirtpalardan izlew..."

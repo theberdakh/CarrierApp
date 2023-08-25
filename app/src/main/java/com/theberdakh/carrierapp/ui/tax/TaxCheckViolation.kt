@@ -34,6 +34,8 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCheckViolationBinding.bind(view)
+        binding.tbCheckViolation.menu.findItem(R.id.action_edit_violation).isVisible = args.isTaxOfficer
+
 
 
         initListeners()
@@ -76,6 +78,7 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
     }
 
     private fun setViolation(violation: Violation) {
+
 
         val adapter = TaxCheckUpdatesAdapter()
         binding.rvCheckViolation.adapter = adapter

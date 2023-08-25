@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_userFragment_to_taxSettings"
             app:destination="@id/taxSettings" />
+        <action
+            android:id="@+id/action_userFragment_to_taxCheckViolation"
+            app:destination="@id/taxCheckViolation" />
     </fragment>
     <fragment
         android:id="@+id/formFragment"
@@ -160,6 +163,9 @@
         <action
             android:id="@+id/action_taxCheckViolation_to_taxUpdateViolation"
             app:destination="@id/taxUpdateViolation" />
+        <argument
+            android:name="isTaxOfficer"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/taxUpdateViolation"

@@ -38,7 +38,7 @@
                 android:layout_margin="8dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                app:tint="?colorOnSurface"
+                android:backgroundTint="?colorOnSurface"
                 android:src="@drawable/baseline_add_a_photo_24"
                 android:layout_weight="0.5"
                 />

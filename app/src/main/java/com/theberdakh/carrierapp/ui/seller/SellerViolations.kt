@@ -46,7 +46,12 @@ class SellerViolations : Fragment(
         }
 
         adapter.onViolationClickListener {
-            makeToast("Violation clicked")
+            findNavController().navigate(
+                SellerFragmentDirections.actionUserFragmentToTaxCheckViolation(
+                    it.id,
+                    false
+                )
+            )
         }
 
         binding.fabAddNewViolation.setOnClickListener {
@@ -55,16 +60,15 @@ class SellerViolations : Fragment(
 
         binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
             val sortedList = violations.filter {
-                when(binding.toggleButton.checkedButtonId){
-                    binding.btnAll.id -> {
-                        true
-                    }
+                when (binding.toggleButton.checkedButtonId) {
                     binding.btnEnteredIncorrect.id -> {
-                        it.reason_violation =="entered_incorrect"
+                        it.reason_violation == "entered_incorrect"
                     }
+
                     binding.btnNotEntered.id -> {
                         it.reason_violation == "not_entered"
                     }
+
                     else -> true
                 }
             }
@@ -83,15 +87,13 @@ class SellerViolations : Fragment(
 
         viewModel.violationSuccessFlow.onEach {
             Log.d("Order by Id Success", "Success ${it.results}")
+            violations.addAll(it.results)
             adapter.submitList(violations)
-            violations.addAll(
-                it.results
-            )
+
         }.launchIn(lifecycleScope)
 
         viewModel.violationMessageFlow.onEach {
             Log.d("Order by Id Message", "mess ${it}")
-
             makeToast(it)
         }.launchIn(lifecycleScope)
 

@@ -75,7 +75,7 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
     private fun initListeners() {
 
         adapter.onViolationClickListener {
-           findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxCheckViolation(it.id))
+           findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxCheckViolation(it.id, true))
         }
 
         binding.swipeRefresh.setOnRefreshListener {

@@ -46,7 +46,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="8dp"
-                    app:tint="?colorOnSurface"
                     android:layout_weight="3"
                     android:padding="8dp"
                     android:src="@drawable/baseline_add_a_photo_24"
