@@ -40,6 +40,11 @@ class SellerViolations : Fragment(
 
     private fun initListeners() {
 
+        binding.swipeRefreshSellerViolations.setOnRefreshListener {
+            initObservers()
+            binding.swipeRefreshSellerViolations.isRefreshing = false
+        }
+
         adapter.onViolationClickListener {
             makeToast("Violation clicked")
         }
@@ -51,13 +56,17 @@ class SellerViolations : Fragment(
         binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
             val sortedList = violations.filter {
                 when(binding.toggleButton.checkedButtonId){
+                    binding.btnAll.id -> {
+                        true
+                    }
                     binding.btnEnteredIncorrect.id -> {
                         it.reason_violation =="entered_incorrect"
                     }
                     binding.btnNotEntered.id -> {
                         it.reason_violation == "not_entered"
                     }
-                    else -> it.reason_violation== "entered_incorrect"}
+                    else -> true
+                }
             }
             adapter.submitList(sortedList)
         }

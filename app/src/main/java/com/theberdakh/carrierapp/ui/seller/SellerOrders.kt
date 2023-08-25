@@ -64,6 +64,11 @@ class SellerOrders : Fragment(R.layout.fragment_seller_orders) {
 
     private fun initListeners() {
 
+        binding.swipeRefreshSellerOrders.setOnRefreshListener {
+            initObservers()
+            binding.swipeRefreshSellerOrders.isRefreshing = false
+        }
+
 
         adapter.onOrderClickListener {
             findNavController().navigate(
