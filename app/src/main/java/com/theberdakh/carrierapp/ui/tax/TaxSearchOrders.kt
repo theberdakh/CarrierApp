@@ -49,8 +49,8 @@ class TaxSearchOrders: Fragment(R.layout.fragment_tax_search_orders) {
         }
 
         viewModel.successFlow.onEach { orderResponse ->
-            adapter.submitList(orderResponse.results.asReversed())
-            orders.addAll(orderResponse.results)
+            adapter.submitList(orderResponse.asReversed())
+            orders.addAll(orderResponse)
         }.launchIn(lifecycleScope)
 
         viewModel.allSellersSuccessFlow.onEach {
@@ -80,7 +80,7 @@ class TaxSearchOrders: Fragment(R.layout.fragment_tax_search_orders) {
             findNavController().navigate(TaxSearchOrdersDirections.actionTaxSearchOrdersToOrderDetailsFragment(it.id, true))
         }
 
-        binding.groupFilters.addOnButtonCheckedListener { _, checkedId, _ ->
+      /*  binding.groupFilters.addOnButtonCheckedListener { _, checkedId, _ ->
             when(checkedId){
                 binding.toggleByAutoNumber.id -> {
                     binding.tilSearch.hint = "Misali: 95A123CD"
@@ -95,7 +95,7 @@ class TaxSearchOrders: Fragment(R.layout.fragment_tax_search_orders) {
                     binding.tilSearch.prefixText = "Tel: +998"
                 }
             }
-        }
+        }*/
 
         binding.etSearch.addTextChangedListener {query ->
             val sortedList = orders.filter {

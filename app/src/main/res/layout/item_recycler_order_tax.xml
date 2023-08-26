@@ -14,23 +14,56 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.6"
+        android:layout_weight="0.8"
         android:background="@drawable/gradient_pink_dark"
         android:orientation="vertical"
         android:padding="8dp"
         android:weightSum="5">
 
-        <TextView
-            android:id="@+id/tv_car_number"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
             android:background="@drawable/shape_car_number"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textAppearance="?textAppearanceBody1"
-            tools:text="95 | 123AA " />
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+
+            <TextView
+                android:id="@+id/tv_car_code"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:background="@drawable/shape_car_number_country_code"
+                android:maxLines="1"
+                android:paddingHorizontal="4dp"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textAppearance="?textAppearanceBody1"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:text="95" />
+
+            <TextView
+                android:id="@+id/tv_car_number"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:maxLines="1"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textAppearance="?textAppearanceBody1"
+                android:textColor="@color/black"
+                tools:text="A123AA" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/flag_of_uzbekistan"
+                />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_time_hour"

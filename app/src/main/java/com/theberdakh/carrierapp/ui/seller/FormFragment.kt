@@ -210,7 +210,7 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
 
         var isEverythingOkay = false
         if (binding.tilAutoNumber.error != null || binding.etAutoNumber.text.toString()
-                .isNullOrEmpty()
+                .isNullOrEmpty() ||binding.etAutoNumber.text.toString().trim().length < 8
         ) {
             binding.tilAutoNumber.error = "Toltiriw kerek!"
         } else if (binding.tilCarrierAutoBrand.error != null || binding.etCarrierAutoBrand.text.toString()

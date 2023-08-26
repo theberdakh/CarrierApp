@@ -81,7 +81,7 @@
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/toggleButton"
-                tools:listitem="@layout/item_recycler_order_tax" />
+                tools:listitem="@layout/item_recycler_order_carrier" />
 
         </LinearLayout>
 

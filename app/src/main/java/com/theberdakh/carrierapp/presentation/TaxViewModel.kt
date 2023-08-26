@@ -1,9 +1,12 @@
 package com.theberdakh.carrierapp.presentation
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.theberdakh.carrierapp.data.model.response.ResultData
+import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.data.model.response.order.OrderResponse
 import com.theberdakh.carrierapp.data.model.response.seller.GetAllSellerResponse
 import com.theberdakh.carrierapp.data.model.response.violation.PostUpdateViolation
@@ -12,15 +15,18 @@ import com.theberdakh.carrierapp.data.model.response.violation.PostViolationGene
 import com.theberdakh.carrierapp.data.model.response.violation.Violation
 import com.theberdakh.carrierapp.data.model.response.violation.ViolationResponse
 import com.theberdakh.carrierapp.domain.TaxRepository
+import com.theberdakh.carrierapp.util.makeToast
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class TaxViewModel(private val repository: TaxRepository): ViewModel() {
 
 
-    val successFlow = MutableSharedFlow<OrderResponse>()
+    val successFlow = MutableSharedFlow<List<Order>>()
     val messageFlow = MutableSharedFlow<String>()
     val errorFlow = MutableSharedFlow<Throwable>()
 
@@ -33,7 +39,7 @@ class TaxViewModel(private val repository: TaxRepository): ViewModel() {
         repository.getAllOrders().onEach {
             when(it){
                 is ResultData.Success -> {
-                    successFlow.emit(it.data)
+                    successFlow.emit(it.data.results)
                 }
                 is ResultData.Message -> {
                     messageFlow.emit(it.message)
@@ -43,7 +49,33 @@ class TaxViewModel(private val repository: TaxRepository): ViewModel() {
                 }
             }
         }.launchIn(viewModelScope)
+    }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun getOrdersByDay() {
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        val current = LocalDateTime.now().format(formatter)
+        makeToast(current)
+        repository.getAllOrders().onEach {
+            when(it){
+                is ResultData.Success -> {
+                    val sortedOrders = mutableListOf<Order>()
+                    for (order in it.data.results){
+                        makeToast("${order.date}")
+                        if (order.date.startsWith(current)){
+                            sortedOrders.add(order)
+                        }
+                    }
+                    successFlow.emit(sortedOrders)
+                }
+                is ResultData.Message -> {
+                    messageFlow.emit(it.message)
+                }
+                is ResultData.Error -> {
+                    errorFlow.emit(it.error)
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 
     val violationSuccessFlow = MutableSharedFlow<List<Violation>>()

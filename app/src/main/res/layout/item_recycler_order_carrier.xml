@@ -63,11 +63,6 @@
                     android:layout_weight="0.5"
                     android:background="@drawable/flag_of_uzbekistan"
                     />
-
-
-
-
-
         </LinearLayout>
 
 

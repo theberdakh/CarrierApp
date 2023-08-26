@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.databinding.ItemRecyclerOrderTaxBinding
+import okhttp3.internal.trimSubstring
 
 class TaxOrderAdapter: ListAdapter<Order, TaxOrderAdapter.TaxOrderViewHolder>(TaxOrderCallBack)  {
 
@@ -18,7 +19,6 @@ class TaxOrderAdapter: ListAdapter<Order, TaxOrderAdapter.TaxOrderViewHolder>(Ta
             val order = getItem(adapterPosition)
 
             binding.apply {
-                tvCarNumber.text = order.car_number
                 tvFullName.text = order.driver_name
                 tvTimeDate.text = order.date
                 tvCargoType.text = order.cargo_type
@@ -26,6 +26,9 @@ class TaxOrderAdapter: ListAdapter<Order, TaxOrderAdapter.TaxOrderViewHolder>(Ta
 
                 val cargoUnit  = if (order.cargo_unit == 1) "m3" else "kg"
                 tvCargoValue.text = "${order.cargo_value} $cargoUnit"
+                tvCarCode.text = order.car_number.take(2)
+                tvCarNumber.text = order.car_number.trimSubstring(2, order.car_number.length)
+
 
             }
 

@@ -29,6 +29,7 @@
                 app:singleSelection="true">
 
 
+
                 <Button
                     android:id="@+id/btn_all_orders"
                     style="?attr/materialButtonOutlinedStyle"
@@ -36,14 +37,14 @@
                     android:layout_height="wrap_content"
                     android:text="Hámmesi" />
 
-
-
                 <Button
                     android:id="@+id/btn_by_day"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bu'gin" />
+
+
 
                 <Button
                     android:id="@+id/btn_by_week"
