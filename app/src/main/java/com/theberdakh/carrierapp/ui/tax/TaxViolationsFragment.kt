@@ -49,7 +49,7 @@ class TaxViolationsFragment : Fragment(R.layout.fragment_tax_violations) {
         }
 
         viewModel.violationSuccessFlow.onEach {
-          adapter.submitList(it)
+          adapter.submitList(it.asReversed())
         }.launchIn(lifecycleScope)
 
         viewModel.violationMessageFlow.onEach {

@@ -2,15 +2,21 @@ package com.theberdakh.carrierapp.ui.tax
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.InputType
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.widget.DatePicker
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -39,11 +45,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.ldralighieri.corbind.view.clicks
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.util.Calendar
 import java.util.Date
 
 class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
     private lateinit var binding: FragmentTaxFormBinding
-   // private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var _encoded: String? = null
     private val encoded get() = _encoded!!
     private val viewModel by viewModel<TaxViewModel>()
@@ -54,29 +61,17 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-      //  fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
-      //  getLocation()
-       // getTime()
-
-
-
-        if (args.id !=-1){
-            insertValues(args.id)
-        }
+        if (args.id !=-1){ insertValues(args.id) }
+        initObservers()
 
     }
-
     private fun insertValues(id: Int) {
-
-
 
         lifecycleScope.launch {
             sellerViewModel.getOrderById(id)
         }
 
         sellerViewModel.orderSuccessFlow.onEach {
-
             binding.etAutoNumber.setText(it.car_number)
             binding.etAutoNumber.isEnabled = false
             binding.etCarrierAutoBrand.setText(it.car_brand)
@@ -95,11 +90,10 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
             binding.atvCargoType.isEnabled = false
             binding.etCargoDate.setText(it.date)
             binding.etCargoDate.isEnabled = false
-
         }.launchIn(lifecycleScope)
-
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -107,10 +101,6 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
 
         initViews()
         initListeners()
-        initObservers()
-
-        this.date = getCurrentDate()
-        makeToast("Date $date")
 
         if (requireActivity().checkLocationPermissions()){
             val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -124,9 +114,7 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
                 }
             }
         }
-
     }
-
     private fun initObservers() {
 
         viewModel.postViolationSuccessFlow.onEach {
@@ -146,23 +134,19 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         }.launchIn(lifecycleScope)
 
 
-
-
-
-
-
     }
 
     private fun initViews() {
 
+        binding.etCargoDate.inputType = InputType.TYPE_NULL
         binding.atvDocumentType.setCustomAdapter(listOf("Passport", "ID"))
         binding.atViolationType.setCustomAdapter(listOf("Mag'liwmat kiritilmegen", "Mag'liwmat toliq emes"))
         binding.atvCargoType.setCustomAdapter(listOf("Sheben", "Shege qum"))
 
-
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initListeners() {
         binding.tbForm.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -183,6 +167,24 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
             }
         }
 
+        val time = LocalDateTime.now()
+        makeToast(" Time e: $time")
+
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        binding.etCargoDate.setOnClickListener {
+            val dpd = DatePickerDialog(requireActivity(), { view, year, monthOfYear, dayOfMonth ->
+
+                binding.etCargoDate.setText("$dayOfMonth.${monthOfYear+1}.$year")
+                date = "$dayOfMonth.${monthOfYear+1}.$year"
+
+
+            }, year, month, day)
+            dpd.show()
+            }
 
 
         binding.atvSellerName.setOnClickListener {
@@ -191,27 +193,27 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
 
         binding.btnSendForm.clicks().debounce(200).onEach {
 
-
          viewModel.postViolation(
                  PostViolation(
                      car_brand = binding.etCarrierAutoBrand.getNotNullText(),
                      car_photo =encoded,
                      car_number = binding.etAutoNumber.getNotNullText(),
-                     cargo_date = "2023-08-18 00:50:46+05:00",
+                     cargo_date = LocalDateTime.now().toString(),
                      cargo_type = binding.atvCargoType.text.toString(),
                      driver_name = binding.etCarrierName.getNotNullText(),
-                     driver_passport_or_id=  "passport",
+                     driver_passport_or_id=  if(binding.atvDocumentType.text.toString() == "ID") "document_id" else "passport",
                      driver_passport_or_id_number = binding.etPassportSeries.getNotNullText(),
                      driver_phone_number = binding.etCarrierPhone.getNotNullText(),
                      karer_name = binding.atvSellerName.text.toString(),
                      location = this.location ,
                      reason_violation =" ${binding.atViolationType.text.toString()} ${binding.etCustomReason.text.toString()}",
-                     is_updated = true,
+                     is_updated = false,
                      tax_officer = SharedPrefStorage().id,
+                     created_at = LocalDateTime.now().toString()
                  )
             )
 
-            makeToast("Clicked")
+            makeToast("Clicked: ${LocalDateTime.now()}")
         }.launchIn(lifecycleScope)
 
     }

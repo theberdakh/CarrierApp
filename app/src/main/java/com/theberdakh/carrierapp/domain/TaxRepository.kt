@@ -63,6 +63,7 @@ class TaxRepository(private val api: TaxApi) {
             emit(ResultData.Success(response.body()!!))
         } else {
             Log.d("SellerRepo", " all orders request is ${response.body()}")
+            Log.d("SellerRepo", "post order ${response.raw()} x ${response.code()} x ${response.errorBody()}")
 
             emit(ResultData.Message(response.body().toString()))
         }
