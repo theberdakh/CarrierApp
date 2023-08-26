@@ -122,10 +122,6 @@ class TaxOrdersFragment : Fragment(R.layout.fragment_tax_orders) {
 
         binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
 
-           lifecycleScope.launch {
-            viewModel.getAllOrders()
-           }
-
             val sdf = SimpleDateFormat("yyyy-MM-dd")
             Log.d("Date", sdf.format(Date()))
 

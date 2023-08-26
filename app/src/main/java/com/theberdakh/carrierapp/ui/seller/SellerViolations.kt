@@ -86,8 +86,7 @@ class SellerViolations : Fragment(
 
 
         viewModel.violationSuccessFlow.onEach {
-            Log.d("Order by Id Success", "Success ${it.results}")
-            violations.addAll(it.results)
+            Log.d("Order by Id Success", "Success ${it}")
             adapter.submitList(violations)
 
         }.launchIn(lifecycleScope)

@@ -20,13 +20,11 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
-{
+class TaxViolationsFragment : Fragment(R.layout.fragment_tax_violations) {
     private lateinit var binding: FragmentTaxViolationsBinding
     private val viewModel by viewModel<TaxViewModel>()
     private var _adapter: TaxViolationAdapter? = null
     private val adapter get() = _adapter!!
-    private val violations: ArrayList<Violation> = arrayListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,26 +45,21 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
     private fun initObservers() {
 
         lifecycleScope.launch {
-            Log.d("Send", "get all violations request")
             viewModel.getAllViolations()
         }
 
-
         viewModel.violationSuccessFlow.onEach {
-            Log.d("Order by Id Success", "Success ${it.results}")
-            adapter.submitList(it.results.asReversed())
-            violations.addAll(it.results)
+            if (it.isEmpty()){
+            } else {
+                adapter.submitList(it)
+            }
         }.launchIn(lifecycleScope)
 
         viewModel.violationMessageFlow.onEach {
-            Log.d("Order by Id Message", "mess ${it}")
-
             makeToast(it)
         }.launchIn(lifecycleScope)
 
         viewModel.violationErrorFlow.onEach {
-            Log.d("Order by Id error", "${it.printStackTrace()}")
-
             makeToast("Error, check your Internet connection")
         }.launchIn(lifecycleScope)
 
@@ -75,12 +68,34 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
     private fun initListeners() {
 
         adapter.onViolationClickListener {
-           findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxCheckViolation(it.id, true))
+            findNavController().navigate(
+                TaxFragmentDirections.actionTaxFragmentToTaxCheckViolation(
+                    it.id,
+                    true
+                )
+            )
         }
 
         binding.swipeRefresh.setOnRefreshListener {
-            initObservers()
+            adapter.submitList(null)
 
+            when (binding.toggleButton.checkedButtonId){
+                binding.btnAll.id -> {
+                    lifecycleScope.launch {
+                        viewModel.getAllViolations()
+                    }
+                }
+                binding.btnNotEntered.id -> {
+                    lifecycleScope.launch{
+                        viewModel.getNotEnteredViolations()
+                    }
+                }
+                binding.btnEnteredIncorrect.id -> {
+                    lifecycleScope.launch{
+                        viewModel.getEnteredIncorrectViolations()
+                    }
+                }
+            }
             binding.swipeRefresh.isRefreshing = false
         }
 
@@ -98,39 +113,37 @@ class TaxViolationsFragment: Fragment(R.layout.fragment_tax_violations)
                     requireActivity(),
                     arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 100
                 )
-            }
-            else {
-                findNavController().navigate(TaxFragmentDirections.actionTaxFragmentToTaxFormFragment(-1))
+            } else {
+                findNavController().navigate(
+                    TaxFragmentDirections.actionTaxFragmentToTaxFormFragment(
+                        -1
+                    )
+                )
             }
         }
 
-       binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+        binding.btnAll.setOnClickListener{
+            adapter.submitList(null)
+            lifecycleScope.launch {
+                viewModel.getAllViolations()
+            }
+        }
 
-           lifecycleScope.launch {
-               viewModel.getAllViolations()
-               viewModel.getAllSellers()
-           }
+        binding.btnNotEntered.setOnClickListener{
+            adapter.submitList(null)
+            lifecycleScope.launch {
+                viewModel.getNotEnteredViolations()
+            }
+        }
 
-            val sortedList = violations.filter {
-                when(binding.toggleButton.checkedButtonId){
-                    binding.btnEnteredIncorrect.id -> {
-                        it.reason_violation =="entered_incorrect"
-                    }
-                    binding.btnNotEntered.id -> {
-                        it.reason_violation == "not_entered"
-                    }
-                   else ->true
-                }
-                }
-            adapter.submitList(sortedList)
+        binding.btnEnteredIncorrect.setOnClickListener {
+            adapter.submitList(null)
+            lifecycleScope.launch {
+                viewModel.getEnteredIncorrectViolations()
+            }
         }
 
     }
-
-
-
-
-
 
 
 }

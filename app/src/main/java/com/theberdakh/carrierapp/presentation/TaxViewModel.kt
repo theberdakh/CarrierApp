@@ -46,7 +46,7 @@ class TaxViewModel(private val repository: TaxRepository): ViewModel() {
 
     }
 
-    val violationSuccessFlow = MutableSharedFlow<ViolationResponse>()
+    val violationSuccessFlow = MutableSharedFlow<List<Violation>>()
     val violationMessageFlow = MutableSharedFlow<String>()
     val violationErrorFlow = MutableSharedFlow<Throwable>()
 
@@ -56,7 +56,7 @@ class TaxViewModel(private val repository: TaxRepository): ViewModel() {
             when(it){
                 is ResultData.Success -> {
                     Log.d("All V", "Success ${it.data}")
-                    violationSuccessFlow.emit(it.data)
+                    violationSuccessFlow.emit(it.data.results)
                 }
                 is ResultData.Message -> {
                     Log.d("All V", "Success ${it.message}")
@@ -67,6 +67,55 @@ class TaxViewModel(private val repository: TaxRepository): ViewModel() {
                     violationErrorFlow.emit(it.error)
                 }
             }
+        }.launchIn(viewModelScope)
+    }
+
+    suspend fun getNotEnteredViolations(){
+
+        repository.getAllViolations().onEach { violationResponse ->
+            when(violationResponse){
+                is ResultData.Success -> {
+                    violationResponse.data.results.onEach {
+                        if (it.reason_violation == "not_entered" || it.reason_violation == "Mag'liwmat kiritilmegen"){
+                            violationSuccessFlow.emit(violationResponse.data.results)
+                        }
+                    }
+                }
+                is ResultData.Message -> {
+                    Log.d("All V", "Success ${violationResponse.message}")
+                    violationMessageFlow.emit(violationResponse.message)
+
+                }
+                is ResultData.Error -> {
+                    Log.d("All V", "Success ${violationResponse.error}")
+                    violationErrorFlow.emit(violationResponse.error)
+                }
+            }
+
+        }.launchIn(viewModelScope)
+    }
+
+    suspend fun getEnteredIncorrectViolations(){
+
+        repository.getAllViolations().onEach { violationResponse ->
+            when(violationResponse){
+                is ResultData.Success -> {
+                 /*   val filteredList = violationResponse.data.results.filter {
+                        it.reason_violation == "entered_incorrect" || it.reason_violation == "Mag'liwmat toliq emes"
+                    }
+                    violationSuccessFlow.emit(filteredList)*/
+                }
+                is ResultData.Message -> {
+                    Log.d("All V", "Success ${violationResponse.message}")
+                    violationMessageFlow.emit(violationResponse.message)
+
+                }
+                is ResultData.Error -> {
+                    Log.d("All V", "Success ${violationResponse.error}")
+                    violationErrorFlow.emit(violationResponse.error)
+                }
+            }
+
         }.launchIn(viewModelScope)
     }
 
