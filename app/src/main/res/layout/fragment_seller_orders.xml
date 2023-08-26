@@ -20,6 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                app:startIconDrawable="@drawable/baseline_search_24"
                 app:endIconMode="clear_text"
                 app:boxCornerRadiusTopStart="24dp"
                 app:boxCornerRadiusTopEnd="24dp"

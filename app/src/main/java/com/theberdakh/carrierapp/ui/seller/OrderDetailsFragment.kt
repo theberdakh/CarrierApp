@@ -70,6 +70,11 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
                 tvAutoNumber.text = it.car_number
                 binding.tvOrderDate.text = it.date
                 binding.tvOrderLocation.text = it.location
+
+
+                binding.tvTrailerWeight.text = if (it.trailer == "Bar") "${it.trailer_weight} Tonna" else "Joq"
+
+
             }
         }.launchIn(lifecycleScope)
     }

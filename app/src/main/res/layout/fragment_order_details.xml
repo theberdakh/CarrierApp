@@ -70,21 +70,63 @@
                     android:textAppearance="?textAppearanceBody1"
                     android:padding="8dp"/>
 
-                <TextView
-                    android:id="@+id/tv_order_value"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="12"
-                    android:textAppearance="?textAppearanceBody1"
-                    android:padding="8dp"/>
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                <TextView
-                    android:id="@+id/tv_order_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="Qum"
-                    android:textAppearance="?textAppearanceBody1"
-                    android:padding="8dp"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_order_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="12"
+                            android:textAppearance="?textAppearanceBody1"
+                            android:padding="8dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_order_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="Qum"
+                            android:textAppearance="?textAppearanceBody1"
+                            android:padding="8dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_trailer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_trailer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Treyler"
+                            android:textAppearance="?textAppearanceBody1"
+                            android:padding="8dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_trailer_weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="Qum"
+                            android:textAppearance="?textAppearanceBody1"
+                            android:padding="8dp"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
 
 
