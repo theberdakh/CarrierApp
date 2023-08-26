@@ -1,5 +1,7 @@
 package com.theberdakh.carrierapp.ui.seller
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -69,17 +71,27 @@ class OrderDetailsFragment: Fragment(R.layout.fragment_order_details) {
                 tvSellerName.text = it.karer.toString()
                 tvAutoNumber.text = it.car_number
                 binding.tvOrderDate.text = it.date
-                binding.tvOrderLocation.text = it.location
+                binding.tvOrderLocation.text = "Lokatciya ${it.location}"
 
 
                 binding.tvTrailerWeight.text = if (it.trailer == "Bar") "${it.trailer_weight} Tonna" else "Joq"
 
-
             }
+
+            binding.tvOrderLocation.setOnClickListener {view->
+                val gmmIntentUri = Uri.parse("google.streetview:cbll=${it.location}");
+                val mapIntent =  Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent)
+            }
+
+
         }.launchIn(lifecycleScope)
     }
 
     private fun initListeners() {
+
+
 
         binding.tbOrder.setNavigationOnClickListener {
             findNavController().popBackStack()

@@ -96,7 +96,7 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
         binding.tilCarrierTrailerWeight.isVisible = false
 
         binding.atvDocumentType.setCustomAdapter(listOf("ID", "Passport"))
-        binding.atvCargoUnit.setCustomAdapter(listOf("KG", "m3"))
+        binding.atvCargoUnit.setCustomAdapter(listOf("Kg", "M3"))
         binding.atvCargoType.setCustomAdapter(listOf("Sheben", "Shege qum"))
         binding.atvCarrierTrailer.setCustomAdapter(listOf("Joq", "Bar"))
 
@@ -152,7 +152,6 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
             if (_encoded == null) {
                 makeToast("Su'wret qospadin'iz!", Toast.LENGTH_LONG)
             } else {
-                Log.d("Date", LocalDateTime.now().toString())
                 val everythingOkay = checkEditTexts()
                 if (everythingOkay) {
                     lifecycleScope.launch {
@@ -161,12 +160,12 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
                                 car_photo = encoded,
                                 driver_name = binding.etCarrierName.getNotNullText(),
                                 driver_phone_number = binding.etCarrierPhone.getNotNullText(),
-                                driver_passport_or_id = "passport",
+                                driver_passport_or_id = if(binding.atvDocumentType.text.toString() == "Passport") "passport" else "document_id",
                                 driver_passport_or_id_number = binding.etPassportSeries.getNotNullText(),
                                 car_number = binding.etAutoNumber.getNotNullText(),
                                 car_brand = binding.etCarrierAutoBrand.getNotNullText(),
                                 trailer = binding.atvCarrierTrailer.text.toString(),
-                                trailer_weight = "10",
+                                trailer_weight = if(binding.etCarrierTrailerWeight.text.toString().isNullOrEmpty()) "0" else binding.etCarrierTrailerWeight.text.toString(),
                                 direction = binding.etDirection.getNotNullText(),
                                 location = location,
                                 cargo_type = 1,
@@ -174,7 +173,7 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
                                 status = "waiting",
                                 violated = false,
                                 karer = SharedPrefStorage().id,
-                                cargo_unit = 1,
+                                cargo_unit = if (binding.atvCargoUnit.text.toString() == "Kg" ) 2 else 1,
                                 date = LocalDateTime.now().toString()
                             )
                         )
