@@ -105,6 +105,14 @@ class TaxOrdersFragment : Fragment(R.layout.fragment_tax_orders) {
           binding.swipeRefreshTaxOrders.isRefreshing = false
       }
 
+        binding.btnAllOrders.setOnClickListener {
+
+        }
+
+        binding.btnByDay.setOnClickListener {
+
+        }
+
 
         adapter.onOrderClickListener {
             findNavController().navigate(

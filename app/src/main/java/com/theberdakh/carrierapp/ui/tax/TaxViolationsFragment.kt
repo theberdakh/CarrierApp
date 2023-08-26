@@ -73,6 +73,8 @@ class TaxViolationsFragment : Fragment(R.layout.fragment_tax_violations) {
             )
         }
 
+
+
         binding.swipeRefresh.setOnRefreshListener {
             adapter.submitList(null)
 

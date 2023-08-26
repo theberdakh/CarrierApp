@@ -9,6 +9,7 @@ data class PostOrder(
     val car_brand: String,
     var car_photo: String,
     val trailer: String,
+    val date: String,
     val trailer_weight: String,
     val direction: String,
     val location: String,

@@ -5,12 +5,14 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -24,6 +26,7 @@ import com.theberdakh.carrierapp.data.model.response.order.PostOrder
 import com.theberdakh.carrierapp.databinding.FragmentSellerFormBinding
 import com.theberdakh.carrierapp.presentation.SellerViewModel
 import com.theberdakh.carrierapp.util.checkLocationPermissions
+import com.theberdakh.carrierapp.util.getCurrentDate
 import com.theberdakh.carrierapp.util.getNotNullText
 import com.theberdakh.carrierapp.util.makeToast
 import com.theberdakh.carrierapp.util.setCustomAdapter
@@ -33,6 +36,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
+import java.time.LocalDateTime
 
 
 class FormFragment : Fragment(R.layout.fragment_seller_form) {
@@ -129,6 +133,7 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initListeners() {
 
         binding.atvCarrierTrailer.setOnItemClickListener { parent, view, position, id ->
@@ -147,6 +152,7 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
             if (_encoded == null) {
                 makeToast("Su'wret qospadin'iz!", Toast.LENGTH_LONG)
             } else {
+                Log.d("Date", LocalDateTime.now().toString())
                 val everythingOkay = checkEditTexts()
                 if (everythingOkay) {
                     lifecycleScope.launch {
@@ -168,7 +174,8 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
                                 status = "waiting",
                                 violated = false,
                                 karer = SharedPrefStorage().id,
-                                cargo_unit = 1
+                                cargo_unit = 1,
+                                date = LocalDateTime.now().toString()
                             )
                         )
                     }

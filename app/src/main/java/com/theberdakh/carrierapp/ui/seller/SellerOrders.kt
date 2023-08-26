@@ -3,6 +3,7 @@ package com.theberdakh.carrierapp.ui.seller
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -40,6 +41,7 @@ class SellerOrders : Fragment(R.layout.fragment_seller_orders) {
 
     private fun initViews() {
 
+        binding.toggleButton.isVisible = false
 
         _adapter = OrderAdapter()
         binding.rvOrders.adapter = adapter
@@ -55,7 +57,6 @@ class SellerOrders : Fragment(R.layout.fragment_seller_orders) {
 
         viewModel.postOrderByIdSuccessFlow.onEach {
             Log.d("Order by Id Success", "Success ${it.size}")
-
             adapter.submitList(it.asReversed())
             orders.addAll(it)
         }.launchIn(lifecycleScope)
@@ -65,8 +66,15 @@ class SellerOrders : Fragment(R.layout.fragment_seller_orders) {
     private fun initListeners() {
 
         binding.swipeRefreshSellerOrders.setOnRefreshListener {
-            initObservers()
+            adapter.submitList(null)
+            lifecycleScope.launch {
+                viewModel.getOrdersBySellerId(SharedPrefStorage().id)
+            }
             binding.swipeRefreshSellerOrders.isRefreshing = false
+        }
+
+        binding.etSearch.setOnFocusChangeListener { v, hasFocus ->
+            binding.toggleButton.isVisible = true
         }
 
 

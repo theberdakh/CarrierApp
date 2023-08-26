@@ -41,6 +41,7 @@ class SellerViolations : Fragment(
     private fun initListeners() {
 
         binding.swipeRefreshSellerViolations.setOnRefreshListener {
+            adapter.submitList(null)
             initObservers()
             binding.swipeRefreshSellerViolations.isRefreshing = false
         }

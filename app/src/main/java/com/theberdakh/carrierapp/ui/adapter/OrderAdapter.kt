@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.databinding.ItemRecyclerOrderCarrierBinding
+import okhttp3.internal.trimSubstring
 
 class OrderAdapter :
     ListAdapter<Order, OrderAdapter.OrderViewHolder>(WordsCallBack) {
@@ -17,11 +18,12 @@ class OrderAdapter :
             val order = getItem(adapterPosition)
 
             binding.apply {
-                tvCarNumber.text = order.car_number
+                tvCarCode.text = order.car_number.take(2)
+                tvCarNumber.text = order.car_number.trimSubstring(2, 8)
                 tvFullName.text = order.driver_name
+                tvCargoType.text = order.cargo_type
                 tvTimeDate.text = order.date
-                tvCargoType.text = order.cargo_type.toString() ?: "Edd"
-                tvCargoValue.text = "${order.cargo_value}"
+                tvCargoValue.text = "${order.cargo_value} ${if(order.cargo_unit ==1 ) "m3" else "kg"}"
             }
 
 
