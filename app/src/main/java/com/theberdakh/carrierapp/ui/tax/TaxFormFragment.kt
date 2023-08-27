@@ -57,15 +57,12 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
     private val args: TaxFormFragmentArgs by navArgs()
     private var location: String = ""
     private var date: String = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (args.id !=-1){ insertValues(args.id) }
         initObservers()
-
     }
     private fun insertValues(id: Int) {
-
         lifecycleScope.launch {
             sellerViewModel.getOrderById(id)
         }
@@ -97,10 +94,8 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTaxFormBinding.bind(view)
-
         initViews()
         initListeners()
-
         if (requireActivity().checkLocationPermissions()){
             val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
             val location = fusedLocationProviderClient.lastLocation
@@ -115,7 +110,6 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
         }
     }
     private fun initObservers() {
-
         viewModel.postViolationSuccessFlow.onEach {
             Log.d("Violation", "Created ${it.car_number}")
             findNavController().popBackStack()
@@ -131,26 +125,19 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
             Log.d("Violation", "Error ${it.printStackTrace()}")
             makeToast(it.message.toString())
         }.launchIn(lifecycleScope)
-
-
     }
 
     private fun initViews() {
-
         binding.etCargoDate.inputType = InputType.TYPE_NULL
         binding.atvDocumentType.setCustomAdapter(listOf("Passport", "ID"))
         binding.atViolationType.setCustomAdapter(listOf("Mag'liwmat kiritilmegen", "Mag'liwmat toliq emes"))
         binding.atvCargoType.setCustomAdapter(listOf("Sheben", "Shege qum"))
-
     }
-
-
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initListeners() {
         binding.tbForm.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-
         binding.ivFormImage.setOnClickListener {
             if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_DENIED){
@@ -166,11 +153,6 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
             }
         }
 
-        Log.d("Token", SharedPrefStorage().token)
-
-        val time = LocalDateTime.now()
-        makeToast(" Time e: $time")
-
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
@@ -178,24 +160,16 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
 
         binding.etCargoDate.setOnClickListener {
             val dpd = DatePickerDialog(requireActivity(), { view, year, monthOfYear, dayOfMonth ->
-
                 binding.etCargoDate.setText("$dayOfMonth.${monthOfYear+1}.$year")
                 date = "$dayOfMonth.${monthOfYear+1}.$year"
-
-
             }, year, month, day)
             dpd.show()
             }
 
-
-        binding.atvSellerName.setOnClickListener {
-            findNavController().navigate(TaxFormFragmentDirections.actionTaxFormFragmentToTaxSearchSellers())
-        }
+        binding.atvSellerName.setOnClickListener { findNavController().navigate(TaxFormFragmentDirections.actionTaxFormFragmentToTaxSearchSellers()) }
 
         binding.btnSendForm.clicks().debounce(200).onEach {
-
-         viewModel.postViolation(
-                 PostViolation(
+         viewModel.postViolation( PostViolation(
                      car_brand = binding.etCarrierAutoBrand.getNotNullText(),
                      car_photo =encoded,
                      car_number = binding.etAutoNumber.getNotNullText(),
@@ -211,12 +185,8 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
                      is_updated = false,
                      tax_officer = SharedPrefStorage().id,
                      created_at = LocalDateTime.now().toString()
-                 )
-            )
-
-            makeToast("Clicked: ${LocalDateTime.now()}")
+                 ))
         }.launchIn(lifecycleScope)
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -228,7 +198,6 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
             takenImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
             val byteArray = byteArrayOutputStream.toByteArray()
             _encoded = Base64.encodeToString(byteArray, Base64.DEFAULT)
-            makeToast(encoded)
             Log.d("Image", encoded)
 
         } else {

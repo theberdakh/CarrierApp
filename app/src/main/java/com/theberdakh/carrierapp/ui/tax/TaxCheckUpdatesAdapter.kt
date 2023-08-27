@@ -9,7 +9,6 @@ import com.theberdakh.carrierapp.data.model.fake.Updates
 import com.theberdakh.carrierapp.databinding.ItemRecyclerUpdateViolationBinding
 
 class TaxCheckUpdatesAdapter: ListAdapter<Updates,TaxCheckUpdatesAdapter.TaxCheckAdapter>(UpdateCallBack) {
-
     inner class TaxCheckAdapter(val binding: ItemRecyclerUpdateViolationBinding): ViewHolder(binding.root){
         fun bind(){
             val update = getItem(adapterPosition)
@@ -17,7 +16,6 @@ class TaxCheckUpdatesAdapter: ListAdapter<Updates,TaxCheckUpdatesAdapter.TaxChec
             binding.tvTaxName.text = update.name
         }
     }
-
     private object UpdateCallBack: DiffUtil.ItemCallback<Updates>(){
         override fun areItemsTheSame(oldItem: Updates, newItem: Updates) = oldItem == newItem
 
@@ -26,7 +24,5 @@ class TaxCheckUpdatesAdapter: ListAdapter<Updates,TaxCheckUpdatesAdapter.TaxChec
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TaxCheckAdapter(ItemRecyclerUpdateViolationBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-
-
     override fun onBindViewHolder(holder: TaxCheckAdapter, position: Int) = holder.bind()
 }

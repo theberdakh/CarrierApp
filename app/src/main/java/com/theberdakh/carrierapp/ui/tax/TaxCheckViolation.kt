@@ -20,14 +20,12 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
-
     private lateinit var binding: FragmentCheckViolationBinding
     private val viewModel by viewModel<TaxViewModel>()
     private val args: TaxCheckViolationArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         initObservers(args.id)
     }
 
@@ -35,19 +33,13 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCheckViolationBinding.bind(view)
         binding.tbCheckViolation.menu.findItem(R.id.action_edit_violation).isVisible = args.isTaxOfficer
-
-
-
         initListeners()
-
-
     }
 
     private fun initListeners() {
         binding.tbCheckViolation.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-
         binding.tbCheckViolation.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.action_edit_violation -> {
@@ -64,27 +56,20 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
             }
         }
     }
-
     private fun initObservers(id: Int) {
         lifecycleScope.launch {
             viewModel.getViolationById(id)
         }
-
         viewModel.singleViolationSuccessFlow.onEach {
             setViolation(it)
-
         }.launchIn(lifecycleScope)
-
     }
 
     private fun setViolation(violation: Violation) {
 
-
         val adapter = TaxCheckUpdatesAdapter()
         binding.rvCheckViolation.adapter = adapter
         adapter.submitList(listOf(Updates(1, "Ernazar Allayarov", "11-08-23"), Updates(1, "Allayar Allayarov", "11-08-23"), Updates(1, "Qabil Esbergenov", "11-08-23")))
-
-
 
         binding.apply {
             Glide.with(requireActivity())
@@ -92,7 +77,6 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
                 .placeholder(R.drawable.baseline_add_a_photo_24)
                 .thumbnail(Glide.with(requireActivity()).load(violation.car_photo))
                 .into(binding.ivFormImage)
-
 
             tvCargoDate.text = violation.cargo_date
             tvReasonViolation.text = violation.reason_violation
@@ -104,7 +88,6 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
             tvSellerName.text = violation.karer_name
             tvDriverPassportNumber.text = violation.driver_passport_or_id_number
             tvCargoType.text = violation.cargo_type
-
         }
     }
 

@@ -14,27 +14,14 @@ import com.theberdakh.carrierapp.ui.seller.SellerViolations
 
 class TaxFragment : Fragment(R.layout.fragment_tax){
     private lateinit var binding: FragmentTaxBinding
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTaxBinding.bind(view)
-
         initViews()
         initListeners()
-
     }
-
     private fun initListeners() {
-        binding.tbTax.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
-    }
-
-    private fun initViews() {
-        binding.vpTax.adapter = SignUpViewPagerAdapter(arrayListOf(TaxViolationsFragment(), TaxOrdersFragment()), requireActivity().supportFragmentManager, requireActivity().lifecycle)
-
-        binding.tbTax.title = SharedPrefStorage().name
-
+        binding.tbTax.setNavigationOnClickListener { findNavController().popBackStack() }
         binding.tbTax.setOnMenuItemClickListener { menu ->
             when(menu.itemId){
                 R.id.action_logout -> {
@@ -56,9 +43,11 @@ class TaxFragment : Fragment(R.layout.fragment_tax){
                 else -> {true}
             }
         }
+    }
 
-
-
+    private fun initViews() {
+        binding.vpTax.adapter = SignUpViewPagerAdapter(arrayListOf(TaxViolationsFragment(), TaxOrdersFragment()), requireActivity().supportFragmentManager, requireActivity().lifecycle)
+        binding.tbTax.title = SharedPrefStorage().name
 
         TabLayoutMediator(binding.tblTax, binding.vpTax){ tab, position ->
             when(position){
@@ -66,5 +55,6 @@ class TaxFragment : Fragment(R.layout.fragment_tax){
                 1 -> tab.text = "Buyırtpalar"
             }
         }.attach()
+
     }
 }
