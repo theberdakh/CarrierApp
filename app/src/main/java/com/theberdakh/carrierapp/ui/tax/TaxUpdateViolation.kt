@@ -1,24 +1,29 @@
 package com.theberdakh.carrierapp.ui.tax
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.google.android.gms.location.LocationServices
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
 import com.theberdakh.carrierapp.data.model.response.violation.PostUpdateViolation
 import com.theberdakh.carrierapp.databinding.FragmentTaxUpdateViolationBinding
 import com.theberdakh.carrierapp.presentation.TaxViewModel
+import com.theberdakh.carrierapp.util.checkLocationPermissions
 import com.theberdakh.carrierapp.util.getNotNullText
 import com.theberdakh.carrierapp.util.makeToast
 import kotlinx.coroutines.flow.debounce
@@ -28,6 +33,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.ldralighieri.corbind.view.clicks
 import java.io.ByteArrayOutputStream
+import java.time.LocalDateTime
 
 class TaxUpdateViolation: Fragment(R.layout.fragment_tax_update_violation) {
     private lateinit var binding: FragmentTaxUpdateViolationBinding
@@ -37,16 +43,30 @@ class TaxUpdateViolation: Fragment(R.layout.fragment_tax_update_violation) {
     private val encoded get() = _encoded!!
 
     private var location: String = ""
-    private var date: String = ""
 
     private val args: TaxUpdateViolationArgs by navArgs()
 
+    @SuppressLint("MissingPermission")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTaxUpdateViolationBinding.bind(view)
 
         initListeners()
         initObservers(args.id)
+
+        if (requireActivity().checkLocationPermissions()){
+            val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+            val location = fusedLocationProviderClient.lastLocation
+            location.addOnSuccessListener {
+                if (it != null){
+                    val lat = it.latitude.toString()
+                    val long = it.longitude.toString()
+                    val locationText = "$lat, $long"
+                    this.location = locationText
+                }
+            }
+        }
 
     }
 
@@ -80,12 +100,14 @@ class TaxUpdateViolation: Fragment(R.layout.fragment_tax_update_violation) {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initListeners(){
 
         binding.btnSendForm.clicks().debounce(300).onEach{
             makeToast("Unique id: $unique_number")
             viewModel.postUpdatedViolation(
                 PostUpdateViolation(
+                    created_at = LocalDateTime.now().toString(),
                     car_brand = binding.etCarrierAutoBrand.getNotNullText(),
                     car_photo =encoded,
                     car_number = binding.etAutoNumber.getNotNullText(),
@@ -100,7 +122,7 @@ class TaxUpdateViolation: Fragment(R.layout.fragment_tax_update_violation) {
                     reason_violation =" ${binding.atViolationType.text.toString()} ${binding.etCustomReason.text.toString()}",
                     is_updated = true,
                     tax_officer = SharedPrefStorage().id,
-                    unique_number = unique_number
+                    unique_number = 193810
                 )
             )
         }.launchIn(lifecycleScope)

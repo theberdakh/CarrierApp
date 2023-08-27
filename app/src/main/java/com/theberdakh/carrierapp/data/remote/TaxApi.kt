@@ -33,4 +33,7 @@ interface TaxApi {
     @GET("violations/{id}")
     suspend fun getViolationByID(@Path("id") id: Int): Response<Violation>
 
+    @GET("violations/by_unique_number/{unique_number}")
+    suspend fun getViolationsByUniqueNumber(@Path("unique_number") unique_number: Int)
+
 }

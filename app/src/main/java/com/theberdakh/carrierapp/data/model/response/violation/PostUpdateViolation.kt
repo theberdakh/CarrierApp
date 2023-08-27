@@ -1,6 +1,7 @@
 package com.theberdakh.carrierapp.data.model.response.violation
 
 data class PostUpdateViolation(
+    val created_at: String,
     val car_photo: String,
     val karer_name: String,
     val driver_name: String,

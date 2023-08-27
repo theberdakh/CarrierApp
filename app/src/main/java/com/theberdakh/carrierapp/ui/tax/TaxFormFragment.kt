@@ -27,7 +27,6 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
-import com.theberdakh.carrierapp.data.model.response.violation.PostUpdateViolation
 import com.theberdakh.carrierapp.data.model.response.violation.PostViolation
 import com.theberdakh.carrierapp.databinding.FragmentTaxFormBinding
 import com.theberdakh.carrierapp.presentation.SellerViewModel
@@ -166,6 +165,8 @@ class TaxFormFragment : Fragment(R.layout.fragment_tax_form) {
                 }
             }
         }
+
+        Log.d("Token", SharedPrefStorage().token)
 
         val time = LocalDateTime.now()
         makeToast(" Time e: $time")
