@@ -12,6 +12,7 @@ import com.theberdakh.carrierapp.data.model.fake.Updates
 import com.theberdakh.carrierapp.data.model.response.violation.Violation
 import com.theberdakh.carrierapp.databinding.FragmentCheckViolationBinding
 import com.theberdakh.carrierapp.presentation.TaxViewModel
+import com.theberdakh.carrierapp.ui.adapter.ViolationChangesAdapter
 import com.theberdakh.carrierapp.util.checkLocationPermissions
 import com.theberdakh.carrierapp.util.makeToast
 import kotlinx.coroutines.flow.launchIn
@@ -23,6 +24,8 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
     private lateinit var binding: FragmentCheckViolationBinding
     private val viewModel by viewModel<TaxViewModel>()
     private val args: TaxCheckViolationArgs by navArgs()
+    private var _adapter: ViolationChangesAdapter? = null
+    private val adapter get() = _adapter!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +35,15 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCheckViolationBinding.bind(view)
+        initViews()
+       initListeners()
+    }
+
+    private fun initViews() {
         binding.tbCheckViolation.menu.findItem(R.id.action_edit_violation).isVisible = args.isTaxOfficer
-        initListeners()
+        _adapter = ViolationChangesAdapter()
+        binding.rvCheckViolation.adapter = adapter
+
     }
 
     private fun initListeners() {
@@ -57,19 +67,22 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
         }
     }
     private fun initObservers(id: Int) {
-        lifecycleScope.launch {
-            viewModel.getViolationById(id)
-        }
-        viewModel.singleViolationSuccessFlow.onEach {
-            setViolation(it)
+        lifecycleScope.launch { viewModel.getViolationById(id) }
+        viewModel.singleViolationSuccessFlow.onEach { setViolation(it)
+            setChanges(it.unique_number) }.launchIn(lifecycleScope)
+
+        viewModel.uniqueViolationSuccessFlow.onEach {
+            adapter.submitList(it)
         }.launchIn(lifecycleScope)
     }
 
+    private fun setChanges(uniqueNumber: Int) {
+        lifecycleScope.launch { viewModel.getViolationByUnique(uniqueNumber) }
+    }
+
+
     private fun setViolation(violation: Violation) {
 
-        val adapter = TaxCheckUpdatesAdapter()
-        binding.rvCheckViolation.adapter = adapter
-        adapter.submitList(listOf(Updates(1, "Ernazar Allayarov", "11-08-23"), Updates(1, "Allayar Allayarov", "11-08-23"), Updates(1, "Qabil Esbergenov", "11-08-23")))
 
         binding.apply {
             Glide.with(requireActivity())

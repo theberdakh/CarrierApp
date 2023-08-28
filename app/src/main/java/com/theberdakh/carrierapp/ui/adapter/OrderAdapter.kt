@@ -19,7 +19,7 @@ class OrderAdapter :
 
             binding.apply {
                 tvCarCode.text = order.car_number.take(2)
-                tvCarNumber.text = order.car_number.trimSubstring(2, 8)
+                tvCarNumber.text = order.car_number.trimSubstring(2, order.car_number.length)
                 tvFullName.text = order.driver_name
                 tvCargoType.text = order.cargo_type
                 tvTimeDate.text = order.date

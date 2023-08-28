@@ -1,6 +1,6 @@
 package com.theberdakh.carrierapp.data.model.response.violation
 
-data class ViolationByUniqueNumberResponse(
+data class ViolationByUnique(
     val car_brand: String,
     val car_number: String,
     val car_photo: String,

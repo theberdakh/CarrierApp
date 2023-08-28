@@ -6,6 +6,7 @@ import com.theberdakh.carrierapp.data.model.response.violation.PostUpdateViolati
 import com.theberdakh.carrierapp.data.model.response.violation.PostViolation
 import com.theberdakh.carrierapp.data.model.response.violation.PostViolationGeneral
 import com.theberdakh.carrierapp.data.model.response.violation.Violation
+import com.theberdakh.carrierapp.data.model.response.violation.ViolationByUnique
 import com.theberdakh.carrierapp.data.model.response.violation.ViolationResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -34,6 +35,6 @@ interface TaxApi {
     suspend fun getViolationByID(@Path("id") id: Int): Response<Violation>
 
     @GET("violations/by_unique_number/{unique_number}")
-    suspend fun getViolationsByUniqueNumber(@Path("unique_number") unique_number: Int)
+    suspend fun getViolationsByUniqueNumber(@Path("unique_number") unique_number: Int): Response<List<ViolationByUnique>>
 
 }

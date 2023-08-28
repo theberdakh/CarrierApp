@@ -120,4 +120,21 @@ class TaxRepository(private val api: TaxApi) {
         emit(ResultData.Error(it))
     }.flowOn(Dispatchers.IO)
 
+
+    suspend fun getViolationByUniqueNumber(uniqueNumber: Int) =flow {
+        val response = api.getViolationsByUniqueNumber(uniqueNumber)
+
+        if (response.isSuccessful && response.body() != null) {
+            Log.d("SellerRepo", "unique is successful post")
+            emit(ResultData.Success(response.body()!!))
+        } else {
+            Log.d("SellerRepo", "unique request is ${response.body()}")
+
+            emit(ResultData.Message(response.body().toString()))
+        }
+    }.catch {
+        Log.d("SellerRepo", " all orders request is error")
+        emit(ResultData.Error(it))
+    }.flowOn(Dispatchers.IO)
+
 }

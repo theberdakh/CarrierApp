@@ -13,6 +13,7 @@ import com.theberdakh.carrierapp.data.model.response.violation.PostUpdateViolati
 import com.theberdakh.carrierapp.data.model.response.violation.PostViolation
 import com.theberdakh.carrierapp.data.model.response.violation.PostViolationGeneral
 import com.theberdakh.carrierapp.data.model.response.violation.Violation
+import com.theberdakh.carrierapp.data.model.response.violation.ViolationByUnique
 import com.theberdakh.carrierapp.data.model.response.violation.ViolationResponse
 import com.theberdakh.carrierapp.domain.TaxRepository
 import com.theberdakh.carrierapp.util.makeToast
@@ -240,6 +241,27 @@ class TaxViewModel(private val repository: TaxRepository): ViewModel() {
         }.launchIn(viewModelScope)
     }
 
+    val uniqueViolationSuccessFlow = MutableSharedFlow<List<ViolationByUnique>>()
+    val uniqueViolationMessage = MutableSharedFlow<String>()
+    val uniqueViolationError = MutableSharedFlow<Throwable>()
+
+
+    suspend fun getViolationByUnique(uniqueNumber: Int) {
+        repository.getViolationByUniqueNumber(uniqueNumber).onEach {
+            when(it){
+                is ResultData.Success -> {
+                    uniqueViolationSuccessFlow.emit(it.data)
+                }
+                is ResultData.Message -> {
+                    uniqueViolationMessage.emit(it.message)
+                }
+                is ResultData.Error -> {
+                    uniqueViolationError.emit(it.error)
+                }
+            }
+
+        }.launchIn(viewModelScope)
+    }
 
 
 
