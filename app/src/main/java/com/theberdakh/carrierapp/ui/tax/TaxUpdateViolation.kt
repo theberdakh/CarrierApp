@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.location.LocationServices
 import com.theberdakh.carrierapp.R
@@ -76,6 +77,11 @@ class TaxUpdateViolation: Fragment(R.layout.fragment_tax_update_violation) {
             viewModel.getViolationByUnique(id)
         }
 
+        viewModel.postViolationSuccessFlow.onEach {
+            findNavController().popBackStack()
+            makeToast("Updated successfully")
+        }.launchIn(lifecycleScope)
+
         viewModel.uniqueViolationSuccessFlow.onEach {listOfUnique->
             listOfUnique.asReversed()[0].apply {
                 binding.etAutoNumber.setText(this.car_number)
@@ -106,14 +112,13 @@ class TaxUpdateViolation: Fragment(R.layout.fragment_tax_update_violation) {
     private fun initListeners(){
 
         binding.btnSendForm.clicks().debounce(300).onEach{
-            makeToast("Unique id: $unique_number")
             viewModel.postUpdatedViolation(
                 PostUpdateViolation(
                     created_at = LocalDateTime.now().toString(),
                     car_brand = binding.etCarrierAutoBrand.getNotNullText(),
                     car_photo =encoded,
                     car_number = binding.etAutoNumber.getNotNullText(),
-                    cargo_date = "2023-08-18 00:50:46+05:00",
+                    cargo_date = LocalDateTime.now().toString(),
                     cargo_type = binding.atvCargoType.text.toString(),
                     driver_name = binding.etCarrierName.getNotNullText(),
                     driver_passport_or_id=  "passport",
