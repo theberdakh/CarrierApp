@@ -94,11 +94,13 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
 
 
         binding.tilCarrierTrailerWeight.isVisible = false
+        binding.tilCarrierTypeInn.isVisible = false
 
         binding.atvDocumentType.setCustomAdapter(listOf("ID", "Passport"))
         binding.atvCargoUnit.setCustomAdapter(listOf("Kg", "M3"))
         binding.atvCargoType.setCustomAdapter(listOf("Sheben", "Shege qum"))
         binding.atvCarrierTrailer.setCustomAdapter(listOf("Joq", "Bar"))
+        binding.atvCarrierType.setCustomAdapter(listOf("Fizikalıq shaxs", "Yuridikalıq shaxs"))
 
 
         binding.etAutoNumber.setErrorText(binding.tilAutoNumber, doAfter = true) {
@@ -139,6 +141,13 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
         binding.atvCarrierTrailer.setOnItemClickListener { parent, view, position, id ->
             binding.tilCarrierTrailerWeight.isVisible = parent.getItemAtPosition(position) == "Bar"
             if (parent.getItemAtPosition(position) == "Joq") {
+                binding.tilCarrierTrailerWeight.error = null
+            }
+        }
+
+        binding.atvCarrierType.setOnItemClickListener { parent, view, position, id ->
+            binding.tilCarrierTypeInn.isVisible = parent.getItemAtPosition(position) == "Yuridikalıq shaxs"
+            if (parent.getItemAtPosition(position) == "Fizikalıq shaxs") {
                 binding.tilCarrierTrailerWeight.error = null
             }
         }

@@ -27,6 +27,7 @@ import com.theberdakh.carrierapp.presentation.TaxViewModel
 import com.theberdakh.carrierapp.util.checkLocationPermissions
 import com.theberdakh.carrierapp.util.getNotNullText
 import com.theberdakh.carrierapp.util.makeToast
+import com.theberdakh.carrierapp.util.setCustomAdapter
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -53,6 +54,7 @@ class TaxUpdateViolation: Fragment(R.layout.fragment_tax_update_violation) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTaxUpdateViolationBinding.bind(view)
 
+        initViews()
         initListeners()
         initObservers(args.id)
 
@@ -68,6 +70,13 @@ class TaxUpdateViolation: Fragment(R.layout.fragment_tax_update_violation) {
                 }
             }
         }
+
+    }
+
+    private fun initViews() {
+        binding.atvDocumentType.setCustomAdapter(listOf("Passport", "ID"))
+        binding.atViolationType.setCustomAdapter(listOf("Mag'liwmat kiritilmegen", "Mag'liwmat toliq emes"))
+        binding.atvCargoType.setCustomAdapter(listOf("Sheben", "Shege qum"))
 
     }
 
