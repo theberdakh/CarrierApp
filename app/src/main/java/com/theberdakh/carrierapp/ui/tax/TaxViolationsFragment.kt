@@ -67,7 +67,7 @@ class TaxViolationsFragment : Fragment(R.layout.fragment_tax_violations) {
         adapter.onViolationClickListener {
             findNavController().navigate(
                 TaxFragmentDirections.actionTaxFragmentToTaxCheckViolation(
-                    it.id,
+                    it.unique_number,
                     true
                 )
             )

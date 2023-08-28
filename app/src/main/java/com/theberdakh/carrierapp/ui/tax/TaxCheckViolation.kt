@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.theberdakh.carrierapp.R
 import com.theberdakh.carrierapp.data.model.fake.Updates
 import com.theberdakh.carrierapp.data.model.response.violation.Violation
+import com.theberdakh.carrierapp.data.model.response.violation.ViolationByUnique
 import com.theberdakh.carrierapp.databinding.FragmentCheckViolationBinding
 import com.theberdakh.carrierapp.presentation.TaxViewModel
 import com.theberdakh.carrierapp.ui.adapter.ViolationChangesAdapter
@@ -47,9 +48,30 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
     }
 
     private fun initListeners() {
-        binding.tbCheckViolation.setNavigationOnClickListener {
-            findNavController().popBackStack()
+        binding.tbCheckViolation.setNavigationOnClickListener { findNavController().popBackStack() }
+
+        adapter.onClickListener {violationByUnique ->
+            Glide.with(requireActivity())
+                .load(violationByUnique.car_photo)
+                .placeholder(R.drawable.baseline_add_a_photo_24)
+                .thumbnail(Glide.with(requireActivity()).load(violationByUnique.car_photo))
+                .into(binding.ivFormImage)
+
+            binding.apply {
+                tvCargoDate.text = violationByUnique.cargo_date
+                tvReasonViolation.text = violationByUnique.reason_violation
+                tvOrderLocation.text = violationByUnique.location
+                tvCarNumber.text = violationByUnique.car_number
+                tvCarModel.text = violationByUnique.car_brand
+                tvDriverName.text = violationByUnique.driver_name
+                tvDriverPhone.text = violationByUnique.driver_phone_number
+                tvSellerName.text = violationByUnique.karer_name
+                tvDriverPassportNumber.text = violationByUnique.driver_passport_or_id_number
+                tvCargoType.text = violationByUnique.cargo_type
+            }
+
         }
+
         binding.tbCheckViolation.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.action_edit_violation -> {
@@ -61,18 +83,21 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
                    }
                    true
                 }
-
                 else -> {true}
             }
         }
+
+
     }
-    private fun initObservers(id: Int) {
-        lifecycleScope.launch { viewModel.getViolationById(id) }
-        viewModel.singleViolationSuccessFlow.onEach { setViolation(it)
-            setChanges(it.unique_number) }.launchIn(lifecycleScope)
+    private fun initObservers(unique: Int) {
+        lifecycleScope.launch { viewModel.getViolationByUnique(unique)}
 
         viewModel.uniqueViolationSuccessFlow.onEach {
-            adapter.submitList(it)
+            adapter.submitList(it.asReversed())
+            if (it.asReversed().isNotEmpty()){
+                setViolation(it.asReversed()[0])
+            }
+
         }.launchIn(lifecycleScope)
     }
 
@@ -81,7 +106,7 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
     }
 
 
-    private fun setViolation(violation: Violation) {
+    private fun setViolation(violation: ViolationByUnique) {
 
 
         binding.apply {

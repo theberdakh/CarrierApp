@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.theberdakh.carrierapp.data.local.SharedPrefStorage
+import com.theberdakh.carrierapp.data.model.response.order.Order
 import com.theberdakh.carrierapp.data.model.response.violation.ViolationByUnique
 import com.theberdakh.carrierapp.databinding.ItemRecyclerUpdateViolationBinding
 
@@ -17,6 +18,9 @@ class ViolationChangesAdapter: ListAdapter<ViolationByUnique, ViolationChangesAd
             binding.tvTaxName.text = SharedPrefStorage().name
             binding.tvDate.text = change.created_at
 
+            binding.root.setOnClickListener {
+                onClick.invoke(change)
+            }
         }
 
     }
@@ -26,4 +30,9 @@ class ViolationChangesAdapter: ListAdapter<ViolationByUnique, ViolationChangesAd
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViolationChangesViewHolder(ItemRecyclerUpdateViolationBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     override fun onBindViewHolder(holder: ViolationChangesViewHolder, position: Int) = holder.bind()
+
+    private lateinit var onClick: (ViolationByUnique) -> Unit
+    fun onClickListener(onClick:(ViolationByUnique) -> Unit ){
+        this.onClick = onClick
+    }
 }
