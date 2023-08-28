@@ -52,7 +52,7 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
 
         adapter.onClickListener {violationByUnique ->
             Glide.with(requireActivity())
-                .load(violationByUnique.car_photo)
+                .load("http://86.107.197.112/${violationByUnique.car_photo}")
                 .placeholder(R.drawable.baseline_add_a_photo_24)
                 .thumbnail(Glide.with(requireActivity()).load(violationByUnique.car_photo))
                 .into(binding.ivFormImage)
@@ -111,7 +111,7 @@ class TaxCheckViolation: Fragment(R.layout.fragment_check_violation) {
 
         binding.apply {
             Glide.with(requireActivity())
-                .load(violation.car_photo)
+                .load("http://86.107.197.112/${violation.car_photo}")
                 .placeholder(R.drawable.baseline_add_a_photo_24)
                 .thumbnail(Glide.with(requireActivity()).load(violation.car_photo))
                 .into(binding.ivFormImage)

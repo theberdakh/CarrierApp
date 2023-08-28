@@ -73,20 +73,22 @@ class TaxUpdateViolation: Fragment(R.layout.fragment_tax_update_violation) {
     private fun initObservers(id: Int) {
 
         lifecycleScope.launch {
-            viewModel.getViolationById(id)
+            viewModel.getViolationByUnique(id)
         }
 
-        viewModel.singleViolationSuccessFlow.onEach {
-            unique_number = it.unique_number
-            binding.etAutoNumber.setText(it.car_number)
-            binding.etCarrierAutoBrand.setText(it.car_brand)
-            binding.etCarrierName.setText(it.driver_name)
-            binding.etCarrierPhone.setText(it.driver_phone_number)
-            binding.atvSellerName.setText(it.driver_name)
-            binding.atvDocumentType.setText(if(it.driver_passport_or_id_number != "passport") "ID" else "passport")
-            binding.etPassportSeries.setText(it.driver_passport_or_id_number)
-            binding.atvCargoType.setText(it.cargo_type)
-            binding.etCargoDate.setText(it.cargo_date)
+        viewModel.uniqueViolationSuccessFlow.onEach {listOfUnique->
+            listOfUnique.asReversed()[0].apply {
+                binding.etAutoNumber.setText(this.car_number)
+                binding.etCarrierAutoBrand.setText(this.car_brand)
+                binding.etCarrierName.setText(this.driver_name)
+                binding.etCarrierPhone.setText(this.driver_phone_number)
+                binding.atvSellerName.setText(this.driver_name)
+                binding.atvDocumentType.setText(if(this.driver_passport_or_id_number != "passport") "ID" else "passport")
+                binding.etPassportSeries.setText(this.driver_passport_or_id_number)
+                binding.atvCargoType.setText(this.cargo_type)
+                binding.etCargoDate.setText(this.cargo_date)
+            }
+
         }.launchIn(lifecycleScope)
 
         viewModel.singleViolationMessage.onEach {
