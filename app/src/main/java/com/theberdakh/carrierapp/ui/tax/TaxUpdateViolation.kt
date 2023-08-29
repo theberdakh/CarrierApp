@@ -86,7 +86,7 @@ class TaxUpdateViolation: Fragment(R.layout.fragment_tax_update_violation) {
             viewModel.getViolationByUnique(id)
         }
 
-        viewModel.postViolationSuccessFlow.onEach {
+        viewModel.postUpdatedViolationSuccessFlow.onEach {
             findNavController().popBackStack()
             makeToast("Updated successfully")
         }.launchIn(lifecycleScope)
@@ -104,14 +104,16 @@ class TaxUpdateViolation: Fragment(R.layout.fragment_tax_update_violation) {
                 binding.etCargoDate.setText(this.cargo_date)
             }
 
-        }.launchIn(lifecycleScope)
-
-        viewModel.singleViolationMessage.onEach {
+            initViews()
 
         }.launchIn(lifecycleScope)
 
-        viewModel.singleViolationError.onEach {
+        viewModel.postUpdatedViolationMessageFlow.onEach {
+            makeToast(it)
+        }.launchIn(lifecycleScope)
 
+        viewModel.postUpdatedViolationErrorFlow.onEach {
+            makeToast("Error")
         }.launchIn(lifecycleScope)
 
 
@@ -138,7 +140,7 @@ class TaxUpdateViolation: Fragment(R.layout.fragment_tax_update_violation) {
                     reason_violation =" ${binding.atViolationType.text.toString()} ${binding.etCustomReason.text.toString()}",
                     is_updated = true,
                     tax_officer = SharedPrefStorage().id,
-                    unique_number = 193810
+                    unique_number = args.id
                 )
             )
         }.launchIn(lifecycleScope)
