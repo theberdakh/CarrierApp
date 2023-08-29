@@ -16,6 +16,8 @@ data class PostOrder(
     val cargo_type: Int,
     val cargo_value: String,
     val status: String,
+    val stir: String,
+    val who: String,
     val violated: Boolean,
     val karer: Int,
     val cargo_unit: Int,

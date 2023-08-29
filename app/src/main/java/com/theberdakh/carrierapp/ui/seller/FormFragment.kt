@@ -46,6 +46,7 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
     private var location = ""
     private val encoded get() = _encoded!!
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,6 +86,7 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
         }.launchIn(lifecycleScope)
 
         viewModel.postOrderErrorFlow.onEach {
+            it.printStackTrace()
             makeToast("Error, check your Internet connection")
         }.launchIn(lifecycleScope)
     }
@@ -180,6 +182,8 @@ class FormFragment : Fragment(R.layout.fragment_seller_form) {
                                 cargo_type = 1,
                                 cargo_value = binding.etWeight.getNotNullText(),
                                 status = "waiting",
+                                who = binding.atvCarrierType.text.toString(),
+                                stir = binding.etCarrierTypeInn.text.toString(),
                                 violated = false,
                                 karer = SharedPrefStorage().id,
                                 cargo_unit = if (binding.atvCargoUnit.text.toString() == "Kg" ) 2 else 1,
