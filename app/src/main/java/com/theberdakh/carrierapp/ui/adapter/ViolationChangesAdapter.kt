@@ -14,7 +14,7 @@ class ViolationChangesAdapter: ListAdapter<ViolationByUnique, ViolationChangesAd
 
         fun bind(){
             val change = getItem(adapterPosition)
-            binding.tvTaxName.text = SharedPrefStorage().name
+            binding.tvTaxName.text = change.tax_officer.full_name
             binding.tvDate.text = change.created_at
 
             binding.root.setOnClickListener {

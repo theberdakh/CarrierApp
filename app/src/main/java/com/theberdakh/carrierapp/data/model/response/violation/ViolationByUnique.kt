@@ -1,5 +1,7 @@
 package com.theberdakh.carrierapp.data.model.response.violation
 
+import com.theberdakh.carrierapp.data.model.response.tax_officer.TaxOfficer
+
 data class ViolationByUnique(
     val car_brand: String,
     val car_number: String,
@@ -16,6 +18,6 @@ data class ViolationByUnique(
     val karer_name: String,
     val location: String,
     val reason_violation: String,
-    val tax_officer: Int,
+    val tax_officer: TaxOfficer,
     val unique_number: Int
 )
